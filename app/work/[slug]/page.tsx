@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
+import { JangoingCaseContent, JangoingVision } from '@/components/jangoing-case-content';
 import { TransitionLink } from '@/components/transition-link';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
@@ -15,6 +16,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const transformation = project.transformation;
   const operations = project.platformOperations;
   const incidents = project.incidents;
+  const isJangoing = project.slug === 'jangoing-kitchen-intelligence';
 
   return (
     <main className="case-study">
@@ -31,6 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="case-opening-copy">
             <span className="metric-pill">{project.metric}</span>
             <h1>{project.headline}</h1>
+            {isJangoing && <p className="opening-description">{project.brief}</p>}
             <div className="opening-impact">
               <span>IMPACT</span>
               <strong>{project.impact}</strong>
@@ -43,12 +46,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </header>
 
+      {isJangoing && <JangoingVision />}
+
       <section className="case-meta shell reveal" aria-label="Project details">
         <div className="case-facts">
           <dl><div><dt>ROLE</dt><dd>{project.role}</dd></div><div><dt>DURATION</dt><dd>{project.duration}</dd></div><div><dt>CLIENT</dt><dd>{project.client}</dd></div></dl>
           <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd className="case-links">{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product <ExternalArrow /></a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>}</dd></div>}</dl>
         </div>
       </section>
+
+      {isJangoing ? <JangoingCaseContent project={project} projectIndex={index} /> : <>
 
       {transformation ? <section className="compact-problem shell case-section reveal"><p className="eyebrow">PROBLEM</p><h2>{project.brief}</h2><p className="compact-problem-intro">{project.challengeIntro}</p><div className="insight-grid">{project.process?.map((item) => <article key={item.label}><span>{item.label}</span><strong>{item.title}</strong><p>{item.body}</p></article>)}</div><p className="compact-statement">{project.statement}</p></section> : <><section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section><section className="process-section shell case-section reveal"><p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>{project.process ? <>I defined the product around <strong>three connected constraints.</strong></> : <>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</>}</h2><div className="insight-grid">{(project.process ?? [{ label: 'Literature review', title: 'A timely shift', body: 'The landscape was changing toward more human-centered practices.' }, { label: 'Stakeholder interviews', title: 'A familiar behavior', body: 'Existing workflows revealed an easier path for adoption.' }, { label: 'Concept testing', title: 'A complex system', body: 'Real-world constraints gave the concept a meaningful proving ground.' }]).map((item) => <article key={item.label}><span>{item.label}</span><strong>{item.title}</strong><p>{item.body}</p></article>)}</div></section><section className="challenge-block reveal"><div className="shell case-section"><p className="eyebrow">CORE TENSIONS</p><h2>What had to be true at the same time</h2><p className="section-note">{project.challengeIntro ?? 'Based on interviews, surveys, and workflow observation'}</p><div className="challenge-list">{project.challenges.map((challenge, i) => <article key={challenge}><span>Challenge {i + 1}</span><p>{challenge}</p></article>)}</div></div></section><section className="statement case-section shell scroll-focus"><p className="eyebrow">REFRAMED PROBLEM STATEMENT</p><h2>{project.statement ?? 'How might we make a complex choice feel informed, inclusive, and actionable?'}</h2></section></>}
 
@@ -69,6 +76,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="impact-block"><div className="shell impact-grid"><div><p className="eyebrow">IMPACT</p><h2>{project.impact}</h2></div><div><p className="eyebrow">{project.impactLabel ?? 'WHAT SHIPPED'}</p><p>{project.impactBody ?? 'Progress came from making uncertainty visible, testing early, and giving every stakeholder a clear role in the process.'}</p></div></div></section>
 
       {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
+      </>}
       <section className="next-project shell"><TransitionLink href="/" direction="back">Home</TransitionLink><TransitionLink href={`/work/${nextProject.slug}`} direction="forward">Next project <span aria-hidden="true">&#8594;</span></TransitionLink></section>
       <footer className="footer shell"><nav className="text-links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
     </main>
