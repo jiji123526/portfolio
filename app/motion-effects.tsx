@@ -9,9 +9,12 @@ export function MotionEffects() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.dataset.transition = 'entering';
-    const frame = window.requestAnimationFrame(() => { root.dataset.transition = 'ready'; });
-    return () => window.cancelAnimationFrame(frame);
+    if (root.dataset.transition === 'leaving') {
+      root.dataset.transition = 'entering';
+      const frame = window.requestAnimationFrame(() => { root.dataset.transition = 'ready'; });
+      return () => window.cancelAnimationFrame(frame);
+    }
+    root.dataset.transition = 'ready';
   }, [pathname]);
 
   useEffect(() => {
@@ -24,8 +27,31 @@ export function MotionEffects() {
       const url = new URL(anchor.href, window.location.href);
       if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
       event.preventDefault();
+      const direction = url.pathname === '/' || anchor.closest('.case-nav-inner')?.querySelector('a') === anchor ? 'back' : 'forward';
+      document.documentElement.dataset.transitionDirection = direction;
+
+      const transitionDocument = document as Document & {
+        startViewTransition?: (update: () => Promise<void>) => { finished: Promise<void> };
+      };
+      if (transitionDocument.startViewTransition) {
+        const transition = transitionDocument.startViewTransition(async () => {
+          router.push(`${url.pathname}${url.search}${url.hash}`);
+          await new Promise<void>((resolve) => {
+            const started = performance.now();
+            const waitForRoute = () => {
+              if (window.location.pathname === url.pathname || performance.now() - started > 1800) resolve();
+              else window.requestAnimationFrame(waitForRoute);
+            };
+            waitForRoute();
+          });
+        });
+        const clearDirection = () => { delete document.documentElement.dataset.transitionDirection; };
+        transition.finished.then(clearDirection, clearDirection);
+        return;
+      }
+
       document.documentElement.dataset.transition = 'leaving';
-      timer = window.setTimeout(() => router.push(`${url.pathname}${url.search}${url.hash}`), 360);
+      timer = window.setTimeout(() => router.push(`${url.pathname}${url.search}${url.hash}`), 520);
     };
     document.addEventListener('click', navigate);
     return () => { document.removeEventListener('click', navigate); window.clearTimeout(timer); };
