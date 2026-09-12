@@ -2,23 +2,49 @@ export type Project = {
   slug: string; metric: string; category: string; title: string; summary: string;
   headline: string; role: string; duration: string; client: string;
   responsibilities: string; tools: string; brief: string; challenges: string[];
-  solutions: { title: string; body: string }[]; impact: string;
+  solutions: { title: string; body: string; mediaNote?: string }[]; impact: string;
+  process?: { label: string; title: string; body: string }[];
+  challengeIntro?: string;
+  statement?: string;
+  limitation?: { title: string; body: string; tension: [string, string] };
+  architecture?: { title: string; body: string; mediaNote: string };
+  impactBody?: string;
+  takeaways?: { title: string; body: string }[];
+  coverNote?: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: 'human-ai-collaboration', metric: '18% ↑ in Task Confidence', category: 'AI Product Design',
-    title: 'Human–AI Collaboration', summary: 'Making complex decisions clearer through a multi-agent workspace',
-    headline: 'Simplifying complex decisions through a multi-agent AI workspace', role: 'Lead Product Designer',
-    duration: '6 months', client: 'Research Partner',
-    responsibilities: 'Research, strategy, interaction design, prototyping, testing', tools: 'Figma, Dovetail, After Effects, Jira',
-    brief: 'How might we help non-technical teams reflect different perspectives while making high-stakes decisions?',
-    challenges: ['Decision makers lack context from people closest to the work.', 'Critical information is scattered across disconnected systems.', 'Teams lose valuable knowledge as projects and people change.'],
+    slug: 'yap-anonymous-chat', metric: 'LIVE · LIMITED BETA', category: 'Independent Product',
+    title: 'yap. Anonymous Chat', summary: 'Link-based conversations that start without asking everyone to create an account',
+    headline: 'Designing a link-first anonymous chat for conversations that shouldn’t need an account', role: 'Product Designer & Full-stack Developer',
+    duration: 'Ongoing', client: 'Independent Product',
+    responsibilities: 'Product strategy, UX/UI, frontend, edge backend, security, and operations', tools: 'Next.js, React, Tailwind CSS, Workers, D1, R2, Durable Objects',
+    brief: 'How might we make it effortless to start a small anonymous conversation while giving the host enough control to keep it useful and safe?',
+    coverNote: 'Product demo: shared link → guest entry → first anonymous message',
+    process: [
+      { label: 'Product constraint', title: 'Zero-account entry', body: 'A guest should be able to open a shared channel and participate immediately, without creating an identity first.' },
+      { label: 'Trust boundary', title: 'Control without surveillance', body: 'The owner needs moderation tools, while private messages and visitor identity remain deliberately scoped.' },
+      { label: 'Technical constraint', title: 'Realtime at the edge', body: 'Long-lived chat connections, durable history, and protected media need different infrastructure responsibilities.' },
+    ],
+    challengeIntro: 'The design problem was not simply “make a chat app.” It was balancing instant participation with explicit privacy and moderation boundaries.',
+    challenges: ['Account creation makes lightweight, one-off conversations feel heavier than the conversation itself.', 'Anonymous participation becomes fragile when access, moderation, and private communication are unclear.', 'Temporary live moments need a distinct lifecycle so they do not blur into permanent channel history.'],
+    statement: 'How might we keep joining as light as opening a link—without making ownership, privacy, or safety ambiguous?',
     solutions: [
-      { title: 'One system, many perspectives.', body: 'A shared workspace surfaces relevant viewpoints before the team commits to a direction.' },
-      { title: 'AI that remembers context.', body: 'Project history and supporting documents ground every response in the organization’s reality.' },
-      { title: 'Trade-offs made visible.', body: 'Potential consequences appear alongside practical ways to address them.' },
-    ], impact: '+18% confidence after completing the guided decision flow',
+      { title: 'A room begins with a link.', body: 'Hosts create a channel and share its URL. Guests can enter public rooms immediately, while optional passcodes add friction only when the conversation needs it.', mediaNote: 'Flow capture: create channel, copy link, open as a guest' },
+      { title: 'Anonymous does not mean unstructured.', body: 'Replies, reactions, search, notices, rules, freezing, banned words, and blocking give a lightweight room enough structure to stay usable.', mediaNote: 'Chat screen: replies, reactions, notice, and owner controls' },
+      { title: 'Private messages have a visible boundary.', body: 'A visitor can start a thread that only they and the channel owner can read. Authorization is enforced on the server, not by hiding UI.', mediaNote: 'Split view: guest DM composer and owner-only thread' },
+      { title: 'Live is intentionally temporary.', body: 'A host can start a separate live session for a shared moment. Session identity, presence, and expiry are kept distinct from normal channel history.', mediaNote: 'Sequence: live starts, reactions appear, session ends cleanly' },
+    ],
+    limitation: { title: 'Lowering the door also widens the abuse surface.', body: 'Anonymous entry is the product’s advantage and its central risk. I treated rate limits, signed visitor identities, scoped room tokens, moderation logs, and recoverable deletion as product behavior—not invisible backend cleanup.', tension: ['Fast entry with no guest account', 'Clear limits, revocation, and owner control'] },
+    architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js handles the web experience and account session boundary. A Cloudflare Worker re-checks authorization and runs APIs; D1 stores durable records, Durable Objects coordinate each realtime room, and R2 stores protected media.', mediaNote: 'Architecture animation: browser → Next.js / Worker → D1, Durable Object, R2' },
+    impact: 'A monitored limited beta is live at yapndot.com',
+    impactBody: 'The production system supports public and passcode-protected channels, realtime messaging, private owner DMs, media, bilingual interfaces, live sessions, moderation, support, and Web Push. During a production database cutover, 42 users, 36 channels, and 16,606 messages were validated and migrated with matching counts and no orphaned records.',
+    takeaways: [
+      { title: 'Designing permissions as part of the interface', body: 'Privacy boundaries only work when the interface, cookies, API routes, and realtime connection agree. Each owner, guest, room viewer, and private sender state needed an explicit contract.' },
+      { title: 'Treating operational reliability as user experience', body: 'A successful request that takes several seconds still feels broken. Route timing, health events, rollback paths, and production runbooks became part of how I protected the conversation experience.' },
+      { title: 'Keeping temporary and permanent state separate', body: 'Live participation is coordinated in realtime, while durable history remains in the database. Separating those jobs made expiry and recovery easier to reason about.' },
+    ],
   },
   {
     slug: 'store-discovery', metric: '44% ↑ in Discovery', category: 'Commerce Experience', title: 'Store Discovery',

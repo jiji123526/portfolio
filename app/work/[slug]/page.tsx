@@ -23,24 +23,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div></dl>
         </div>
       </header>
-      <div className={`case-cover tone-${index + 1} reveal`} aria-label="Project media placeholder"><div className="cover-interface magnetic"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div></div>
+      <div className={`case-cover tone-${index + 1} reveal`} aria-label="Project media placeholder">
+        <div className="cover-interface magnetic"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
+        <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
+      </div>
 
       <section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section>
 
       <section className="process-section shell case-section reveal">
-        <p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</h2>
+        <p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>{project.process ? <>I defined the product around three constraints: <strong>entry</strong>, <strong>trust</strong>, and <strong>realtime behavior.</strong></> : <>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</>}</h2>
         <div className="insight-grid">
-          {['Literature review', 'Stakeholder interviews', 'Concept testing'].map((label, i) => <article key={label}><span>{label}</span><strong>{['A timely shift', 'A familiar behavior', 'A complex system'][i]}</strong><p>{['The landscape was changing toward more human-centered practices.', 'Existing workflows revealed an easier path for adoption.', 'Real-world constraints gave the concept a meaningful proving ground.'][i]}</p></article>)}
+          {(project.process ?? [
+            { label: 'Literature review', title: 'A timely shift', body: 'The landscape was changing toward more human-centered practices.' },
+            { label: 'Stakeholder interviews', title: 'A familiar behavior', body: 'Existing workflows revealed an easier path for adoption.' },
+            { label: 'Concept testing', title: 'A complex system', body: 'Real-world constraints gave the concept a meaningful proving ground.' },
+          ]).map((item) => <article key={item.label}><span>{item.label}</span><strong>{item.title}</strong><p>{item.body}</p></article>)}
         </div>
       </section>
 
-      <section className="challenge-block reveal"><div className="shell case-section"><p className="eyebrow">PAIN POINTS</p><h2>Challenges people face today</h2><p className="section-note">Based on interviews, surveys, and workflow observation</p><div className="challenge-list">{project.challenges.map((challenge, i) => <article key={challenge}><span>Challenge {i + 1}</span><p>{challenge}</p></article>)}</div></div></section>
+      <section className="challenge-block reveal"><div className="shell case-section"><p className="eyebrow">CORE TENSIONS</p><h2>What had to be true at the same time</h2><p className="section-note">{project.challengeIntro ?? 'Based on interviews, surveys, and workflow observation'}</p><div className="challenge-list">{project.challenges.map((challenge, i) => <article key={challenge}><span>Challenge {i + 1}</span><p>{challenge}</p></article>)}</div></div></section>
 
-      <section className="statement case-section shell scroll-focus"><p className="eyebrow">REFRAMED PROBLEM STATEMENT</p><h2>How might we make a complex choice feel informed, inclusive, and actionable?</h2></section>
+      <section className="statement case-section shell scroll-focus"><p className="eyebrow">REFRAMED PROBLEM STATEMENT</p><h2>{project.statement ?? 'How might we make a complex choice feel informed, inclusive, and actionable?'}</h2></section>
 
-      <section className="solutions shell case-section"><p className="eyebrow reveal">SOLUTION</p>{project.solutions.map((solution, i) => <article className="solution-row reveal" key={solution.title}><div><span>0{i + 1}</span><h2>{solution.title}</h2><p>{solution.body}</p></div><div className={`solution-visual tone-${((index + i) % 3) + 1} magnetic`} aria-label="Solution media placeholder"><div className="mini-ui"><span /><span /><span /></div></div></article>)}</section>
+      <section className="solutions shell case-section"><p className="eyebrow reveal">SOLUTION</p>{project.solutions.map((solution, i) => <article className="solution-row reveal" key={solution.title}><div><span>0{i + 1}</span><h2>{solution.title}</h2><p>{solution.body}</p></div><div className={`solution-visual tone-${((index + i) % 3) + 1} magnetic`} aria-label="Solution media placeholder"><div className="mini-ui"><span /><span /><span /></div><p className="media-note">MEDIA PLACEHOLDER · {solution.mediaNote ?? 'Feature flow or prototype recording'}</p></div></article>)}</section>
 
-      <section className="impact-block"><div className="shell impact-grid"><div><p className="eyebrow">IMPACT</p><h2>{project.impact}</h2></div><div><p className="eyebrow">TAKEAWAY</p><p>Progress came from making uncertainty visible, testing early, and giving every stakeholder a clear role in the process.</p></div></div></section>
+      {project.limitation && <section className="limitation-block reveal"><div className="shell case-section"><p className="eyebrow">LIMITATION</p><h2>{project.limitation.title}</h2><p className="limitation-copy">{project.limitation.body}</p><div className="tension-grid"><article><span>THE VALUE</span><p>{project.limitation.tension[0]}</p></article><article><span>THE RESPONSIBILITY</span><p>{project.limitation.tension[1]}</p></article></div></div></section>}
+
+      {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p></div><div className="architecture-placeholder magnetic"><div className="architecture-flow"><span>Browser</span><i>→</i><span>Next.js</span><i>→</i><span>Worker</span><i>→</i><span>D1 · DO · R2</span></div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
+
+      <section className="impact-block"><div className="shell impact-grid"><div><p className="eyebrow">IMPACT</p><h2>{project.impact}</h2></div><div><p className="eyebrow">WHAT SHIPPED</p><p>{project.impactBody ?? 'Progress came from making uncertainty visible, testing early, and giving every stakeholder a clear role in the process.'}</p></div></div></section>
+
+      {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
       <section className="next-project shell"><Link href="/">Home</Link><Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8594;</span></Link></section>
       <footer className="footer shell"><nav className="text-links"><a href="mailto:hello@example.com">Contact me</a><Link href="/">Resume &#8599;</Link></nav><p>Copyright © 2026 Your Name</p></footer>
     </main>
