@@ -15,12 +15,12 @@ export default function Home() {
       <MotionEffects />
       <section className="home-hero shell">
         <header className="identity">
-          <Link href="/" className="wordmark" aria-label="Portfolio home">Your Name <span aria-hidden="true">*</span></Link>
-          <p>Product designer based in Your City</p>
+          <Link href="/" className="wordmark" aria-label="Portfolio home">Jiwoo Jeong <span aria-hidden="true">*</span></Link>
+          <p>Product designer based in Seattle, WA</p>
         </header>
         <div className="intro-grid">
           <div className="portrait-placeholder media-placeholder" aria-label="Portrait artwork placeholder">
-            <div className="portrait-mark">YN</div><span>Portrait / illustration</span>
+            <div className="portrait-mark">JJ</div><span>Portrait / illustration</span>
           </div>
           <div className="intro-copy">
             <h1>Like a great editor, I bring together the <strong>right ideas</strong> at the <strong>right time.</strong></h1>
@@ -53,7 +53,7 @@ export default function Home() {
 
       <footer className="footer shell" id="resume">
         <nav className="text-links" aria-label="Footer links"><a href="mailto:hello@example.com">Contact me</a><a href="#resume">Resume <Arrow /></a></nav>
-        <p>Copyright © 2026 Your Name</p>
+        <p>Copyright © 2026 Jiwoo Jeong</p>
       </footer>
     </main>
   );

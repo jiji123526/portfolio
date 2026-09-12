@@ -15,7 +15,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="case-study">
       <MotionEffects />
-      <nav className="case-nav shell" aria-label="Project navigation"><Link href="/">Your Name *</Link><Link href="/">Selected work</Link></nav>
+      <nav className="case-nav shell" aria-label="Project navigation"><Link href="/">Jiwoo Jeong *</Link><Link href="/">Selected work</Link></nav>
       <header className="case-hero shell reveal">
         <span className="metric-pill">{project.metric}</span><h1>{project.headline}</h1>
         <div className="case-facts">
@@ -55,7 +55,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
       <section className="next-project shell"><Link href="/">Home</Link><Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8594;</span></Link></section>
-      <footer className="footer shell"><nav className="text-links"><a href="mailto:hello@example.com">Contact me</a><Link href="/">Resume &#8599;</Link></nav><p>Copyright © 2026 Your Name</p></footer>
+      <footer className="footer shell"><nav className="text-links"><a href="mailto:hello@example.com">Contact me</a><Link href="/">Resume &#8599;</Link></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
     </main>
   );
 }

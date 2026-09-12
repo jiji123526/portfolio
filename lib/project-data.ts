@@ -15,7 +15,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'yap-anonymous-chat', metric: 'LIVE · LIMITED BETA', category: 'Independent Product',
+    slug: 'yap-anonymous-chat', metric: '350+ Daily Active Users', category: 'Independent Product',
     title: 'yap. Anonymous Chat', summary: 'Link-based conversations that start without asking everyone to create an account',
     headline: 'Designing a link-first anonymous chat for conversations that shouldn’t need an account', role: 'Product Designer & Full-stack Developer',
     duration: 'Ongoing', client: 'Independent Product',
@@ -38,7 +38,7 @@ export const projects: Project[] = [
     ],
     limitation: { title: 'Lowering the door also widens the abuse surface.', body: 'Anonymous entry is the product’s advantage and its central risk. I treated rate limits, signed visitor identities, scoped room tokens, moderation logs, and recoverable deletion as product behavior—not invisible backend cleanup.', tension: ['Fast entry with no guest account', 'Clear limits, revocation, and owner control'] },
     architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js handles the web experience and account session boundary. A Cloudflare Worker re-checks authorization and runs APIs; D1 stores durable records, Durable Objects coordinate each realtime room, and R2 stores protected media.', mediaNote: 'Architecture animation: browser → Next.js / Worker → D1, Durable Object, R2' },
-    impact: 'A monitored limited beta is live at yapndot.com',
+    impact: 'Grew to 350+ daily active users during limited beta',
     impactBody: 'The production system supports public and passcode-protected channels, realtime messaging, private owner DMs, media, bilingual interfaces, live sessions, moderation, support, and Web Push. During a production database cutover, 42 users, 36 channels, and 16,606 messages were validated and migrated with matching counts and no orphaned records.',
     takeaways: [
       { title: 'Designing permissions as part of the interface', body: 'Privacy boundaries only work when the interface, cookies, API routes, and realtime connection agree. Each owner, guest, room viewer, and private sender state needed an explicit contract.' },
