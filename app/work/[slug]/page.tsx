@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
-import { JangoingCaseContent, JangoingVision } from '@/components/jangoing-case-content';
+import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { TransitionLink } from '@/components/transition-link';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
@@ -45,8 +45,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
       </header>
-
-      {isJangoing && <JangoingVision />}
 
       <section className="case-meta shell reveal" aria-label="Project details">
         <div className="case-facts">
