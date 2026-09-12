@@ -23,7 +23,7 @@ export default function Home() {
             <div className="portrait-mark">JJ</div><span>Portrait / illustration</span>
           </div>
           <div className="intro-copy">
-            <h1>I turn <strong>complex systems</strong> into products people can <strong>simply use.</strong></h1>
+            <h1>People are <strong>complicated.</strong> Products <strong>shouldn’t be.</strong></h1>
             <p>Currently a Machine Learning Data Associate at Amazon, I work across language data, interaction design, and full-stack engineering.</p>
             <nav className="text-links" aria-label="Profile links">
               <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
