@@ -29,8 +29,8 @@ export type Project = {
 
 const projectCatalog: Project[] = [
   {
-    slug: 'yap-anonymous-chat', metric: '6.5K Messages in 7 Days', category: 'Independent Product',
-    title: 'yap. Anonymous Chat', summary: 'Operating reliable realtime conversations with explicit moderation and trust boundaries',
+    slug: 'yap-anonymous-chat', metric: 'REALTIME CHAT · TRUST & SAFETY', category: 'Independent Product',
+    title: 'yap.', summary: 'Operating reliable realtime conversations with explicit moderation and trust boundaries',
     headline: 'Engineering a link-first realtime system for conversations that shouldn’t need an account', role: 'Full-stack Product Engineer',
     duration: 'Ongoing', client: 'Independent Product',
     responsibilities: 'Product strategy, UX/UI, frontend, edge backend, security, and operations', tools: 'Next.js, React, Tailwind CSS, Workers, D1, R2, Durable Objects',
