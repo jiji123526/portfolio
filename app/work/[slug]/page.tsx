@@ -15,7 +15,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="case-study">
       <MotionEffects />
-      <nav className="case-nav shell" aria-label="Project navigation"><Link href="/">Jiwoo Jeong *</Link><Link href="/">Selected work</Link></nav>
+      <div className={`case-cover case-cover-hero tone-${index + 1} reveal`} aria-label="Project media placeholder">
+        <nav className="case-cover-nav" aria-label="Project navigation">
+          <Link href="/"><span aria-hidden="true">&#8249;</span> Home</Link>
+          <Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8250;</span></Link>
+        </nav>
+        <div className="cover-interface magnetic"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
+        <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
+      </div>
       <header className="case-hero shell reveal">
         <span className="metric-pill">{project.metric}</span><h1>{project.headline}</h1>
         <div className="case-facts">
@@ -23,10 +30,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product &#8599;</a>}{project.liveUrl && project.repoUrl && ' · '}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub &#8599;</a>}</dd></div>}</dl>
         </div>
       </header>
-      <div className={`case-cover tone-${index + 1} reveal`} aria-label="Project media placeholder">
-        <div className="cover-interface magnetic"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
-        <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
-      </div>
 
       <section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section>
 
