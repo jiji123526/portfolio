@@ -91,7 +91,8 @@ const projectCatalog: Project[] = [
     duration: 'Ongoing', client: 'Independent Product', responsibilities: 'Language ontology, annotation conventions, corpus design, relevance and intent taxonomy, entity-span policy, normalization, temporal grounding, evaluation methodology, error analysis, and product integration',
     tools: 'Python, scikit-learn, TypeScript, Next.js, Cloudflare Workers, D1, Zod', brief: 'Jangoing is an English-first language and evaluation system for a future Raspberry Pi–based kitchen assistant. It asks how ordinary conversation can be grounded in permitted household context and turned into safe, correctable actions or recommendations.',
     liveUrl: 'https://jangoing-web.vercel.app', repoUrl: 'https://github.com/jiji123526/jangoing',
-    coverNote: 'Product demo: natural-language request → structured proposal → review → household update',
+    // Future hero media: demonstrate the multi-user MVP, not the annotation interface.
+    coverNote: 'Product demo: authenticated household member enters a natural-language update → reviews the structured proposal → confirms it → shared inventory updates for all household members',
     process: [
       { label: 'Language problem', title: 'Conversation is not a command line', body: 'Real requests contain irrelevant phrases, aliases, multiple actions, and relative dates that must be grounded before they become data.' },
       { label: 'Safety principle', title: 'Interpretations stay reviewable', body: 'Every state-changing proposal can be confirmed or corrected, turning uncertainty into a visible product interaction.' },
@@ -101,11 +102,18 @@ const projectCatalog: Project[] = [
     challenges: ['Everyday speech mixes relevant actions with context, shorthand, and household-specific vocabulary.', 'Dates such as “tomorrow” or “next Friday” need deterministic grounding to avoid unsafe inventory changes.', 'A model can look accurate on easy examples while failing on joint intent, entity span, or normalization.'],
     statement: 'How might we let an assistant learn household language while keeping every consequential interpretation visible and correctable?',
     solutions: [
-      { title: 'Language becomes a proposal, not an automatic mutation.', body: 'The system separates relevance, intent, entities, normalization, and multi-action parsing, then asks the user to review the structured result before updating household state.', mediaNote: 'Interaction: typed request → highlighted entities → editable action proposal' },
-      { title: 'The product doubles as an annotation environment.', body: 'AI-assisted candidates move through review queues into versioned JSONL exports, making user corrections useful for training and evaluation.', mediaNote: 'Annotation queue: candidate label, correction controls, reviewed state' },
+      // Future media: use “Add two cartons of oat milk tomorrow.” and expose relevance,
+      // intent, ITEM, QUANTITY, UNIT, EXPIRY_DATE, normalized values, and the joint action.
+      { title: 'Language becomes a proposal, not an automatic mutation.', body: 'The system separates relevance, intent, entities, normalization, and multi-action parsing, then asks the user to review the structured result before updating household state.', mediaNote: 'Annotated utterance breakdown: raw sentence → relevance → intent → exact entity spans → canonical normalized values → complete joint action' },
+      // Future media only needs to prove the operational queue workflow; it does not
+      // need to show all nine queue types simultaneously.
+      { title: 'The product doubles as an annotation environment.', body: 'AI-assisted candidates move through review queues into versioned JSONL exports, making user corrections useful for training and evaluation.', mediaNote: 'Production annotation workspace: purpose-specific queue selection → AI-assisted draft → relevance, action, phrase-family, entity-span, and normalized-value review → saved annotation' },
       { title: 'Household state is reconstructed from events.', body: 'Inventory and shopping projections preserve the history behind expiry, quantity, low-stock, and leftover changes instead of storing only the latest value.', mediaNote: 'System view: action events flowing into inventory and shopping projections' },
     ],
-    architecture: { title: 'A product foundation built for model iteration.', body: 'Next.js serves the household and annotation experience. A Cloudflare Worker and D1 persist household-scoped events, while shared contracts keep the web app, API, and Python evaluation tools aligned.', mediaNote: 'Architecture: web app + shared contracts → Worker/D1 and ML evaluation pipeline', nodes: ['Next.js', 'Contracts', 'Worker · D1', 'ML evaluation'] },
+    // Future diagram: separate CURRENT (Web MVP → deterministic NLU → review →
+    // Worker/D1; annotation → export → baseline) from FUTURE (Pi → ASR → trained
+    // contextual NLU), then show the shared confirmation/authorization/event path.
+    architecture: { title: 'A product foundation built for model iteration.', body: 'Next.js serves the household and annotation experience. A Cloudflare Worker and D1 persist household-scoped events, while shared contracts keep the web app, API, and Python evaluation tools aligned.', mediaNote: 'Current-to-future architecture: multi-user web MVP → shared structured-action contract → Worker/D1 household state and inference logging → annotation and evaluation pipeline; future Raspberry Pi + ASR replaces the input surface while reusing the same language contract, confirmation, and event path', nodes: ['Next.js', 'Contracts', 'Worker · D1', 'ML evaluation'] },
     impact: 'Built the annotation schema, review workflow, dataset pipeline, and reproducible baseline required to collect Jangoing’s first reviewed English benchmark',
     takeaways: [
       { title: 'Annotation policy is part of model architecture', body: 'Deciding what becomes an entity span and what remains contextual evidence defines the problem the model is asked to learn.' },

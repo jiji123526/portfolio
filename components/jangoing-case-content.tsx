@@ -86,7 +86,6 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
     <section className="safety-path language-tint reveal"><div className="shell case-section">
       <p className="eyebrow">TEXT-TO-RASPBERRY-PI PATH</p><h2>Text-first evaluation keeps future speech errors diagnosable.</h2>
       <p className="section-compact-copy">Once the English benchmark is stable, controlled speech and Korean-English evaluation can lead to the Raspberry Pi interaction surface. ASR and language-understanding errors remain independently measurable throughout that transition.</p>
-      <ExistingMedia project={project} item={2} index="03" projectIndex={projectIndex} />
       <div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture?.nodes ?? []).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture?.mediaNote}</p></div>
     </div></section>
 
