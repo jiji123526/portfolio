@@ -12,6 +12,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) notFound();
   const index = projects.findIndex((item) => item.slug === slug);
   const nextProject = projects[(index + 1) % projects.length];
+  const operations = project.platformOperations;
 
   return (
     <main className="case-study">
@@ -67,6 +68,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="solutions shell case-section"><p className="eyebrow reveal">SOLUTION</p>{project.solutions.map((solution, i) => <article className="solution-row reveal" key={solution.title}><div><span>0{i + 1}</span><h2>{solution.title}</h2><p>{solution.body}</p></div><div className={`solution-visual tone-${((index + i) % 3) + 1} magnetic`} aria-label="Solution media placeholder"><div className="mini-ui"><span /><span /><span /></div><p className="media-note">MEDIA PLACEHOLDER · {solution.mediaNote ?? 'Feature flow or prototype recording'}</p></div></article>)}</section>
 
       {project.limitation && <section className="limitation-block reveal"><div className="shell case-section"><p className="eyebrow">LIMITATION</p><h2>{project.limitation.title}</h2><p className="limitation-copy">{project.limitation.body}</p><div className="tension-grid"><article><span>THE VALUE</span><p>{project.limitation.tension[0]}</p></article><article><span>THE RESPONSIBILITY</span><p>{project.limitation.tension[1]}</p></article></div></div></section>}
+
+      {operations && <section className="operations-block reveal"><div className="shell case-section"><p className="eyebrow">PLATFORM OPERATIONS</p><h2>{operations.title}</h2><p className="operations-intro">{operations.intro}</p><div className="operations-grid">{operations.cards.map((card, i) => <article key={card.title}><span>0{i + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div><aside className="operations-boundary"><span>SECURITY BOUNDARY</span><h3>{operations.boundary.title}</h3><p>{operations.boundary.body}</p></aside><div className="operations-flow" aria-label="Platform moderation flow">{operations.flow.map((step, i) => <div key={step}><span>{step}</span>{i < operations.flow.length - 1 && <i aria-hidden="true" />}</div>)}</div><div className="operations-media">{operations.media.map((note) => <div className="operations-placeholder magnetic" key={note}><div className="mini-ui"><span /><span /><span /></div><p className="media-note">MEDIA PLACEHOLDER · {note}</p></div>)}</div></div></section>}
 
       {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p>{project.architecture.detail && <p>{project.architecture.detail}</p>}</div><div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
 

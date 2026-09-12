@@ -8,6 +8,12 @@ export type Project = {
   challengeIntro?: string;
   statement?: string;
   limitation?: { title: string; body: string; tension: [string, string] };
+  platformOperations?: {
+    title: string; intro: string;
+    cards: { title: string; body: string }[];
+    boundary: { title: string; body: string };
+    flow: string[]; media: string[];
+  };
   architecture?: { title: string; body: string; detail?: string; mediaNote: string; nodes?: string[] };
   reliability?: { title: string; body: string; evidence: { value: string; label: string }[] };
   impactLabel?: string;
@@ -41,6 +47,18 @@ const projectCatalog: Project[] = [
       { title: 'Live is intentionally temporary.', body: 'A host can start a separate live session for a shared moment. Session identity, presence, and expiry are kept distinct from normal channel history.', mediaNote: 'Sequence: live starts, reactions appear, session ends cleanly' },
     ],
     limitation: { title: 'Lowering the door also widens the abuse surface.', body: 'Anonymous entry is the product’s advantage and its central risk. I treated rate limits, signed visitor identities, scoped room tokens, server-side authorization, idempotent message IDs, moderation logs, and recoverable deletion as product behavior—not invisible backend cleanup. Realtime delivery improves immediacy, but durable storage remains authoritative when connections fail or clients retry.', tension: ['Fast entry with no guest account', 'Clear limits, revocation, and owner control'] },
+    platformOperations: {
+      title: 'Moderation had to extend beyond a single room.',
+      intro: 'Channel owners can manage everyday behavior inside their own communities, but some problems require a service-wide response. I built a separate platform-admin workspace for handling escalated abuse, user support, appeals, operational communication, and production health without giving ordinary channel owners access to platform-level data.',
+      cards: [
+        { title: 'Layered enforcement', body: 'Message and channel reports enter dedicated review queues with the relevant evidence loaded on demand. A platform administrator can issue warnings, suspend or freeze a channel, record a resolution, and review an owner’s petition instead of treating every report as an irreversible deletion.' },
+        { title: 'Scoped user support', body: 'Authenticated users can open private one-to-one support threads with the platform administrator. Session ownership, thread visibility, closure, and user-side removal are enforced by server-side authorization rather than by hiding conversations in the interface.' },
+        { title: 'Operational visibility', body: 'The same workspace surfaces bounded health summaries for failed and unusually slow core requests, authentication and email-delivery outcomes, notification delivery, and database availability. Versioned global notices can be published across every entry route without requiring a realtime broadcast.' },
+      ],
+      boundary: { title: 'The dashboard does not grant authority.', body: 'Client-side session state is used only to choose the interface. Every platform-admin read and mutation is independently authorized by the Worker against the authoritative server-side role. Responses remain scoped, sensitive evidence is loaded only when requested, and operational metrics avoid storing message content or raw identity values.' },
+      flow: ['User report', 'Scoped evidence review', 'Warning / restriction / dismissal', 'Owner notification', 'Petition or support follow-up', 'Resolution retained with status and timestamps'],
+      media: ['Platform moderation loop: channel report → scoped evidence → warning or restriction → owner petition → resolution', 'Operations loop: private support thread → resolution → health summary → versioned global notice'],
+    },
     architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js handles the web experience and account session boundary. A Cloudflare Worker re-checks authorization and runs APIs; D1 stores durable records, Durable Objects coordinate each realtime room, and R2 stores protected media.', detail: 'Realtime delivery is an acceleration layer rather than the source of truth. Messages become visible from authoritative persistence results, client-generated IDs make retries idempotent, and reconnect fallback is deliberately rate-limited to avoid amplifying an outage. Long histories use cursor-bounded pagination and a client-side sliding window, while public messages and authorized private threads remain in one ordered timeline without widening DM visibility.', mediaNote: 'Architecture animation: browser → Next.js session boundary → Worker authorization → D1 commit → Durable Object delivery / R2 media, with reconnect, idempotent retry, and cursor-pagination paths', nodes: ['Browser', 'Next.js', 'Worker', 'D1 · DO · R2'] },
     reliability: {
       title: 'Diagnosing latency meant separating SQL time from infrastructure wait.',

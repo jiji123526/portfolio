@@ -20,29 +20,6 @@ export function TransitionLink({ direction = 'forward', href, onClick, ...props 
     const destination = `${url.pathname}${url.search}${url.hash}`;
     const root = document.documentElement;
     root.dataset.transitionDirection = direction;
-
-    const transitionDocument = document as Document & {
-      startViewTransition?: (update: () => Promise<void>) => { finished: Promise<void> };
-    };
-
-    if (transitionDocument.startViewTransition) {
-      const transition = transitionDocument.startViewTransition(async () => {
-        router.push(destination);
-        await new Promise<void>((resolve) => {
-          const targetPath = url.pathname;
-          const started = performance.now();
-          const waitForRoute = () => {
-            if (window.location.pathname === targetPath || performance.now() - started > 1800) resolve();
-            else window.requestAnimationFrame(waitForRoute);
-          };
-          waitForRoute();
-        });
-      });
-      const clearDirection = () => { delete root.dataset.transitionDirection; };
-      transition.finished.then(clearDirection, clearDirection);
-      return;
-    }
-
     root.dataset.transition = 'leaving';
     window.setTimeout(() => router.push(destination), 520);
   };

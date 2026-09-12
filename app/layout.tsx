@@ -10,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={poppins.variable}>{children}</body></html>;
+  return <html lang="en" data-scroll-behavior="smooth"><body className={poppins.variable}>{children}</body></html>;
 }
