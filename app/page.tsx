@@ -16,18 +16,19 @@ export default function Home() {
       <section className="home-hero shell">
         <header className="identity">
           <Link href="/" className="wordmark" aria-label="Portfolio home">Jiwoo Jeong <span aria-hidden="true">*</span></Link>
-          <p>Product designer based in Seattle, WA</p>
+          <p>AI product designer &amp; builder based in Seattle, WA</p>
         </header>
         <div className="intro-grid">
           <div className="portrait-placeholder media-placeholder" aria-label="Portrait artwork placeholder">
             <div className="portrait-mark">JJ</div><span>Portrait / illustration</span>
           </div>
           <div className="intro-copy">
-            <h1>Like a great editor, I bring together the <strong>right ideas</strong> at the <strong>right time.</strong></h1>
-            <p>I apply strategic design thinking to create clear, scalable products grounded in thoughtful research.</p>
+            <h1>I turn <strong>complex systems</strong> into products people can <strong>simply use.</strong></h1>
+            <p>Currently a Machine Learning Data Associate at Amazon, I work across language data, interaction design, and full-stack engineering.</p>
             <nav className="text-links" aria-label="Profile links">
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-              <a href="#resume">Resume <Arrow /></a>
+              <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
+              <a href="https://www.linkedin.com/in/jiwoo-jeong-9351962b1/" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+              <a href="mailto:jiwoo315@ucla.edu">Email <Arrow /></a>
             </nav>
           </div>
         </div>
@@ -44,15 +45,15 @@ export default function Home() {
             </Link>
           ))}
           <article className="project-card coming-soon reveal" aria-label="Coming soon project">
-            <div className="project-meta"><span className="metric-badge">Case Study · Rapid Prototyping</span></div>
-            <div className="project-heading"><div><h2>Designing with AI</h2><p>Reimagining how creative teams prioritize their work</p></div><ArrowCircle /></div>
+            <div className="project-meta"><span className="metric-badge">IN DEVELOPMENT · FOOD DECISIONS</span></div>
+            <div className="project-heading"><div><h2>eathis</h2><p>Reducing the daily decision load across eating out, cooking, and leftovers</p></div><ArrowCircle /></div>
             <div className="project-art soon-art"><span>COMING SOON</span></div>
           </article>
         </div>
       </section>
 
       <footer className="footer shell" id="resume">
-        <nav className="text-links" aria-label="Footer links"><a href="mailto:hello@example.com">Contact me</a><a href="#resume">Resume <Arrow /></a></nav>
+        <nav className="text-links" aria-label="Footer links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <Arrow /></a></nav>
         <p>Copyright © 2026 Jiwoo Jeong</p>
       </footer>
     </main>

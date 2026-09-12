@@ -20,7 +20,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <span className="metric-pill">{project.metric}</span><h1>{project.headline}</h1>
         <div className="case-facts">
           <dl><div><dt>ROLE</dt><dd>{project.role}</dd></div><div><dt>DURATION</dt><dd>{project.duration}</dd></div><div><dt>CLIENT</dt><dd>{project.client}</dd></div></dl>
-          <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div></dl>
+          <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product &#8599;</a>}{project.liveUrl && project.repoUrl && ' · '}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub &#8599;</a>}</dd></div>}</dl>
         </div>
       </header>
       <div className={`case-cover tone-${index + 1} reveal`} aria-label="Project media placeholder">
@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section>
 
       <section className="process-section shell case-section reveal">
-        <p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>{project.process ? <>I defined the product around three constraints: <strong>entry</strong>, <strong>trust</strong>, and <strong>realtime behavior.</strong></> : <>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</>}</h2>
+        <p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>{project.process ? <>I defined the product around <strong>three connected constraints.</strong></> : <>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</>}</h2>
         <div className="insight-grid">
           {(project.process ?? [
             { label: 'Literature review', title: 'A timely shift', body: 'The landscape was changing toward more human-centered practices.' },
@@ -49,13 +49,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.limitation && <section className="limitation-block reveal"><div className="shell case-section"><p className="eyebrow">LIMITATION</p><h2>{project.limitation.title}</h2><p className="limitation-copy">{project.limitation.body}</p><div className="tension-grid"><article><span>THE VALUE</span><p>{project.limitation.tension[0]}</p></article><article><span>THE RESPONSIBILITY</span><p>{project.limitation.tension[1]}</p></article></div></div></section>}
 
-      {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p></div><div className="architecture-placeholder magnetic"><div className="architecture-flow"><span>Browser</span><i>→</i><span>Next.js</span><i>→</i><span>Worker</span><i>→</i><span>D1 · DO · R2</span></div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
+      {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p></div><div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
 
       <section className="impact-block"><div className="shell impact-grid"><div><p className="eyebrow">IMPACT</p><h2>{project.impact}</h2></div><div><p className="eyebrow">WHAT SHIPPED</p><p>{project.impactBody ?? 'Progress came from making uncertainty visible, testing early, and giving every stakeholder a clear role in the process.'}</p></div></div></section>
 
       {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
       <section className="next-project shell"><Link href="/">Home</Link><Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8594;</span></Link></section>
-      <footer className="footer shell"><nav className="text-links"><a href="mailto:hello@example.com">Contact me</a><Link href="/">Resume &#8599;</Link></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
+      <footer className="footer shell"><nav className="text-links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub &#8599;</a></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
     </main>
   );
 }
