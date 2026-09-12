@@ -24,9 +24,10 @@ A link-first anonymous conversation platform built around explicit trust and mod
 
 - Realtime multi-tenant chat, private owner DMs, media, and temporary live sessions
 - Server-enforced authorization, rate limits, moderation, and recoverable deletion
+- Idempotent retries, bounded reconnects, cursor pagination, and durable-storage authority
+- Stage-level latency diagnostics and a count-validated production database cutover
 - Cloudflare Workers, D1, Durable Objects, R2, Next.js, and Vercel
 - 6,517 messages created during the September 5–11 UTC production window
-- 350+ visitors with at least 10 visits
 
 ### TagSpark — Taxonomy and ranking
 
