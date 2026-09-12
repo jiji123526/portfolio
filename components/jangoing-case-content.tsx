@@ -16,6 +16,13 @@ const annotationPrinciples = [
   'Independent examples are reviewed before entering a frozen test set.',
 ];
 
+const productEnvironmentCards = [
+  { title: 'Shared household context', body: 'Google-authenticated users can create, join, and switch households through invitation codes. Owners and members interact with the same household-scoped inventory and shopping state.' },
+  { title: 'Usable kitchen workflows', body: 'Members can manage inventory, shopping lists, quantities, expiry dates, categories, low-stock status, and leftovers through the current MVP.' },
+  { title: 'Reviewable language actions', body: 'Natural-language updates become structured, editable proposals before they modify shared household state.' },
+  { title: 'Continuous evaluation', body: 'Confirmations, corrections, cancellations, and unsupported requests are logged, routed into annotation queues, and exported as training or evaluation candidates.' },
+];
+
 const annotationQueues = [
   { category: 'Production', name: 'Correction', description: 'Production cases users already corrected' },
   { category: 'Production', name: 'Confirmed', description: 'Correct predictions from normal product usage' },
@@ -35,6 +42,16 @@ function ExistingMedia({ project, item, index, projectIndex }: { project: Projec
 
 export function JangoingCaseContent({ project, projectIndex }: Props) {
   return <>
+    <section className="product-environment reveal"><div className="shell case-section">
+      <p className="eyebrow">A REAL PRODUCT ENVIRONMENT FOR LANGUAGE LEARNING</p>
+      <h2>The language system is developed inside a working multi-user household product.</h2>
+      <p className="product-environment-intro">Jangoing’s web application is not a separate inventory project or a disposable prototype. It provides the shared household context, review interactions, and production feedback needed to develop the language system—and will become the deployment surface for the trained model.</p>
+      <div className="product-environment-grid">{productEnvironmentCards.map((card, index) => <article key={card.title}><span>0{index + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
+      <aside className="language-context-note"><span>LANGUAGE CONTEXT NOTE</span><p>Household identity is part of the language problem. A request must be grounded in the correct user, membership, permissions, inventory state, and prior household context before it can safely become an action.</p></aside>
+      <p className="current-future-copy">The current MVP uses a deterministic English-first interpreter. Once the trained model is ready, it can replace that interpreter behind the same structured action contract while the existing authentication, confirmation, event, and shared-state workflows remain in place.</p>
+      <div className="current-future-flow"><article><span>TODAY</span><p>Natural-language input <i>→</i> deterministic interpretation <i>→</i> editable proposal <i>→</i> confirmation or correction <i>→</i> shared inventory update <i>→</i> logged evidence</p></article><article><span>LATER</span><p>Everyday conversation <i>→</i> trained contextual language model <i>→</i> editable or spoken proposal <i>→</i> user confirmation <i>→</i> shared household update <i>→</i> continued production evaluation</p></article></div>
+    </div></section>
+
     <section className="language-problem shell case-section reveal">
       <p className="eyebrow">LANGUAGE PROBLEM</p>
       <h2>Conversation is not a command line.</h2>
@@ -62,14 +79,13 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
     </div></section>
 
     <section className="evidence-section shell case-section reveal">
-      <p className="eyebrow">BASELINE + EVALUATION + CURRENT STATUS</p><h2>A simple baseline tests the data system before model complexity increases.</h2>
-      <div className="two-column-copy"><div><h3>Current evidence</h3><p>The runtime is deterministic and English-first. A CPU-friendly TF-IDF and logistic-regression baseline provides reproducible single-intent classification; multi-action examples are excluded rather than collapsed.</p><p>The annotation, review, export, correction-logging, and baseline tooling is implemented. OpenAI API assists draft annotation only—it is not ground truth or the runtime model.</p></div><div><h3>Evaluation gate</h3><p>Evaluation groups classification, entity extraction, normalization, and joint-action exact match. Diagnostics focus on phrase family, unseen items, indirect requests, and contextual dependency.</p><p><strong>Pilot target:</strong> 300 reviewed training / 100 independent evaluation examples.<br /><strong>Baseline target:</strong> 1,000 reviewed training / 200 independent evaluation examples.</p></div></div>
+      <p className="eyebrow">BASELINE + EVALUATION STATUS</p><h2>A simple baseline tests the data system before model complexity increases.</h2>
+      <div className="two-column-copy"><div><h3>Current baseline</h3><p>A CPU-friendly TF-IDF and logistic-regression baseline provides reproducible single-intent classification; multi-action examples are excluded rather than collapsed. OpenAI API assists draft annotation only—it is not ground truth or the runtime model.</p></div><div><h3>Evaluation gate</h3><p>Evaluation groups classification, entity extraction, normalization, and joint-action exact match. Diagnostics focus on phrase family, unseen items, indirect requests, and contextual dependency.</p><p><strong>Pilot target:</strong> 300 reviewed training / 100 independent evaluation examples.<br /><strong>Baseline target:</strong> 1,000 reviewed training / 200 independent evaluation examples.</p></div></div>
     </section>
 
     <section className="safety-path language-tint reveal"><div className="shell case-section">
-      <p className="eyebrow">SAFETY + TEXT-TO-RASPBERRY-PI PATH</p><h2>Language becomes a reviewable proposal before it becomes household state.</h2>
-      <div className="language-flow">utterance <i>→</i> structured interpretation <i>→</i> confirmation or correction <i>→</i> append-only event <i>→</i> inventory or shopping projection <i>→</i> evaluation evidence</div>
-      <p className="section-compact-copy">Text is evaluated first so ASR errors and language-understanding errors remain independently measurable. Once the English benchmark is stable, controlled speech and Korean-English evaluation can lead to the Raspberry Pi interaction surface without bypassing clarification, authorization, or logging.</p>
+      <p className="eyebrow">TEXT-TO-RASPBERRY-PI PATH</p><h2>Text-first evaluation keeps future speech errors diagnosable.</h2>
+      <p className="section-compact-copy">Once the English benchmark is stable, controlled speech and Korean-English evaluation can lead to the Raspberry Pi interaction surface. ASR and language-understanding errors remain independently measurable throughout that transition.</p>
       <ExistingMedia project={project} item={2} index="03" projectIndex={projectIndex} />
       <div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture?.nodes ?? []).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture?.mediaNote}</p></div>
     </div></section>
