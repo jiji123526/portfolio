@@ -16,6 +16,18 @@ const annotationPrinciples = [
   'Independent examples are reviewed before entering a frozen test set.',
 ];
 
+const annotationQueues = [
+  { category: 'Production', name: 'Correction', description: 'Production cases users already corrected' },
+  { category: 'Production', name: 'Confirmed', description: 'Correct predictions from normal product usage' },
+  { category: 'Targeted', name: 'Low confidence', description: 'Ambiguous, unknown, and clarification cases' },
+  { category: 'Targeted', name: 'Expiry', description: 'Temporal spans and date-normalization cases' },
+  { category: 'Generated', name: 'Generated review', description: 'Human review of synthetic coverage candidates' },
+  { category: 'Generated', name: 'Preference / context', description: 'Goals and preferences without immediate actions' },
+  { category: 'Generated', name: 'Domain non-actionable', description: 'Food-related hard negatives with no executable request' },
+  { category: 'Generated', name: 'Unrelated negative', description: 'Outside-domain rejection examples' },
+  { category: 'Evaluation', name: 'Evaluation holdout', description: 'Production candidates reserved for later evaluation review' },
+];
+
 function ExistingMedia({ project, item, index, projectIndex }: { project: Project; item: number; index: string; projectIndex: number }) {
   const solution = project.solutions[item];
   return <div className="language-existing-media"><span>{index}</span><div className={`solution-visual tone-${((projectIndex + item) % 3) + 1} magnetic`} aria-label="Solution media placeholder"><div className="mini-ui"><span /><span /><span /></div><p className="media-note">MEDIA PLACEHOLDER · {solution.mediaNote ?? 'Feature flow or prototype recording'}</p></div></div>;
@@ -37,8 +49,11 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
     </section>
 
     <section className="language-tint reveal"><div className="shell case-section">
-      <p className="eyebrow">ANNOTATION + DATASET GOVERNANCE</p><h2>Corrections become evidence under explicit trust rules.</h2>
+      <p className="eyebrow">ANNOTATION + DATASET GOVERNANCE</p><h2>Annotation queues route evidence by what it can teach the model.</h2>
+      <p className="annotation-intro">Nine overlapping queues prioritize production feedback, linguistic edge cases, generated coverage, relevance boundaries, and evaluation candidates.</p>
       <div className="language-flow">raw utterance <i>→</i> deterministic or AI-assisted draft <i>→</i> relevance, action, span, and normalization review <i>→</i> reviewed annotation <i>→</i> task-specific JSONL</div>
+      <div className="annotation-queue-grid">{annotationQueues.map((queue) => <article key={queue.name}><span data-category={queue.category}>{queue.category}</span><h3>{queue.name}</h3><p>{queue.description}</p></article>)}</div>
+      <p className="queue-boundary">Queues prioritize annotation work; they do not determine the final dataset split. A sample may appear in multiple queues, while its training or evaluation purpose is assigned separately. Evaluation holdout remains a candidate queue until human review, deduplication, leakage checks, and version approval are complete.</p>
       <div className="candidate-stats"><article><strong>800</strong><span>synthetic-v1 candidates</span></article><article><strong>600</strong><span>relevance candidates</span></article><article><strong>1,400</strong><span>total annotation candidates</span></article></div>
       <p className="dataset-warning">These 1,400 records are bootstrap candidates, not reviewed ground truth and not a valid final evaluation set.</p>
       <div className="principle-list">{annotationPrinciples.map((item) => <p key={item}>{item}</p>)}</div>
