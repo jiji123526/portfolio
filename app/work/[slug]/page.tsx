@@ -16,21 +16,36 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <main className="case-study">
       <MotionEffects />
-      <div className={`case-cover case-cover-hero tone-${index + 1} reveal`} aria-label="Project media placeholder">
-        <nav className="case-cover-nav" aria-label="Project navigation">
+      <nav className="case-top-nav" aria-label="Project navigation">
+        <div className="case-nav-inner">
           <Link href="/"><span aria-hidden="true">&#8249;</span> Home</Link>
           <Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8250;</span></Link>
-        </nav>
-        <div className="cover-interface magnetic"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
-        <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
-      </div>
-      <header className="case-hero shell reveal">
-        <span className="metric-pill">{project.metric}</span><h1>{project.headline}</h1>
+        </div>
+      </nav>
+
+      <header className="case-opening reveal">
+        <div className="case-opening-inner">
+          <div className="case-opening-copy">
+            <span className="metric-pill">{project.metric}</span>
+            <h1>{project.headline}</h1>
+            <div className="opening-impact">
+              <span>IMPACT</span>
+              <strong>{project.impact}</strong>
+            </div>
+          </div>
+          <div className="case-opening-media magnetic" aria-label="Project media placeholder">
+            <div className="cover-interface"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
+            <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
+          </div>
+        </div>
+      </header>
+
+      <section className="case-meta shell reveal" aria-label="Project details">
         <div className="case-facts">
           <dl><div><dt>ROLE</dt><dd>{project.role}</dd></div><div><dt>DURATION</dt><dd>{project.duration}</dd></div><div><dt>CLIENT</dt><dd>{project.client}</dd></div></dl>
           <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd className="case-links">{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product <ExternalArrow /></a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>}</dd></div>}</dl>
         </div>
-      </header>
+      </section>
 
       <section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section>
 
