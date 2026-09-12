@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { projects } from '@/lib/project-data';
 import { ExternalArrow } from '@/components/external-arrow';
 import { TransitionLink } from '@/components/transition-link';
+import { TunerIllustration } from '@/components/tuner-illustration';
 import { MotionEffects } from './motion-effects';
 
 const ArrowCircle = () => (
@@ -21,12 +22,12 @@ export default function Home() {
           <p>ML Data Associate at Amazon · Seattle, WA</p>
         </header>
         <div className="intro-grid">
-          <div className="portrait-placeholder media-placeholder" aria-label="Portrait artwork placeholder">
-            <div className="portrait-mark">JJ</div><span>Portrait / illustration</span>
+          <div className="portrait-placeholder tuner-hero">
+            <TunerIllustration src="/tuner-hero.jpg" />
           </div>
           <div className="intro-copy">
-            <h1><strong>Language</strong> is messy. Systems <strong>shouldn’t be.</strong></h1>
-            <p>I build language data, evaluation workflows, and production systems that turn ambiguous human input into reliable product behavior.</p>
+            <h1><strong>People</strong> are complicated. Products <strong>shouldn’t be.</strong></h1>
+            <p>I design language systems that turn noisy human signals into clear, reviewable actions.</p>
             <nav className="text-links" aria-label="Profile links">
               <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>
               <a href="https://www.linkedin.com/in/jiwoo-jeong-9351962b1/" target="_blank" rel="noreferrer">LinkedIn <ExternalArrow /></a>
