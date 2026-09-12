@@ -14,11 +14,11 @@ export type Project = {
   coverNote?: string;
 };
 
-export const projects: Project[] = [
+const projectCatalog: Project[] = [
   {
     slug: 'yap-anonymous-chat', metric: '6.5K Messages in 7 Days', category: 'Independent Product',
-    title: 'yap. Anonymous Chat', summary: 'Link-based conversations that start without asking everyone to create an account',
-    headline: 'Designing a link-first anonymous chat for conversations that shouldn’t need an account', role: 'Product Designer & Full-stack Developer',
+    title: 'yap. Anonymous Chat', summary: 'Operating reliable realtime conversations with explicit moderation and trust boundaries',
+    headline: 'Engineering a link-first realtime system for conversations that shouldn’t need an account', role: 'Full-stack Product Engineer',
     duration: 'Ongoing', client: 'Independent Product',
     responsibilities: 'Product strategy, UX/UI, frontend, edge backend, security, and operations', tools: 'Next.js, React, Tailwind CSS, Workers, D1, R2, Durable Objects',
     liveUrl: 'https://yapndot.com', repoUrl: 'https://github.com/jiji123526/letmetellu',
@@ -49,10 +49,10 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'jangoing-kitchen-intelligence', metric: 'NLP · REVIEWABLE AI', category: 'AI Product', title: 'Jangoing',
-    summary: 'Turning everyday kitchen language into safe, reviewable household actions',
-    headline: 'Designing conversational kitchen intelligence that learns from reviewed human corrections', role: 'Product Designer & Full-stack Developer',
-    duration: 'Ongoing', client: 'Independent Product', responsibilities: 'Product strategy, NLP schemas, UX/UI, annotation systems, frontend, backend, and evaluation',
+    slug: 'jangoing-kitchen-intelligence', metric: 'LANGUAGE DATA · EVALUATION', category: 'Language Engineering', title: 'Jangoing',
+    summary: 'Turning ambiguous household language into grounded, reviewable actions and evaluation data',
+    headline: 'Engineering a language system that learns from reviewed human corrections', role: 'Language Engineer & Full-stack Developer',
+    duration: 'Ongoing', client: 'Independent Product', responsibilities: 'Annotation schemas, guidelines, NLP evaluation, temporal normalization, product workflows, frontend, and backend',
     tools: 'Next.js, TypeScript, Cloudflare Workers, D1, Python, scikit-learn', brief: 'How might a household assistant understand natural language without making silent, irreversible changes to shared state?',
     liveUrl: 'https://jangoing-web.vercel.app', repoUrl: 'https://github.com/jiji123526/jangoing',
     coverNote: 'Product demo: natural-language request → structured proposal → review → household update',
@@ -79,10 +79,10 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'tag-spark-recommendations', metric: 'FULL-STACK · RECOMMENDATION', category: 'Recommendation Product', title: 'TagSpark',
-    summary: 'Helping people discover relevant works through the language of their preferences',
-    headline: 'Building a tag-based recommendation journey from preference selection to ranked results', role: 'Product Designer & Full-stack Developer',
-    duration: '2026', client: 'Independent Product', responsibilities: 'Product design, recommendation logic, frontend, APIs, database, and deployment',
+    slug: 'tag-spark-recommendations', metric: 'TAXONOMY · RANKING', category: 'Recommendation Systems', title: 'TagSpark',
+    summary: 'Structuring subjective preferences into transparent, tag-based rankings',
+    headline: 'Building a taxonomy-driven recommendation system from preference input to ranked results', role: 'Recommendation Systems & Full-stack Developer',
+    duration: '2026', client: 'Independent Product', responsibilities: 'Tag taxonomy, alias logic, weighted ranking, product design, APIs, database, and deployment',
     tools: 'React, TypeScript, Tailwind CSS, Neon Postgres, Vercel', brief: 'How might we make recommendations feel understandable and controllable instead of opaque?',
     liveUrl: 'https://kwkrecom.vercel.app', repoUrl: 'https://github.com/jiji123526/tag-spark',
     coverNote: 'Product demo: onboarding → tag selection → ranked recommendation results',
@@ -109,5 +109,8 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+const projectOrder = ['jangoing-kitchen-intelligence', 'yap-anonymous-chat', 'tag-spark-recommendations'];
+export const projects = projectOrder.map((slug) => projectCatalog.find((project) => project.slug === slug)!);
 
 export function getProject(slug: string) { return projects.find((project) => project.slug === slug); }

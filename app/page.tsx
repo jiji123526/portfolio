@@ -16,15 +16,16 @@ export default function Home() {
       <section className="home-hero shell">
         <header className="identity">
           <Link href="/" className="wordmark" aria-label="Portfolio home">Jiwoo Jeong <span aria-hidden="true">*</span></Link>
-          <p>AI product designer &amp; builder based in Seattle, WA</p>
+          <p>Language Engineer &amp; AI Product Builder</p>
+          <p>ML Data Associate at Amazon · Seattle, WA</p>
         </header>
         <div className="intro-grid">
           <div className="portrait-placeholder media-placeholder" aria-label="Portrait artwork placeholder">
             <div className="portrait-mark">JJ</div><span>Portrait / illustration</span>
           </div>
           <div className="intro-copy">
-            <h1>People are <strong>complicated.</strong> Products <strong>shouldn’t be.</strong></h1>
-            <p>Currently a Machine Learning Data Associate at Amazon, I work across language data, interaction design, and full-stack engineering.</p>
+            <h1><strong>Language</strong> is messy. Systems <strong>shouldn’t be.</strong></h1>
+            <p>I build language data, evaluation workflows, and production systems that turn ambiguous human input into reliable product behavior.</p>
             <nav className="text-links" aria-label="Profile links">
               <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>
               <a href="https://www.linkedin.com/in/jiwoo-jeong-9351962b1/" target="_blank" rel="noreferrer">LinkedIn <ExternalArrow /></a>
@@ -35,7 +36,7 @@ export default function Home() {
       </section>
 
       <section className="projects shell" aria-labelledby="selected-projects">
-        <div className="section-label reveal"><p className="eyebrow" id="selected-projects">SELECTED PROJECTS</p><span /></div>
+        <div className="section-label reveal"><p className="eyebrow" id="selected-projects">SELECTED LANGUAGE &amp; AI SYSTEMS</p><span /></div>
         <div className="project-grid">
           {projects.map((project, index) => (
             <Link className={`project-card tone-${index + 1} reveal`} href={`/work/${project.slug}`} key={project.slug}>
@@ -44,12 +45,16 @@ export default function Home() {
               <div className="project-art" aria-hidden="true"><div className="art-window"><span /><span /><span /></div></div>
             </Link>
           ))}
-          <article className="project-card coming-soon reveal" aria-label="Coming soon project">
-            <div className="project-meta"><span className="metric-badge">IN DEVELOPMENT · FOOD DECISIONS</span></div>
-            <div className="project-heading"><div><h2>eathis</h2><p>Reducing the daily decision load across eating out, cooking, and leftovers</p></div><ArrowCircle /></div>
-            <div className="project-art soon-art"><span>COMING SOON</span></div>
-          </article>
         </div>
+      </section>
+
+      <section className="experiments shell" aria-labelledby="other-experiments">
+        <div className="section-label reveal"><p className="eyebrow" id="other-experiments">OTHER EXPERIMENTS</p><span /></div>
+        <a className="experiment-row reveal" href="https://github.com/jiji123526/eathis" target="_blank" rel="noreferrer">
+          <span>DECISION SUPPORT · IN DEVELOPMENT</span>
+          <div><h2>eathis</h2><p>Reducing the daily decision load across eating out, cooking, and leftovers</p></div>
+          <ExternalArrow />
+        </a>
       </section>
 
       <footer className="footer shell" id="resume">
