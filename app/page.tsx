@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { projects } from '@/lib/project-data';
+import { ExternalArrow } from '@/components/external-arrow';
 import { MotionEffects } from './motion-effects';
 
-const Arrow = () => <span aria-hidden="true">&#8599;</span>;
 const ArrowCircle = () => (
   <span className="round-arrow magnetic" aria-hidden="true">
     <svg viewBox="0 0 10 18"><path d="M1 1l8 8-8 8" /></svg>
@@ -26,9 +26,9 @@ export default function Home() {
             <h1>People are <strong>complicated.</strong> Products <strong>shouldn’t be.</strong></h1>
             <p>Currently a Machine Learning Data Associate at Amazon, I work across language data, interaction design, and full-stack engineering.</p>
             <nav className="text-links" aria-label="Profile links">
-              <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
-              <a href="https://www.linkedin.com/in/jiwoo-jeong-9351962b1/" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-              <a href="mailto:jiwoo315@ucla.edu">Email <Arrow /></a>
+              <a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>
+              <a href="https://www.linkedin.com/in/jiwoo-jeong-9351962b1/" target="_blank" rel="noreferrer">LinkedIn <ExternalArrow /></a>
+              <a href="mailto:jiwoo315@ucla.edu">Email <ExternalArrow /></a>
             </nav>
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       <footer className="footer shell" id="resume">
-        <nav className="text-links" aria-label="Footer links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <Arrow /></a></nav>
+        <nav className="text-links" aria-label="Footer links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a></nav>
         <p>Copyright © 2026 Jiwoo Jeong</p>
       </footer>
     </main>

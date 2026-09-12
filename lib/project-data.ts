@@ -16,7 +16,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'yap-anonymous-chat', metric: '350+ Daily Active Users', category: 'Independent Product',
+    slug: 'yap-anonymous-chat', metric: '6.5K Messages in 7 Days', category: 'Independent Product',
     title: 'yap. Anonymous Chat', summary: 'Link-based conversations that start without asking everyone to create an account',
     headline: 'Designing a link-first anonymous chat for conversations that shouldn’t need an account', role: 'Product Designer & Full-stack Developer',
     duration: 'Ongoing', client: 'Independent Product',
@@ -40,8 +40,8 @@ export const projects: Project[] = [
     ],
     limitation: { title: 'Lowering the door also widens the abuse surface.', body: 'Anonymous entry is the product’s advantage and its central risk. I treated rate limits, signed visitor identities, scoped room tokens, moderation logs, and recoverable deletion as product behavior—not invisible backend cleanup.', tension: ['Fast entry with no guest account', 'Clear limits, revocation, and owner control'] },
     architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js handles the web experience and account session boundary. A Cloudflare Worker re-checks authorization and runs APIs; D1 stores durable records, Durable Objects coordinate each realtime room, and R2 stores protected media.', mediaNote: 'Architecture animation: browser → Next.js / Worker → D1, Durable Object, R2', nodes: ['Browser', 'Next.js', 'Worker', 'D1 · DO · R2'] },
-    impact: 'Grew to 350+ daily active users during limited beta',
-    impactBody: 'The production system supports public and passcode-protected channels, realtime messaging, private owner DMs, media, bilingual interfaces, live sessions, moderation, support, and Web Push. During a production database cutover, 42 users, 36 channels, and 16,606 messages were validated and migrated with matching counts and no orphaned records.',
+    impact: '6,517 messages created in one production week',
+    impactBody: 'From September 5–11 UTC, yap. handled 6,517 created messages across public conversations and private DMs, including messages later deleted by users. Usage was event-driven: the median was 332 messages per day, and the average excluding the largest spike was approximately 550. More than 350 visitors have returned at least 10 times. During a production database cutover, 42 users, 36 channels, and 16,606 messages were validated and migrated with matching counts and no orphaned records.',
     takeaways: [
       { title: 'Designing permissions as part of the interface', body: 'Privacy boundaries only work when the interface, cookies, API routes, and realtime connection agree. Each owner, guest, room viewer, and private sender state needed an explicit contract.' },
       { title: 'Treating operational reliability as user experience', body: 'A successful request that takes several seconds still feels broken. Route timing, health events, rollback paths, and production runbooks became part of how I protected the conversation experience.' },

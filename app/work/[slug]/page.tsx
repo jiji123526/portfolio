@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ExternalArrow } from '@/components/external-arrow';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
 
@@ -27,7 +28,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <span className="metric-pill">{project.metric}</span><h1>{project.headline}</h1>
         <div className="case-facts">
           <dl><div><dt>ROLE</dt><dd>{project.role}</dd></div><div><dt>DURATION</dt><dd>{project.duration}</dd></div><div><dt>CLIENT</dt><dd>{project.client}</dd></div></dl>
-          <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product &#8599;</a>}{project.liveUrl && project.repoUrl && ' · '}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub &#8599;</a>}</dd></div>}</dl>
+          <dl><div><dt>RESPONSIBILITIES</dt><dd>{project.responsibilities}</dd></div><div><dt>TOOLS</dt><dd>{project.tools}</dd></div>{(project.liveUrl || project.repoUrl) && <div><dt>LINKS</dt><dd className="case-links">{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live product <ExternalArrow /></a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a>}</dd></div>}</dl>
         </div>
       </header>
 
@@ -58,7 +59,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
       <section className="next-project shell"><Link href="/">Home</Link><Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8594;</span></Link></section>
-      <footer className="footer shell"><nav className="text-links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub &#8599;</a></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
+      <footer className="footer shell"><nav className="text-links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
     </main>
   );
 }
