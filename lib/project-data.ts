@@ -7,15 +7,20 @@ export type Project = {
   process?: { label: string; title: string; body: string }[];
   challengeIntro?: string;
   statement?: string;
+  transformation?: { body: string; stats: { value: string; label: string }[] };
+  solutionsLabel?: string;
   limitation?: { title: string; body: string; tension: [string, string] };
   platformOperations?: {
     title: string; intro: string;
     cards: { title: string; body: string }[];
     boundary: { title: string; body: string };
-    flow: string[]; media: string[];
   };
   architecture?: { title: string; body: string; detail?: string; mediaNote: string; nodes?: string[] };
   reliability?: { title: string; body: string; evidence: { value: string; label: string }[] };
+  incidents?: {
+    cases: { title: string; signal: string; diagnosis: string; response: string; prevention: string }[];
+    additionalHardening: string;
+  };
   impactLabel?: string;
   impactBody?: string;
   takeaways?: { title: string; body: string }[];
@@ -40,44 +45,43 @@ const projectCatalog: Project[] = [
     challengeIntro: 'The design problem was not simply “make a chat app.” It was balancing instant participation with explicit privacy and moderation boundaries.',
     challenges: ['Account creation makes lightweight, one-off conversations feel heavier than the conversation itself.', 'Anonymous participation becomes fragile when access, moderation, and private communication are unclear.', 'Temporary live moments need a distinct lifecycle so they do not blur into permanent channel history.'],
     statement: 'How might we keep joining as light as opening a link—without making ownership, privacy, or safety ambiguous?',
+    transformation: {
+      body: 'yap. began as a single-channel personal page built with Vanilla JS and Supabase. Rather than porting that implementation, I used its behavior as a specification and redesigned the product as a multi-tenant platform on Next.js, Cloudflare Workers, D1, Durable Objects, and R2. This required explicit channel ownership, separate anonymous and authenticated identities, platform-admin authority, media lifecycle rules, and operational monitoring. I later selectively migrated the original main channel into zziks, preserving its history while keeping legacy anonymous identities pseudonymous and unlinked. Reply and gallery references, along with record counts, were verified before and after the move.',
+      stats: [{ value: '685', label: 'Messages preserved' }, { value: '204', label: 'Replies preserved' }, { value: '25', label: 'Images preserved' }],
+    },
+    solutionsLabel: 'KEY PRODUCT SOLUTIONS',
     solutions: [
       { title: 'A room begins with a link.', body: 'Hosts create a channel and share its URL. Guests can enter public rooms immediately, while optional passcodes add friction only when the conversation needs it.', mediaNote: 'Flow capture: create channel, copy link, open as a guest' },
       { title: 'Anonymous does not mean unstructured.', body: 'Replies, reactions, search, notices, and banned-word feedback give lightweight conversations structure. User reports can escalate from owner review to platform-level moderation, while blocking, freezing, warnings, petitions, and recoverable deletion make enforcement explicit and reversible where appropriate.', mediaNote: 'Moderation flow: user report → owner review → warning or enforcement → visible feedback' },
       { title: 'Private messages have a visible boundary.', body: 'A visitor can start a thread that only they and the channel owner can read. Authorization is enforced on the server, not by hiding UI.', mediaNote: 'Split view: guest DM composer and owner-only thread' },
       { title: 'Live is intentionally temporary.', body: 'A host can start a separate live session for a shared moment. Session identity, presence, and expiry are kept distinct from normal channel history.', mediaNote: 'Sequence: live starts, reactions appear, session ends cleanly' },
     ],
-    limitation: { title: 'Lowering the door also widens the abuse surface.', body: 'Anonymous entry is the product’s advantage and its central risk. I treated rate limits, signed visitor identities, scoped room tokens, server-side authorization, idempotent message IDs, moderation logs, and recoverable deletion as product behavior—not invisible backend cleanup. Realtime delivery improves immediacy, but durable storage remains authoritative when connections fail or clients retry.', tension: ['Fast entry with no guest account', 'Clear limits, revocation, and owner control'] },
     platformOperations: {
       title: 'Moderation had to extend beyond a single room.',
-      intro: 'Channel owners can manage everyday behavior inside their own communities, but some problems require a service-wide response. I built a separate platform-admin workspace for handling escalated abuse, user support, appeals, operational communication, and production health without giving ordinary channel owners access to platform-level data.',
+      intro: 'Channel owners handle everyday behavior inside their communities, but escalated abuse, appeals, and private support require a service-wide response. I built a separate platform-admin workspace without exposing platform-level data to ordinary channel owners.',
       cards: [
-        { title: 'Layered enforcement', body: 'Message and channel reports enter dedicated review queues with the relevant evidence loaded on demand. A platform administrator can issue warnings, suspend or freeze a channel, record a resolution, and review an owner’s petition instead of treating every report as an irreversible deletion.' },
-        { title: 'Scoped user support', body: 'Authenticated users can open private one-to-one support threads with the platform administrator. Session ownership, thread visibility, closure, and user-side removal are enforced by server-side authorization rather than by hiding conversations in the interface.' },
-        { title: 'Operational visibility', body: 'The same workspace surfaces bounded health summaries for failed and unusually slow core requests, authentication and email-delivery outcomes, notification delivery, and database availability. Versioned global notices can be published across every entry route without requiring a realtime broadcast.' },
+        { title: 'Layered enforcement', body: 'Message and channel reports enter separate review queues with evidence loaded on demand. Administrators can warn, restrict, dismiss, and resolve a case while preserving an owner’s path to petition.' },
+        { title: 'Scoped user support', body: 'Authenticated users can open private one-to-one support threads. Ownership, visibility, closure, and user-side removal are enforced through server authorization rather than hidden UI.' },
+        { title: 'Operational communication', body: 'Scoped service summaries support triage, while versioned global notices can reach every entry route without requiring a realtime broadcast or widening access to message content.' },
       ],
-      boundary: { title: 'The dashboard does not grant authority.', body: 'Client-side session state is used only to choose the interface. Every platform-admin read and mutation is independently authorized by the Worker against the authoritative server-side role. Responses remain scoped, sensitive evidence is loaded only when requested, and operational metrics avoid storing message content or raw identity values.' },
-      flow: ['User report', 'Scoped evidence review', 'Warning / restriction / dismissal', 'Owner notification', 'Petition or support follow-up', 'Resolution retained with status and timestamps'],
-      media: ['Platform moderation loop: channel report → scoped evidence → warning or restriction → owner petition → resolution', 'Operations loop: private support thread → resolution → health summary → versioned global notice'],
+      boundary: { title: 'The dashboard does not grant authority.', body: 'Client-side state only selects the interface. Every platform-admin read and mutation is re-authorized by the Worker against the authoritative server-side role; evidence remains request-scoped, and operational metrics exclude message content and raw identity values.' },
     },
-    architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js handles the web experience and account session boundary. A Cloudflare Worker re-checks authorization and runs APIs; D1 stores durable records, Durable Objects coordinate each realtime room, and R2 stores protected media.', detail: 'Realtime delivery is an acceleration layer rather than the source of truth. Messages become visible from authoritative persistence results, client-generated IDs make retries idempotent, and reconnect fallback is deliberately rate-limited to avoid amplifying an outage. Long histories use cursor-bounded pagination and a client-side sliding window, while public messages and authorized private threads remain in one ordered timeline without widening DM visibility.', mediaNote: 'Architecture animation: browser → Next.js session boundary → Worker authorization → D1 commit → Durable Object delivery / R2 media, with reconnect, idempotent retry, and cursor-pagination paths', nodes: ['Browser', 'Next.js', 'Worker', 'D1 · DO · R2'] },
-    reliability: {
-      title: 'Diagnosing latency meant separating SQL time from infrastructure wait.',
-      body: 'When one production D1 database began adding 4–18 seconds of request delay despite millisecond-level SQL execution, I added route-level stage timings to isolate the wait from authentication, query execution, media signing, and rendering. I validated a replacement database, migrated production data with matching counts, checked referential integrity and targeted orphaned records, retained a rollback copy, and moved traffic without changing the public product contract.',
-      evidence: [
-        { value: '4–18 sec', label: 'Observed database and primary-path wait' },
-        { value: 'Low-ms SQL', label: 'Query execution was not the primary delay' },
-        { value: '16,606', label: 'Messages validated during the cutover' },
-        { value: '0 detected violations', label: 'Foreign-key and targeted orphan checks' },
-        { value: '~80 ms init', label: 'Observed post-cutover Worker sample' },
+    architecture: { title: 'One product, deliberately separated responsibilities.', body: 'Next.js owns the web experience and session boundary. The Worker independently authorizes API access, D1 stores durable records, Durable Objects coordinate room presence and delivery, and R2 stores protected media.', detail: 'Authoritative writes commit to D1 before realtime fan-out. Public messages and authorized private threads can share one ordered timeline without widening DM visibility, while media access remains separately signed and scoped.', mediaNote: 'Architecture animation: browser → Next.js session boundary → Worker authorization → D1 commit → Durable Object delivery / R2 media', nodes: ['Browser', 'Next.js', 'Worker', 'D1 · DO · R2'] },
+    incidents: {
+      cases: [
+        { title: 'Database-scoped latency', signal: 'Channel initialization slowed by 4–18 seconds while measured SQL execution remained in the millisecond range.', diagnosis: 'Route-level stage timings and a comparison using the same code and data on a new D1 isolated the delay to one database path.', response: 'I prepared a validated snapshot, ran integrity checks, retained a rollback copy, and moved traffic to the replacement database.', prevention: 'Stage boundaries remain instrumented and cutovers stay reversible; a post-cutover Worker sample initialized the channel in about 80 ms.' },
+        { title: 'Recursive query amplification', signal: 'Production query metrics showed one reply-thread lookup accumulating 212.62M rows read as message history grew.', diagnosis: 'An audit of real reply relationships confirmed that production threads were only one level deep, making recursive ancestry resolution unnecessary.', response: 'New replies now store the top-level root_id directly at write time, and reads use bounded batches backed by primary-key and index lookups.', prevention: 'Normalizing the relationship once removes repeated traversal from every read instead of relying on incremental query tuning.' },
+        { title: 'Ambiguous message delivery', signal: 'A message could persist while its HTTP or WebSocket confirmation was missed, leading a user to resend and create a duplicate.', diagnosis: 'Persistence, acknowledgement, fan-out, and link indexing were coupled closely enough that delivery ambiguity leaked into user behavior.', response: 'Stable client_message_id values, a D1 uniqueness constraint, and an authoritative HTTP acknowledgement now define the write result.', prevention: 'WebSocket fan-out and link indexing run after persistence, while retries reuse the same ID and converge on the existing record through idempotent retry and authoritative persistence.' },
       ],
+      additionalHardening: 'Long-history navigation was stabilized with bounded rendering windows, anchor-based scroll correction, and geometry-aware media placeholders. Non-critical presence failures no longer block channel initialization, while cross-service deletion runs as a durable cleanup job with idempotent retries.',
     },
     impact: '6,517 messages created in one production week',
     impactLabel: 'PRODUCTION EVIDENCE',
     impactBody: 'From September 5–11 UTC, yap. handled 6,517 created messages across public conversations and private DMs, including messages later deleted by users. Usage was event-driven rather than uniform: the median was 332 messages per day, while the average excluding the largest spike was approximately 550 per day.',
     takeaways: [
-      { title: 'Designing permissions as part of the interface', body: 'Privacy boundaries only work when the interface, cookies, API routes, and realtime connection agree. Each owner, guest, room viewer, and private sender state needed an explicit contract.' },
-      { title: 'Treating operational reliability as user experience', body: 'A successful request that takes several seconds still feels broken. Stage-level timings, bounded retries, health events, integrity checks, rollback copies, and production runbooks became part of the product experience—not separate operational paperwork.' },
-      { title: 'Keeping temporary and permanent state separate', body: 'Live participation is coordinated in realtime, while durable history remains in the database. Separating those jobs made expiry and recovery easier to reason about.' },
+      { title: 'Treat realtime delivery as acceleration, not the source of truth.', body: 'Durable persistence defines what happened; realtime transport makes that result feel immediate without becoming the authoritative record.' },
+      { title: 'Measure stage boundaries before blaming queries or infrastructure.', body: 'Separating authorization, SQL, media signing, fan-out, and rendering turned vague slowness into evidence that could guide a reversible response.' },
+      { title: 'Design retries, deletion, and moderation as recoverable state transitions.', body: 'Stable identities, explicit statuses, retained resolutions, and idempotent jobs let the system recover without hiding uncertainty from operators or users.' },
     ],
   },
   {
