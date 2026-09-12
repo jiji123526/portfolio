@@ -1,61 +1,24 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 export function MotionEffects() {
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
     const root = document.documentElement;
     if (root.dataset.transition === 'leaving') {
-      root.dataset.transition = 'entering';
-      const frame = window.requestAnimationFrame(() => { root.dataset.transition = 'ready'; });
+      root.dataset.transition = 'preparing';
+      void root.offsetWidth;
+      const frame = window.requestAnimationFrame(() => {
+        root.dataset.transition = 'ready';
+        window.setTimeout(() => { delete root.dataset.transitionDirection; }, 560);
+      });
       return () => window.cancelAnimationFrame(frame);
     }
     root.dataset.transition = 'ready';
   }, [pathname]);
-
-  useEffect(() => {
-    let timer = 0;
-    const navigate = (event: MouseEvent) => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = event.target as Element | null;
-      const anchor = target?.closest<HTMLAnchorElement>('a[href]');
-      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
-      const url = new URL(anchor.href, window.location.href);
-      if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
-      event.preventDefault();
-      const direction = url.pathname === '/' || anchor.closest('.case-nav-inner')?.querySelector('a') === anchor ? 'back' : 'forward';
-      document.documentElement.dataset.transitionDirection = direction;
-
-      const transitionDocument = document as Document & {
-        startViewTransition?: (update: () => Promise<void>) => { finished: Promise<void> };
-      };
-      if (transitionDocument.startViewTransition) {
-        const transition = transitionDocument.startViewTransition(async () => {
-          router.push(`${url.pathname}${url.search}${url.hash}`);
-          await new Promise<void>((resolve) => {
-            const started = performance.now();
-            const waitForRoute = () => {
-              if (window.location.pathname === url.pathname || performance.now() - started > 1800) resolve();
-              else window.requestAnimationFrame(waitForRoute);
-            };
-            waitForRoute();
-          });
-        });
-        const clearDirection = () => { delete document.documentElement.dataset.transitionDirection; };
-        transition.finished.then(clearDirection, clearDirection);
-        return;
-      }
-
-      document.documentElement.dataset.transition = 'leaving';
-      timer = window.setTimeout(() => router.push(`${url.pathname}${url.search}${url.hash}`), 520);
-    };
-    document.addEventListener('click', navigate);
-    return () => { document.removeEventListener('click', navigate); window.clearTimeout(timer); };
-  }, [router]);
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { projects } from '@/lib/project-data';
 import { ExternalArrow } from '@/components/external-arrow';
+import { TransitionLink } from '@/components/transition-link';
 import { MotionEffects } from './motion-effects';
 
 const ArrowCircle = () => (
@@ -39,11 +40,11 @@ export default function Home() {
         <div className="section-label reveal"><p className="eyebrow" id="selected-projects">SELECTED LANGUAGE &amp; AI SYSTEMS</p><span /></div>
         <div className="project-grid">
           {projects.map((project, index) => (
-            <Link className={`project-card tone-${index + 1} reveal`} href={`/work/${project.slug}`} key={project.slug}>
+            <TransitionLink className={`project-card tone-${index + 1} reveal`} href={`/work/${project.slug}`} key={project.slug} direction="forward">
               <div className="project-meta"><span className="metric-badge">{project.metric}</span><span className="sr-only">{project.category}</span></div>
               <div className="project-heading"><div><h2>{project.title}</h2><p>{project.summary}</p></div><ArrowCircle /></div>
               <div className="project-art" aria-hidden="true"><div className="art-window"><span /><span /><span /></div></div>
-            </Link>
+            </TransitionLink>
           ))}
         </div>
       </section>

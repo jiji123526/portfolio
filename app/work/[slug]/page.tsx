@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
+import { TransitionLink } from '@/components/transition-link';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
 
@@ -18,8 +18,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <MotionEffects />
       <nav className="case-top-nav" aria-label="Project navigation">
         <div className="case-nav-inner">
-          <Link href="/"><span aria-hidden="true">&#8249;</span> Home</Link>
-          <Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8250;</span></Link>
+          <TransitionLink href="/" direction="back"><span aria-hidden="true">&#8249;</span> Home</TransitionLink>
+          <TransitionLink href={`/work/${nextProject.slug}`} direction="forward">Next project <span aria-hidden="true">&#8250;</span></TransitionLink>
         </div>
       </nav>
 
@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="impact-block"><div className="shell impact-grid"><div><p className="eyebrow">IMPACT</p><h2>{project.impact}</h2></div><div><p className="eyebrow">{project.impactLabel ?? 'WHAT SHIPPED'}</p><p>{project.impactBody ?? 'Progress came from making uncertainty visible, testing early, and giving every stakeholder a clear role in the process.'}</p></div></div></section>
 
       {project.takeaways && <section className="takeaways shell case-section"><p className="eyebrow">TAKEAWAYS</p><h2>What building the product changed in my practice</h2><div className="takeaway-list">{project.takeaways.map((item, i) => <details className="reveal" key={item.title} open={i === 0}><summary><span>{item.title}</span><b aria-hidden="true">+</b></summary><p>{item.body}</p></details>)}</div></section>}
-      <section className="next-project shell"><Link href="/">Home</Link><Link href={`/work/${nextProject.slug}`}>Next project <span aria-hidden="true">&#8594;</span></Link></section>
+      <section className="next-project shell"><TransitionLink href="/" direction="back">Home</TransitionLink><TransitionLink href={`/work/${nextProject.slug}`} direction="forward">Next project <span aria-hidden="true">&#8594;</span></TransitionLink></section>
       <footer className="footer shell"><nav className="text-links"><a href="mailto:jiwoo315@ucla.edu">Contact me</a><a href="https://github.com/jiji123526" target="_blank" rel="noreferrer">GitHub <ExternalArrow /></a></nav><p>Copyright © 2026 Jiwoo Jeong</p></footer>
     </main>
   );
