@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { TransitionLink } from '@/components/transition-link';
+import { YapSystemDiagram } from '@/components/yap-system-diagram';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
 
@@ -17,6 +18,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const operations = project.platformOperations;
   const incidents = project.incidents;
   const isJangoing = project.slug === 'jangoing-kitchen-intelligence';
+  const isYap = project.slug === 'yap-anonymous-chat';
 
   return (
     <main className="case-study">
@@ -63,7 +65,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.limitation && <section className="limitation-block reveal"><div className="shell case-section"><p className="eyebrow">LIMITATION</p><h2>{project.limitation.title}</h2><p className="limitation-copy">{project.limitation.body}</p><div className="tension-grid"><article><span>THE VALUE</span><p>{project.limitation.tension[0]}</p></article><article><span>THE RESPONSIBILITY</span><p>{project.limitation.tension[1]}</p></article></div></div></section>}
 
-      {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p>{project.architecture.detail && <p>{project.architecture.detail}</p>}</div><div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
+      {project.architecture && <section className={`architecture shell case-section reveal ${isYap ? 'yap-architecture' : ''}`}><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p>{project.architecture.detail && <p>{project.architecture.detail}</p>}</div>{isYap ? <YapSystemDiagram /> : <div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div>}</section>}
 
       {operations && <section className="operations-block reveal"><div className="shell case-section"><p className="eyebrow">PLATFORM OPERATIONS</p><h2>{operations.title}</h2><p className="operations-intro">{operations.intro}</p><div className="operations-grid">{operations.cards.map((card, i) => <article key={card.title}><span>0{i + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div><aside className="operations-boundary"><span>SECURITY BOUNDARY</span><h3>{operations.boundary.title}</h3><p>{operations.boundary.body}</p></aside></div></section>}
 
