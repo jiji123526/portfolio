@@ -84,9 +84,65 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
     </section>
 
     <section className="safety-path language-tint reveal"><div className="shell case-section">
-      <p className="eyebrow">TEXT-TO-RASPBERRY-PI PATH</p><h2>Text-first evaluation keeps future speech errors diagnosable.</h2>
-      <p className="section-compact-copy">Once the English benchmark is stable, controlled speech and Korean-English evaluation can lead to the Raspberry Pi interaction surface. ASR and language-understanding errors remain independently measurable throughout that transition.</p>
-      <div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture?.nodes ?? []).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture?.mediaNote}</p></div>
+      <p className="eyebrow">CURRENT SYSTEM + FUTURE DEVICE PATH</p><h2>The input surface changes; the action, safety, and learning loops stay the same.</h2>
+      <p className="system-diagram-caption">Jangoing currently collects and evaluates typed English interactions through the multi-user web MVP. The future Raspberry Pi and ASR layer will reuse the same structured-action contract, confirmation gate, household state, and evaluation loop.</p>
+      <div className="system-loop-diagram" aria-label="Jangoing product runtime and language-learning feedback loop">
+        <div className="diagram-legend" aria-label="Diagram legend">
+          <span><i className="legend-current" />Current</span>
+          <span><i className="legend-future" />Future</span>
+          <span><i className="legend-learning" />Learning feedback</span>
+        </div>
+
+        <section className="system-lane product-lane" aria-labelledby="product-lane-title">
+          <p id="product-lane-title" className="lane-label">PRODUCT INTERACTION</p>
+          <div className="input-convergence">
+            <div className="input-routes">
+              <article className="diagram-node current-node"><span>CURRENT</span><strong>Web MVP</strong><small>Typed natural-language input</small></article>
+              <div className="future-input-route">
+                <article className="diagram-node future-node"><span>FUTURE</span><strong>Raspberry Pi</strong><small>Microphone + speaker</small></article>
+                <i className="flow-arrow future-arrow" aria-hidden="true">→</i>
+                <article className="diagram-node future-node compact-node"><span>FUTURE</span><strong>ASR</strong><small>Speech to text</small></article>
+              </div>
+            </div>
+            <i className="flow-arrow convergence-arrow" aria-hidden="true">→</i>
+            <div className="interpretation-stack">
+              <article className="diagram-node interpretation-node"><strong>Language interpretation</strong><small>Deterministic English-first now</small><small className="future-copy">Contextual model later</small></article>
+              <div className="context-feed"><i aria-hidden="true">↑</i><article className="diagram-node context-node"><strong>Household context &amp; permissions</strong><small>User · membership · authorized household</small><small>Inventory · shopping state</small></article></div>
+            </div>
+          </div>
+
+          <i className="vertical-arrow" aria-hidden="true">↓</i>
+          <div className="shared-action-path">
+            <article className="diagram-node current-node"><strong>Structured action contract</strong></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Review / confirmation</strong><small>Required before mutation</small></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Worker API + D1</strong><small>Authorized event + state path</small></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <div className="projection-split">
+              <article className="diagram-node current-node compact-node"><strong>Inventory projection</strong></article>
+              <article className="diagram-node current-node compact-node"><strong>Shopping-list projection</strong></article>
+            </div>
+          </div>
+          <div className="future-outputs"><span>OPTIONAL FUTURE OUTPUTS</span><article className="diagram-node future-node compact-node">Spoken clarification</article><article className="diagram-node future-node compact-node">Recommendations + verified deals</article></div>
+        </section>
+
+        <section className="system-lane learning-lane" aria-labelledby="learning-lane-title">
+          <div className="lane-heading"><p id="learning-lane-title" className="lane-label">LANGUAGE-LEARNING LOOP</p><span>FROM INTERPRETATION + REVIEW</span></div>
+          <div className="learning-path">
+            <article className="diagram-node current-node"><strong>Inference + outcome logs</strong></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Annotation queue routing</strong><small>9 overlapping purpose-specific queues</small></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Human review</strong><small>Relevance · actions · spans · normalization</small></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Versioned JSONL datasets</strong><small>Training candidates · evaluation candidates</small></article>
+            <i className="flow-arrow" aria-hidden="true">→</i>
+            <article className="diagram-node current-node"><strong>Baseline training + evaluation</strong><small>TF-IDF now · contextual experiments later</small></article>
+          </div>
+          <div className="learning-return"><i aria-hidden="true">↖</i><span>Promote only after reviewed evaluation</span></div>
+        </section>
+      </div>
     </div></section>
 
     <section className="roadmap-section shell case-section reveal">
