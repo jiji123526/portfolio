@@ -19,7 +19,7 @@ const edges: { id: EdgeId; path: string; nodes: NodeId[]; core?: boolean }[] = [
   { id: 'next-worker', path: 'M 460 90 H 540', nodes: ['next', 'worker'], core: true },
   { id: 'worker-d1', path: 'M 720 90 H 800', nodes: ['worker', 'd1'], core: true },
   { id: 'd1-do', path: 'M 890 140 V 190', nodes: ['d1', 'do'] },
-  { id: 'do-browser', path: 'M 800 240 H 760 V 405 H 110 V 140', nodes: ['do', 'browser'] },
+  { id: 'do-browser', path: 'M 800 240 H 760 V 405 H 110 V 152', nodes: ['do', 'browser'] },
   { id: 'worker-r2', path: 'M 630 140 V 295', nodes: ['worker', 'r2'] },
 ];
 
@@ -89,7 +89,6 @@ export function YapSystemDiagram() {
         </defs>
         {edges.map((edge) => <g key={edge.id} className={`yap-edge ${edge.core ? 'is-core' : ''} ${isEdgeActive(edge.id) ? 'is-active' : ''} ${active && !isEdgeActive(edge.id) ? 'is-muted' : ''}`}>
           <path d={edge.path} markerEnd={`url(#${isEdgeActive(edge.id) ? 'yap-arrow-active' : 'yap-arrow'})`} />
-          {isEdgeActive(edge.id) && <circle r="4" className="yap-route-dot" key={`${active}-${edge.id}`}><animateMotion dur=".72s" repeatCount="1" fill="freeze" path={edge.path} /></circle>}
         </g>)}
       </svg>
       <span className="yap-path-label request-label">HTTP REQUEST</span><span className="yap-path-label commit-label">COMMIT FIRST</span><span className="yap-path-label fanout-label">WEBSOCKET · REALTIME FAN-OUT</span><span className="yap-path-label media-label">MEDIA</span>
@@ -108,6 +107,6 @@ export function YapSystemDiagram() {
       </div>
     </div>
 
-    <div className="yap-diagram-detail" aria-live="polite"><span>{pinned ? 'PINNED PATH' : active ? 'ACTIVE PATH' : 'SYSTEM PRINCIPLE'}</span><p>{active ? nodes[active].detail : 'D1 defines what happened; realtime delivery and protected media remain downstream acceleration layers.'}</p></div>
+    <div className="yap-diagram-detail" aria-live="polite"><span>{pinned ? 'PINNED PATH' : active ? 'ACTIVE PATH' : 'SYSTEM PRINCIPLE'}</span><p>{active ? nodes[active].detail : 'D1 defines the durable conversation record; Durable Objects accelerate delivery, while R2 stores protected media behind scoped access.'}</p></div>
   </div>;
 }
