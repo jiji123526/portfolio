@@ -15,19 +15,19 @@ const nodes: Record<NodeId, { role: string; tech: string; note: string; detail: 
 };
 
 const edges: { id: EdgeId; path: string; nodes: NodeId[]; core?: boolean }[] = [
-  { id: 'browser-next', path: 'M 200 120 H 280', nodes: ['browser', 'next'], core: true },
-  { id: 'next-worker', path: 'M 460 120 H 540', nodes: ['next', 'worker'], core: true },
-  { id: 'worker-d1', path: 'M 720 120 H 800', nodes: ['worker', 'd1'], core: true },
-  { id: 'd1-do', path: 'M 890 170 V 245', nodes: ['d1', 'do'] },
-  { id: 'do-browser', path: 'M 800 295 H 760 V 485 H 110 V 170', nodes: ['do', 'browser'] },
-  { id: 'worker-r2', path: 'M 630 170 V 360', nodes: ['worker', 'r2'] },
+  { id: 'browser-next', path: 'M 200 90 H 280', nodes: ['browser', 'next'], core: true },
+  { id: 'next-worker', path: 'M 460 90 H 540', nodes: ['next', 'worker'], core: true },
+  { id: 'worker-d1', path: 'M 720 90 H 800', nodes: ['worker', 'd1'], core: true },
+  { id: 'd1-do', path: 'M 890 140 V 190', nodes: ['d1', 'do'] },
+  { id: 'do-browser', path: 'M 800 240 H 760 V 405 H 110 V 140', nodes: ['do', 'browser'] },
+  { id: 'worker-r2', path: 'M 630 140 V 295', nodes: ['worker', 'r2'] },
 ];
 
 const nodeEdges: Record<NodeId, EdgeId[]> = {
   browser: ['browser-next', 'next-worker'],
   next: ['browser-next', 'next-worker'],
   worker: ['browser-next', 'next-worker', 'worker-d1', 'd1-do', 'do-browser', 'worker-r2'],
-  d1: ['worker-d1', 'd1-do', 'do-browser'],
+  d1: ['browser-next', 'next-worker', 'worker-d1', 'd1-do', 'do-browser'],
   do: ['worker-d1', 'd1-do', 'do-browser'],
   r2: ['browser-next', 'next-worker', 'worker-r2'],
 };
@@ -82,14 +82,17 @@ export function YapSystemDiagram() {
     <div className="yap-diagram-head"><div><span>REQUEST</span><i /><span>COMMIT</span><i /><span>DELIVER</span></div><p>Hover to trace · click to pin</p></div>
 
     <div className="yap-desktop-graph">
-      <svg className="yap-graph-lines" viewBox="0 0 1000 520" preserveAspectRatio="none">
-        <defs><marker id="yap-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" /></marker></defs>
+      <svg className="yap-graph-lines" viewBox="0 0 1000 430" preserveAspectRatio="none">
+        <defs>
+          <marker id="yap-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" /></marker>
+          <marker id="yap-arrow-active" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" /></marker>
+        </defs>
         {edges.map((edge) => <g key={edge.id} className={`yap-edge ${edge.core ? 'is-core' : ''} ${isEdgeActive(edge.id) ? 'is-active' : ''} ${active && !isEdgeActive(edge.id) ? 'is-muted' : ''}`}>
-          <path d={edge.path} markerEnd="url(#yap-arrow)" />
+          <path d={edge.path} markerEnd={`url(#${isEdgeActive(edge.id) ? 'yap-arrow-active' : 'yap-arrow'})`} />
           {isEdgeActive(edge.id) && <circle r="4" className="yap-route-dot" key={`${active}-${edge.id}`}><animateMotion dur=".72s" repeatCount="1" fill="freeze" path={edge.path} /></circle>}
         </g>)}
       </svg>
-      <span className="yap-path-label request-label">REQUEST</span><span className="yap-path-label commit-label">COMMIT FIRST</span><span className="yap-path-label fanout-label">REALTIME FAN-OUT</span><span className="yap-path-label media-label">MEDIA</span>
+      <span className="yap-path-label request-label">HTTP REQUEST</span><span className="yap-path-label commit-label">COMMIT FIRST</span><span className="yap-path-label fanout-label">WEBSOCKET · REALTIME FAN-OUT</span><span className="yap-path-label media-label">MEDIA</span>
       {nodeOrder.map((id) => nodeButton(id))}
     </div>
 
