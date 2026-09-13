@@ -84,64 +84,53 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
     </section>
 
     <section className="safety-path language-tint reveal"><div className="shell case-section">
-      <p className="eyebrow">CURRENT SYSTEM + FUTURE DEVICE PATH</p><h2>The input surface changes; the action, safety, and learning loops stay the same.</h2>
-      <p className="system-diagram-caption">Jangoing currently collects and evaluates typed English interactions through the multi-user web MVP. The future Raspberry Pi and ASR layer will reuse the same structured-action contract, confirmation gate, household state, and evaluation loop.</p>
-      <div className="system-loop-diagram" aria-label="Jangoing product runtime and language-learning feedback loop">
-        <div className="diagram-legend" aria-label="Diagram legend">
-          <span><i className="legend-current" />Current</span>
-          <span><i className="legend-future" />Future</span>
-          <span><i className="legend-learning" />Learning feedback</span>
-        </div>
+      <p className="eyebrow">CURRENT SYSTEM + REVIEWED LEARNING LOOP</p><h2>One reviewed interaction updates household state and improves the next model.</h2>
+      <p className="review-diagram-caption">The current web MVP collects typed interactions and user corrections. The future Raspberry Pi changes the input surface, while the same structured proposal, authorization, household-state, and reviewed learning paths remain in place.</p>
+      <div className="review-loop-diagram" aria-label="Jangoing reviewed interaction, product-state, and language-learning loop">
+        <div className="review-diagram-legend" aria-label="Diagram legend"><span><i />Current</span><span><i className="future" />Future</span><span><i className="feedback" />Reviewed learning feedback</span></div>
 
-        <section className="system-lane product-lane" aria-labelledby="product-lane-title">
-          <p id="product-lane-title" className="lane-label">PRODUCT INTERACTION</p>
-          <div className="input-convergence">
-            <div className="input-routes">
-              <article className="diagram-node current-node"><span>CURRENT</span><strong>Web MVP</strong><small>Typed natural-language input</small></article>
-              <div className="future-input-route">
-                <article className="diagram-node future-node"><span>FUTURE</span><strong>Raspberry Pi</strong><small>Microphone + speaker</small></article>
-                <i className="flow-arrow future-arrow" aria-hidden="true">→</i>
-                <article className="diagram-node future-node compact-node"><span>FUTURE</span><strong>ASR</strong><small>Speech to text</small></article>
-              </div>
-            </div>
-            <i className="flow-arrow convergence-arrow" aria-hidden="true">→</i>
-            <div className="interpretation-stack">
-              <article className="diagram-node interpretation-node"><strong>Language interpretation</strong><small>Deterministic English-first now</small><small className="future-copy">Contextual model later</small></article>
-              <div className="context-feed"><i aria-hidden="true">↑</i><article className="diagram-node context-node"><strong>Household context &amp; permissions</strong><small>User · membership · authorized household</small><small>Inventory · shopping state</small></article></div>
-            </div>
+        <section className="review-input-stage" aria-label="Input surfaces and language layer">
+          <div className="review-inputs">
+            <article className="review-node"><span>CURRENT</span><strong>Web MVP</strong><small>Typed user input</small></article>
+            <div className="future-device-path"><article className="review-node future"><span>FUTURE</span><strong>Raspberry Pi</strong><small>Spoken user input</small></article><i aria-hidden="true">→</i><article className="review-node future"><span>FUTURE</span><strong>ASR</strong><small>Speech to text</small></article></div>
           </div>
-
-          <i className="vertical-arrow" aria-hidden="true">↓</i>
-          <div className="shared-action-path">
-            <article className="diagram-node current-node"><strong>Structured action contract</strong></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Review / confirmation</strong><small>Required before mutation</small></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Worker API + D1</strong><small>Authorized event + state path</small></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <div className="projection-split">
-              <article className="diagram-node current-node compact-node"><strong>Inventory projection</strong></article>
-              <article className="diagram-node current-node compact-node"><strong>Shopping-list projection</strong></article>
-            </div>
+          <i className="review-flow-arrow input-arrow" aria-hidden="true">→</i>
+          <div className="language-layer-group">
+            <article className="review-node language-layer"><span>SHARED LANGUAGE LAYER</span><strong>Language layer</strong><small>Deterministic English-first now</small><small className="future-copy">Trained contextual model later</small><b className="feedback-port" aria-hidden="true" /></article>
+            <div className="context-sidecar"><i aria-hidden="true">←</i><article className="review-node"><span>GROUNDED CONTEXT</span><strong>Authorized household context</strong><small>User · membership · permissions</small><small>Inventory · shopping state</small></article></div>
           </div>
-          <div className="future-outputs"><span>OPTIONAL FUTURE OUTPUTS</span><article className="diagram-node future-node compact-node">Spoken clarification</article><article className="diagram-node future-node compact-node">Recommendations + verified deals</article></div>
         </section>
 
-        <section className="system-lane learning-lane" aria-labelledby="learning-lane-title">
-          <div className="lane-heading"><p id="learning-lane-title" className="lane-label">LANGUAGE-LEARNING LOOP</p><span>FROM INTERPRETATION + REVIEW</span></div>
-          <div className="learning-path">
-            <article className="diagram-node current-node"><strong>Inference + outcome logs</strong></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Annotation queue routing</strong><small>9 overlapping purpose-specific queues</small></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Human review</strong><small>Relevance · actions · spans · normalization</small></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Versioned JSONL datasets</strong><small>Training candidates · evaluation candidates</small></article>
-            <i className="flow-arrow" aria-hidden="true">→</i>
-            <article className="diagram-node current-node"><strong>Baseline training + evaluation</strong><small>TF-IDF now · contextual experiments later</small></article>
+        <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
+        <article className="review-node central-review-node"><span>CENTRAL REVIEW GATE</span><strong>Structured proposal + user review</strong><small>Structured-action contract · editable confirmation before state mutation</small></article>
+        <div className="review-branch-fork" aria-hidden="true"><i /><i /><i /></div>
+
+        <div className="review-branches">
+          <section className="review-branch product-state-branch" aria-labelledby="product-state-path"><p id="product-state-path">PRODUCT STATE PATH</p><span className="branch-origin">CONFIRMED ACTION</span><div className="vertical-review-flow">
+            <article className="review-node"><strong>Authorization + Worker API</strong></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>Append-only household event</strong><small>D1 durable record</small></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>Inventory and shopping projections</strong><small>Shared household state</small></article>
+          </div></section>
+
+          <section className="review-branch learning-evidence-branch" aria-labelledby="learning-evidence-path"><p id="learning-evidence-path">LEARNING EVIDENCE PATH</p><span className="branch-origin">PREDICTION + USER OUTCOME</span><div className="vertical-review-flow evidence-flow">
+            <article className="review-node"><strong>Inference logging</strong></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>9 annotation queues</strong><small>Routing priority, not dataset split</small></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>Human review</strong><small>Relevance · actions · spans · normalization</small></article><i aria-hidden="true">↓</i>
+            <article className="review-node reviewed-corpus"><strong>Versioned reviewed corpus</strong></article>
           </div>
-          <div className="learning-return"><i aria-hidden="true">↖</i><span>Promote only after reviewed evaluation</span></div>
-        </section>
+
+          <div className="corpus-fork" aria-hidden="true"><i /><i /><i /></div>
+          <div className="dataset-splits">
+            <div><article className="review-node"><span>TRAINING ONLY</span><strong>Training split</strong></article><i aria-hidden="true">↓</i><article className="review-node"><strong>Candidate model</strong></article></div>
+            <div><article className="review-node"><span>HELD OUT</span><strong>Frozen evaluation split</strong><small>Never used for training</small></article></div>
+          </div>
+          <div className="evaluation-convergence" aria-hidden="true"><i /><span>candidate</span><i /><span>frozen evaluation</span></div>
+          <article className="review-node evaluation-gate"><strong>Evaluation gate</strong><small>Candidate tested on frozen reviewed evidence</small></article><i className="review-flow-arrow downward" aria-hidden="true">↓</i>
+          <article className="review-node approved-model"><span>PASSED REVIEWED EVALUATION</span><strong>Approved model version</strong><b className="feedback-port" aria-hidden="true" /></article>
+        </section></div>
+
+        <div className="review-feedback-return" aria-hidden="true"><span>Deploy approved model</span><i /></div>
+        <p className="review-loop-label">interact → review → annotate → train → evaluate → deploy → interact again</p>
       </div>
     </div></section>
 
