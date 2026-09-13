@@ -49,7 +49,6 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
       <div className="product-environment-grid">{productEnvironmentCards.map((card, index) => <article key={card.title}><span>0{index + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
       <aside className="language-context-note"><span>LANGUAGE CONTEXT NOTE</span><p>Household identity is part of the language problem. A request must be grounded in the correct user, membership, permissions, inventory state, and prior household context before it can safely become an action.</p></aside>
       <p className="current-future-copy">The current MVP uses a deterministic English-first interpreter. Once the trained model is ready, it can replace that interpreter behind the same structured action contract while the existing authentication, confirmation, event, and shared-state workflows remain in place.</p>
-      <div className="current-future-flow"><article><span>TODAY</span><p>Natural-language input <i>→</i> deterministic interpretation <i>→</i> editable proposal <i>→</i> confirmation or correction <i>→</i> shared inventory update <i>→</i> logged evidence</p></article><article><span>LATER</span><p>Everyday conversation <i>→</i> trained contextual language model <i>→</i> editable or spoken proposal <i>→</i> user confirmation <i>→</i> shared household update <i>→</i> continued production evaluation</p></article></div>
     </div></section>
 
     <section className="language-problem shell case-section reveal">
@@ -92,7 +91,7 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
         <section className="review-input-stage" aria-label="Input surfaces and language layer">
           <div className="review-inputs">
             <article className="review-node"><span>CURRENT</span><strong>Web MVP</strong><small>Typed user input</small></article>
-            <div className="future-device-path"><article className="review-node future"><span>FUTURE</span><strong>Raspberry Pi</strong><small>Spoken user input</small></article><i aria-hidden="true">→</i><article className="review-node future"><span>FUTURE</span><strong>ASR</strong><small>Speech to text</small></article></div>
+            <div className="future-device-path"><article className="review-node future"><span>FUTURE</span><strong>Raspberry Pi</strong><small>Spoken user input</small></article><i aria-hidden="true">→</i><article className="review-node future"><span>FUTURE</span><strong>ASR</strong><small>Speech to text</small></article><i className="asr-language-arrow" aria-hidden="true">→</i></div>
           </div>
           <i className="review-flow-arrow input-arrow" aria-hidden="true">→</i>
           <div className="language-layer-group">
@@ -131,9 +130,9 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
 
         <svg className="review-feedback-svg" viewBox="0 0 1000 1530" preserveAspectRatio="none" aria-hidden="true">
           <defs><marker id="review-feedback-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" /></marker></defs>
-          <path d="M914 1388 H958 Q975 1388 975 1371 V104 Q975 87 958 87 H672 Q655 87 655 104 V114" markerEnd="url(#review-feedback-arrow)" />
-          <text x="988" y="760" transform="rotate(90 988 760)">Deploy approved model</text>
+          <path d="M914 1388 H958 Q975 1388 975 1371 V79 Q975 62 958 62 H672 Q655 62 655 79 V108" markerEnd="url(#review-feedback-arrow)" />
         </svg>
+        <span className="review-feedback-label">Deploy approved model</span>
         <p className="mobile-feedback-return"><span aria-hidden="true">↑</span> Deploy approved model to Language layer</p>
         <p className="review-loop-label">interact → review → annotate → train → evaluate → deploy → interact again</p>
       </div>
