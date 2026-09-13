@@ -96,26 +96,26 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
           </div>
           <i className="review-flow-arrow input-arrow" aria-hidden="true">→</i>
           <div className="language-layer-group">
-            <article className="review-node language-layer"><span>SHARED LANGUAGE LAYER</span><strong>Language layer</strong><small>Deterministic English-first now</small><small className="future-copy">Trained contextual model later</small><b className="feedback-port" aria-hidden="true" /></article>
+            <article className="review-node language-layer"><span>SHARED LANGUAGE LAYER</span><strong>Language layer</strong><small>English-first rules now</small><small className="future-copy">Contextual model later</small><b className="feedback-port" aria-hidden="true" /></article>
             <div className="context-sidecar"><i aria-hidden="true">←</i><article className="review-node"><span>GROUNDED CONTEXT</span><strong>Authorized household context</strong><small>User · membership · permissions</small><small>Inventory · shopping state</small></article></div>
           </div>
         </section>
 
         <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-        <article className="review-node central-review-node"><span>CENTRAL REVIEW GATE</span><strong>Structured proposal + user review</strong><small>Structured-action contract · editable confirmation before state mutation</small></article>
+        <article className="review-node central-review-node"><span>CENTRAL REVIEW GATE</span><strong>Structured proposal + user review</strong><small>Structured-action contract · confirm before mutation</small></article>
         <div className="review-branch-fork" aria-hidden="true"><i /><i /><i /></div>
 
         <div className="review-branches">
           <section className="review-branch product-state-branch" aria-labelledby="product-state-path"><p id="product-state-path">PRODUCT STATE PATH</p><span className="branch-origin">CONFIRMED ACTION</span><div className="vertical-review-flow">
             <article className="review-node"><strong>Authorization + Worker API</strong></article><i aria-hidden="true">↓</i>
-            <article className="review-node"><strong>Append-only household event</strong><small>D1 durable record</small></article><i aria-hidden="true">↓</i>
-            <article className="review-node"><strong>Inventory and shopping projections</strong><small>Shared household state</small></article>
+            <article className="review-node"><strong>Append-only household event</strong></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>Inventory and shopping projections</strong></article>
           </div></section>
 
-          <section className="review-branch learning-evidence-branch" aria-labelledby="learning-evidence-path"><p id="learning-evidence-path">LEARNING EVIDENCE PATH</p><span className="branch-origin">PREDICTION + USER OUTCOME</span><div className="vertical-review-flow evidence-flow">
+          <section className="review-branch learning-evidence-branch" aria-labelledby="learning-evidence-path"><p id="learning-evidence-path">LEARNING EVIDENCE PATH</p><span className="branch-origin">PROPOSED INTERPRETATION + REVIEWED OUTCOME</span><div className="vertical-review-flow evidence-flow">
             <article className="review-node"><strong>Inference logging</strong></article><i aria-hidden="true">↓</i>
-            <article className="review-node"><strong>9 annotation queues</strong><small>Routing priority, not dataset split</small></article><i aria-hidden="true">↓</i>
-            <article className="review-node"><strong>Human review</strong><small>Relevance · actions · spans · normalization</small></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>9 annotation queues</strong><small>Routing, not splitting</small></article><i aria-hidden="true">↓</i>
+            <article className="review-node"><strong>Human review</strong><small>Actions · spans · normalization</small></article><i aria-hidden="true">↓</i>
             <article className="review-node reviewed-corpus"><strong>Versioned reviewed corpus</strong></article>
           </div>
 
@@ -125,7 +125,7 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
             <div><article className="review-node"><span>HELD OUT</span><strong>Frozen evaluation split</strong><small>Never used for training</small></article></div>
           </div>
           <div className="evaluation-convergence" aria-hidden="true"><i /><span>candidate</span><i /><span>frozen evaluation</span></div>
-          <article className="review-node evaluation-gate"><strong>Evaluation gate</strong><small>Candidate tested on frozen reviewed evidence</small></article><i className="review-flow-arrow downward" aria-hidden="true">↓</i>
+          <article className="review-node evaluation-gate"><strong>Evaluation gate</strong><small>Candidate × frozen evaluation</small></article><i className="review-flow-arrow downward" aria-hidden="true">↓</i>
           <article className="review-node approved-model"><span>PASSED REVIEWED EVALUATION</span><strong>Approved model version</strong><b className="feedback-port" aria-hidden="true" /></article>
         </section></div>
 
