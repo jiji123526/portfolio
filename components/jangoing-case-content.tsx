@@ -96,7 +96,7 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
           </div>
           <i className="review-flow-arrow input-arrow" aria-hidden="true">→</i>
           <div className="language-layer-group">
-            <article className="review-node language-layer"><span>SHARED LANGUAGE LAYER</span><strong>Language layer</strong><small>English-first rules now</small><small className="future-copy">Contextual model later</small><b className="feedback-port" aria-hidden="true" /></article>
+            <article className="review-node language-layer"><span>SHARED LANGUAGE LAYER</span><strong>Language layer</strong><small>English-first rules now</small><small className="future-copy">Contextual model later</small></article>
             <div className="context-sidecar"><i aria-hidden="true">←</i><article className="review-node"><span>GROUNDED CONTEXT</span><strong>Authorized household context</strong><small>User · membership · permissions</small><small>Inventory · shopping state</small></article></div>
           </div>
         </section>
@@ -124,12 +124,17 @@ export function JangoingCaseContent({ project, projectIndex }: Props) {
             <div><article className="review-node"><span>TRAINING ONLY</span><strong>Training split</strong></article><i aria-hidden="true">↓</i><article className="review-node"><strong>Candidate model</strong></article></div>
             <div><article className="review-node"><span>HELD OUT</span><strong>Frozen evaluation split</strong><small>Never used for training</small></article></div>
           </div>
-          <div className="evaluation-convergence" aria-hidden="true"><i /><span>candidate</span><i /><span>frozen evaluation</span></div>
+          <div className="evaluation-convergence" aria-hidden="true"><i /><i /></div>
           <article className="review-node evaluation-gate"><strong>Evaluation gate</strong><small>Candidate × frozen evaluation</small></article><i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-          <article className="review-node approved-model"><span>PASSED REVIEWED EVALUATION</span><strong>Approved model version</strong><b className="feedback-port" aria-hidden="true" /></article>
+          <article className="review-node approved-model"><span>PASSED REVIEWED EVALUATION</span><strong>Approved model version</strong></article>
         </section></div>
 
-        <div className="review-feedback-return" aria-hidden="true"><span>Deploy approved model</span><i /></div>
+        <svg className="review-feedback-svg" viewBox="0 0 1000 1530" preserveAspectRatio="none" aria-hidden="true">
+          <defs><marker id="review-feedback-arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" /></marker></defs>
+          <path d="M914 1388 H958 Q975 1388 975 1371 V104 Q975 87 958 87 H672 Q655 87 655 104 V114" markerEnd="url(#review-feedback-arrow)" />
+          <text x="988" y="760" transform="rotate(90 988 760)">Deploy approved model</text>
+        </svg>
+        <p className="mobile-feedback-return"><span aria-hidden="true">↑</span> Deploy approved model to Language layer</p>
         <p className="review-loop-label">interact → review → annotate → train → evaluate → deploy → interact again</p>
       </div>
     </div></section>
