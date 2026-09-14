@@ -39,7 +39,7 @@ export default function Home() {
       </section>
 
       <section className="projects shell" aria-labelledby="selected-projects">
-        <div className="section-label reveal"><p className="eyebrow" id="selected-projects">SELECTED LANGUAGE &amp; AI SYSTEMS</p><span /></div>
+        <div className="section-label reveal"><p className="eyebrow" id="selected-projects">SELECTED PROJECTS</p><span /></div>
         <div className="project-grid">
           {projects.map((project, index) => (
             <TransitionLink className={`project-card tone-${index + 1} reveal`} href={`/work/${project.slug}`} key={project.slug} direction="forward">
