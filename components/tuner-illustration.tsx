@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 type Props = { src: string };
@@ -16,8 +17,7 @@ export function TunerIllustration({ src }: Props) {
     const context = canvas.getContext('2d');
     if (!context) return;
 
-    const image = new Image();
-    image.src = src;
+    const image = new window.Image();
     const timers: number[] = [];
     let observer: IntersectionObserver | undefined;
     let hasPlayed = false;
@@ -72,6 +72,7 @@ export function TunerIllustration({ src }: Props) {
       }, { threshold: 0.25 });
       observer.observe(root);
     };
+    image.src = src;
 
     const resize = new ResizeObserver(() => image.complete && draw(hasPlayed ? 1 : 72));
     resize.observe(root);
@@ -102,7 +103,8 @@ export function TunerIllustration({ src }: Props) {
 
   return (
     <div ref={rootRef} className="tuner-illustration" onPointerMove={tune} onPointerLeave={reset}>
-      <canvas ref={canvasRef} aria-label="A woman tuning noisy signals into one clear signal" />
+      <Image src={src} alt="A woman tuning noisy signals into one clear signal" fill priority sizes="320px" />
+      <canvas ref={canvasRef} aria-hidden="true" />
       <span className="tuner-noise-wash" aria-hidden="true" />
       <span className="tuner-dial-overlay" aria-hidden="true"><i /></span>
       <span className="tuner-indicator" aria-hidden="true" />

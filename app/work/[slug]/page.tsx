@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { TransitionLink } from '@/components/transition-link';
+import { YapHeroDemo } from '@/components/yap-hero-demo';
 import { YapSystemDiagram } from '@/components/yap-system-diagram';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
@@ -30,23 +31,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </nav>
 
-      <header className="case-opening reveal">
-        <div className="case-opening-inner">
-          <div className="case-opening-copy">
+      {isYap ? (
+        <header className="yap-case-opening">
+          <div className="yap-hero-copy reveal">
             <span className="metric-pill">{project.metric}</span>
             <h1>{project.headline}</h1>
-            {isJangoing && <p className="opening-description">{project.brief}</p>}
             <div className="opening-impact">
               <span>IMPACT</span>
               <strong>{project.impact}</strong>
             </div>
           </div>
-          <div className="case-opening-media magnetic" aria-label="Project media placeholder">
-            <div className="cover-interface"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
-            <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
+          <YapHeroDemo />
+        </header>
+      ) : (
+        <header className="case-opening reveal">
+          <div className="case-opening-inner">
+            <div className="case-opening-copy">
+              <span className="metric-pill">{project.metric}</span>
+              <h1>{project.headline}</h1>
+              {isJangoing && <p className="opening-description">{project.brief}</p>}
+              <div className="opening-impact">
+                <span>IMPACT</span>
+                <strong>{project.impact}</strong>
+              </div>
+            </div>
+            <div className="case-opening-media magnetic" aria-label="Project media placeholder">
+              <div className="cover-interface"><div className="cover-sidebar" /><div className="cover-content"><span /><span /><span /><span /></div></div>
+              <p className="media-note">MEDIA PLACEHOLDER · {project.coverNote ?? 'Project overview and key product moments'}</p>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       <section className="case-meta shell reveal" aria-label="Project details">
         <div className="case-facts">

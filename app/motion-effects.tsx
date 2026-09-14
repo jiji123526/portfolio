@@ -28,6 +28,7 @@ export function MotionEffects() {
       return;
     }
 
+    document.documentElement.classList.add('motion-ready');
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
         if (entry.isIntersecting) {
