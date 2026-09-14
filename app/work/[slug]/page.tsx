@@ -50,7 +50,7 @@ export default async function ProjectPage({
   const isYap = project.slug === 'yap-anonymous-chat';
 
   return (
-    <main className="case-study">
+    <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
       <MotionEffects />
       <nav className="case-top-nav" aria-label="Project navigation">
         <div className="case-nav-inner">
@@ -118,7 +118,10 @@ export default async function ProjectPage({
         </header>
       )}
 
-      <section className="case-meta shell reveal" aria-label="Project details">
+      <section
+        className={`case-meta shell ${isYap ? 'yap-case-meta' : 'reveal'}`}
+        aria-label="Project details"
+      >
         <div className="case-facts">
           <dl>
             <div>

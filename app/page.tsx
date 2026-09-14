@@ -3,6 +3,7 @@ import { projects } from '@/lib/project-data';
 import { ExternalArrow } from '@/components/external-arrow';
 import { TransitionLink } from '@/components/transition-link';
 import { TunerIllustration } from '@/components/tuner-illustration';
+import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
 import { MotionEffects } from './motion-effects';
 
 const ArrowCircle = () => (
@@ -44,7 +45,16 @@ export default function Home() {
             <TransitionLink className={`project-card tone-${index + 1} reveal`} href={`/work/${project.slug}`} key={project.slug} direction="forward">
               <div className="project-meta"><span className="metric-badge">{project.metric}</span><span className="sr-only">{project.category}</span></div>
               <div className="project-heading"><div><h2>{project.title}</h2><p>{project.summary}</p></div><ArrowCircle /></div>
-              <div className="project-art" aria-hidden="true"><div className="art-window"><span /><span /><span /></div></div>
+              <div
+                className={`project-art ${project.slug === 'yap-anonymous-chat' ? 'yap-thumbnail-art' : ''}`}
+                aria-hidden="true"
+              >
+                {project.slug === 'yap-anonymous-chat' ? (
+                  <YapAmbientThumbnail />
+                ) : (
+                  <div className="art-window"><span /><span /><span /></div>
+                )}
+              </div>
             </TransitionLink>
           ))}
         </div>
