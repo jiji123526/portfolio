@@ -74,7 +74,7 @@ export default async function ProjectPage({
                 <span>ANONYMOUS ENTRY, IN ONE STEP</span>
                 <h2>Enter from a shared link and start talking.</h2>
                 <p>
-                  The prepared message runs entirely in this local demo.
+                  This walkthrough is simulated locally and does not send data.
                 </p>
               </div>
               <YapHeroDemo />

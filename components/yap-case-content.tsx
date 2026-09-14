@@ -26,7 +26,7 @@ const constraints = [
     category: 'Trust',
     title: 'Control without widening visibility',
     description:
-      'Moderation authority should stay explicit without exposing private conversation context.',
+      'Moderation authority should stay explicit without broadening access beyond the scoped evidence required for review.',
     diagram: (
       <>
         <span>Guest</span>
@@ -87,7 +87,7 @@ export function YapCaseContent({ project }: { project: Project }) {
   const operations = project.platformOperations!;
   const incidents = project.incidents!;
   const transformationParts = transformation.body.split(' This required ');
-  const migrationParts = transformationParts[1]?.split(' I later ') ?? [];
+  const boundaryAndMigration = transformationParts[1]?.split(' I later ') ?? [];
 
   return (
     <div className="yap-case-content">
@@ -133,9 +133,11 @@ export function YapCaseContent({ project }: { project: Project }) {
               <p>{transformationParts[0]}</p>
               {transformationParts[1] && (
                 <p>
-                  This required {migrationParts[0]}
-                  {migrationParts[1] ? ` I later ${migrationParts[1]}` : ''}
+                  This required {boundaryAndMigration[0]}
                 </p>
+              )}
+              {boundaryAndMigration[1] && (
+                <p>I later {boundaryAndMigration[1]}</p>
               )}
             </div>
           </div>
@@ -220,27 +222,31 @@ export function YapCaseContent({ project }: { project: Project }) {
           <h2>{operations.title}</h2>
           <p className="yap-operations-intro">{operations.intro}</p>
 
-          <div
+          <table
             className="yap-authority-comparison"
             aria-label="Moderation authority comparison"
           >
-            <div className="yap-authority-heading">
-              <span>Channel owner</span>
-              <span>Platform admin</span>
-            </div>
-            <div>
-              <span>Room-level moderation</span>
-              <span>Escalated abuse</span>
-            </div>
-            <div>
-              <span>Local notices</span>
-              <span>Global notices</span>
-            </div>
-            <div>
-              <span>Channel restrictions</span>
-              <span>Platform restrictions</span>
-            </div>
-          </div>
+            <thead>
+              <tr>
+                <th scope="col">Channel owner</th>
+                <th scope="col">Platform admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Room-level moderation</td>
+                <td>Escalated abuse</td>
+              </tr>
+              <tr>
+                <td>Local notices</td>
+                <td>Global notices</td>
+              </tr>
+              <tr>
+                <td>Channel restrictions</td>
+                <td>Platform restrictions</td>
+              </tr>
+            </tbody>
+          </table>
 
           <div
             className="yap-demo-slot yap-admin-demo-slot"
@@ -283,7 +289,7 @@ export function YapCaseContent({ project }: { project: Project }) {
           <div className="yap-impact-main">
             <strong>6,517</strong>
             <span>messages created in one production week</span>
-            <small>September 5–11 UTC</small>
+            <small>September 5–11, 2026 (UTC)</small>
           </div>
           <div className="yap-impact-stats">
             <article>
@@ -296,18 +302,19 @@ export function YapCaseContent({ project }: { project: Project }) {
             </article>
             <article>
               <strong>7 days</strong>
-              <span>Public conversations and private DMs</span>
+              <span>Measurement window</span>
             </article>
           </div>
           <div className="yap-impact-notes">
             <p>
-              <span>COUNTING NOTE</span>Created-message totals include messages
-              later deleted by users.
+              <span>COUNTING NOTE</span>Scope: public conversations and private
+              DMs. Created-message totals include messages later deleted by
+              users.
             </p>
             <p>
               <span>CALCULATION NOTE</span>Median and adjusted average use the
-              September 5–11 UTC window; the adjusted average excludes the
-              largest event-driven spike.
+              September 5–11, 2026 (UTC) window; the adjusted average excludes
+              the largest event-driven spike.
             </p>
           </div>
         </div>

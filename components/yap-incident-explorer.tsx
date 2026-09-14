@@ -54,6 +54,21 @@ export function YapIncidentExplorer({ incidents }: { incidents: Incident[] }) {
         ))}
       </div>
 
+      <label className="yap-incident-select" htmlFor="yap-incident">
+        <span>Choose incident</span>
+        <select
+          id="yap-incident"
+          value={selected}
+          onChange={(event) => setSelected(Number(event.target.value))}
+        >
+          {incidents.map((item, index) => (
+            <option value={index} key={item.title}>
+              0{index + 1} · {item.title}
+            </option>
+          ))}
+        </select>
+      </label>
+
       <div className="yap-incident-console">
         <div className="yap-incident-metric">
           <div>
