@@ -86,7 +86,7 @@ export function YapCaseContent({ project }: { project: Project }) {
     <div className="yap-case-content">
       <section className="yap-problem shell case-section">
         <p className="eyebrow">PROBLEM</p>
-        <h2>
+        <h2 className="yap-title-effect">
           Joining should feel <mark>as light as opening a link.</mark>{' '}
           Ownership, privacy, and safety should remain <mark>explicit.</mark>
         </h2>
@@ -181,14 +181,105 @@ export function YapCaseContent({ project }: { project: Project }) {
 
       <section className="yap-solutions shell case-section">
         <p className="eyebrow">{project.solutionsLabel}</p>
+        <aside
+          className="yap-demo-guide reveal"
+          aria-labelledby="yap-demo-guide-title"
+        >
+          <span className="yap-demo-guide__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M7 4l17 15-8.2 1.1 4.8 7.3-4.1 2.6-4.7-7.2L7 29V4Z" />
+              <path d="M23.5 5.5l2-2M25.5 11h3M19 3V0" />
+            </svg>
+          </span>
+          <div>
+            <span>INTERACTIVE PRODUCT DEMOS</span>
+            <h2 id="yap-demo-guide-title">Try the flows yourself.</h2>
+            <p>
+              Click, tap, or use the keyboard to enter a room, change owner
+              settings, compare private visibility,
+              <br />
+              and run a temporary live session.
+            </p>
+            <p>Everything is simulated locally.</p>
+          </div>
+        </aside>
         {project.solutions.map((solution, index) => (
           <article
-            className={`yap-solution-row ${index > 0 ? 'yap-solution-row--wide-demo' : ''}`}
+            className={`yap-solution-row reveal ${index > 0 ? 'yap-solution-row--wide-demo' : ''}`}
             key={solution.title}
           >
             <div className="yap-solution-copy">
               <span>0{index + 1}</span>
-              <h2>{solution.title}</h2>
+              <h2 className="yap-title-effect">
+                {index === 0 ? (
+                  <>
+                    A room begins with a{' '}
+                    <span className="yap-link-title">
+                      <span
+                        className="yap-link-title__icon"
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <path d="M10.6 13.4a4.8 4.8 0 0 0 6.8 0l2-2a4.8 4.8 0 0 0-6.8-6.8l-1.1 1.1" />
+                          <path d="M13.4 10.6a4.8 4.8 0 0 0-6.8 0l-2 2a4.8 4.8 0 0 0 6.8 6.8l1.1-1.1" />
+                        </svg>
+                      </span>
+                      <span>link.</span>
+                    </span>
+                  </>
+                ) : index === 1 ? (
+                  <>
+                    Anonymous does not mean{' '}
+                    <span className="yap-chaotic-word" aria-label="chaotic.">
+                      <span aria-hidden="true">c</span>
+                      <span aria-hidden="true">h</span>
+                      <span aria-hidden="true">a</span>
+                      <span aria-hidden="true">o</span>
+                      <span aria-hidden="true">t</span>
+                      <span aria-hidden="true">i</span>
+                      <span aria-hidden="true">c</span>
+                      <span aria-hidden="true">.</span>
+                    </span>
+                  </>
+                ) : index === 2 ? (
+                  <>
+                    <span className="yap-private-title">
+                      <span
+                        className="yap-private-title__icon"
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24">
+                          <rect x="5" y="10" width="14" height="10" rx="2" />
+                          <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                        </svg>
+                      </span>
+                      <span className="yap-private-title__label">
+                        Private messages
+                      </span>
+                    </span>{' '}
+                    have a visible boundary.
+                  </>
+                ) : index === 3 ? (
+                  <span className="yap-live-title">
+                    <span
+                      className="yap-live-title__dot"
+                      aria-hidden="true"
+                    />
+                    <span className="yap-live-title__copy">
+                      <span>Live is intentionally</span>
+                      <span className="yap-temporary-title">
+                        temporary.
+                        <span
+                          className="yap-temporary-title__timer"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </span>
+                  </span>
+                ) : (
+                  solution.title
+                )}
+              </h2>
               <p>{solution.body}</p>
             </div>
             <div className="yap-demo-slot" data-demo={solutionSlots[index]}>

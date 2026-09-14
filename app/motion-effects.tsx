@@ -40,6 +40,21 @@ export function MotionEffects() {
     );
     reveals.forEach((element) => observer.observe(element));
 
+    const titleEffects = Array.from(
+      document.querySelectorAll<HTMLElement>('.yap-title-effect'),
+    );
+    const titleEffectObserver = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-effect-visible');
+            titleEffectObserver.unobserve(entry.target);
+          }
+        }),
+      { threshold: 0.65, rootMargin: '0px 0px -14% 0px' },
+    );
+    titleEffects.forEach((element) => titleEffectObserver.observe(element));
+
     const magnetic = Array.from(document.querySelectorAll<HTMLElement>('.magnetic'));
     const cleanups = magnetic.map((element) => {
       const move = (event: PointerEvent) => {
@@ -73,7 +88,8 @@ export function MotionEffects() {
     update();
 
     return () => {
-      observer.disconnect(); cleanups.forEach((cleanup) => cleanup());
+      observer.disconnect(); titleEffectObserver.disconnect();
+      cleanups.forEach((cleanup) => cleanup());
       window.removeEventListener('scroll', requestUpdate); window.removeEventListener('resize', requestUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
