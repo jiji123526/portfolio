@@ -119,8 +119,16 @@ export function YapCaseContent({ project }: { project: Project }) {
           <p className="eyebrow">FROM PERSONAL ROOM TO PLATFORM</p>
           <div className="yap-transformation-copy">
             <h2>
-              Personal room <span aria-hidden="true">→</span> multi-tenant
-              platform
+              <span className="yap-transformation-line">Personal room</span>
+              <span className="yap-transformation-line yap-transformation-destination">
+                <span
+                  className="yap-transformation-arrow"
+                  aria-hidden="true"
+                >
+                  →
+                </span>{' '}
+                multi-tenant platform
+              </span>
             </h2>
             <div>
               <p>{transformationParts[0]}</p>
