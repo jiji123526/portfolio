@@ -57,8 +57,8 @@ const projectCatalog: Project[] = [
       { title: 'Live is intentionally temporary.', body: 'A host can open a separate live session for a shared moment, then end it cleanly. Live messages and reactions disappear while the normal room remains.', mediaNote: 'Start → join → react → end → return' },
     ],
     platformOperations: {
-      title: 'Moderation had to extend beyond a single room.',
-      intro: 'Channel owners handle everyday behavior inside their communities, but escalated abuse, appeals, and private support require a service-wide response. I built a separate platform-admin workspace without exposing platform-level data to ordinary channel owners.',
+      title: 'Platform operations',
+      intro: 'Beyond room-level moderation, Yap needed an operational layer for monitoring service health, triaging reports, and handling support. This dashboard brought incident awareness, queue management, and escalated user issues into one place.',
       cards: [
         { title: 'Layered enforcement', body: 'Message and channel reports enter separate review queues with evidence loaded on demand. Administrators can warn, restrict, dismiss, and resolve a case while preserving an owner’s path to petition.' },
         { title: 'Scoped user support', body: 'Authenticated users can open private one-to-one support threads. Ownership, visibility, closure, and user-side removal are enforced through server authorization rather than hidden UI.' },

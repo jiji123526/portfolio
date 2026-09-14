@@ -1,9 +1,9 @@
 import type { Project } from '@/lib/project-data';
 import { ChannelOwnerControlsDemo } from './channel-owner-controls-demo';
-import { DemoPlaceholder } from './demo-placeholder';
 import { ImpactCount } from './impact-count';
 import { LinkToRoomDemo } from './link-to-room-demo';
 import { LiveSessionLifecycleDemo } from './live-session-lifecycle-demo';
+import { PlatformOperationsInspection } from './platform-operations-inspection';
 import { PrivateVisibilityDemo } from './private-visibility-demo';
 import { YapIncidentExplorer } from './yap-incident-explorer';
 import { YapSystemDiagram } from './yap-system-diagram';
@@ -236,18 +236,7 @@ export function YapCaseContent({ project }: { project: Project }) {
             </tbody>
           </table>
 
-          <div
-            className="yap-demo-slot yap-admin-demo-slot"
-            data-demo="platform-admin"
-          >
-            <DemoPlaceholder
-              label="PLATFORM OPERATIONS"
-              title="Escalation → scoped evidence → action → global notice"
-              futureComponent="PlatformAdminDemo"
-              aspect="admin"
-              status="Interactive admin walkthrough planned"
-            />
-          </div>
+          <PlatformOperationsInspection />
 
           <aside className="yap-security-boundary">
             <span>SECURITY BOUNDARY</span>
