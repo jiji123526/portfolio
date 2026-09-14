@@ -44,7 +44,7 @@ const projectCatalog: Project[] = [
     ],
     challengeIntro: 'The design problem was not simply “make a chat app.” It was balancing instant participation with explicit privacy and moderation boundaries.',
     challenges: ['Account creation makes lightweight, one-off conversations feel heavier than the conversation itself.', 'Anonymous participation becomes fragile when access, moderation, and private communication are unclear.', 'Temporary live moments need a distinct lifecycle so they do not blur into permanent channel history.'],
-    statement: 'How might we keep joining as light as opening a link—without making ownership, privacy, or safety ambiguous?',
+    statement: 'Remove account friction, not product boundaries.',
     transformation: {
       body: 'yap. began as a single-channel personal page built with Vanilla JS and Supabase. Rather than porting that implementation, I used its behavior as a specification and redesigned the product as a multi-tenant platform on Next.js, Cloudflare Workers, D1, Durable Objects, and R2. This required explicit channel ownership, separate anonymous and authenticated identities, platform-admin authority, media lifecycle rules, and operational monitoring. I later selectively migrated the original production channel, preserving its history while keeping legacy anonymous identities pseudonymous and unlinked. Reply and gallery references, along with record counts, were verified before and after the move.',
       stats: [{ value: '685', label: 'Messages preserved' }, { value: '204', label: 'Replies preserved' }, { value: '25', label: 'Images preserved' }],
