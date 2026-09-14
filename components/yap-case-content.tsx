@@ -289,8 +289,8 @@ export function YapCaseContent({ project }: { project: Project }) {
               <span>Average excluding the largest spike</span>
             </article>
             <article>
-              <strong>7 days</strong>
-              <span>Measurement window</span>
+              <strong>433</strong>
+              <span>Active senders during the period</span>
             </article>
           </div>
           <div className="yap-impact-notes">
