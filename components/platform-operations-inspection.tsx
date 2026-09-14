@@ -50,7 +50,7 @@ export function PlatformOperationsInspection() {
           <div className="yap-operations-inspection__device">
             <Image
               src="/yap-platform-operations.png"
-              alt="Yap production operations dashboard showing service health, routes needing attention, queue status, reports, and support tickets."
+            alt="yap. production operations dashboard showing service health, routes needing attention, queue status, reports, and support tickets."
               width={599}
               height={1236}
               sizes="(max-width: 720px) 82vw, 430px"

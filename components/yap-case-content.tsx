@@ -404,7 +404,21 @@ export function YapCaseContent({ project }: { project: Project }) {
       {project.takeaways && (
         <section className="yap-takeaways shell case-section">
           <p className="eyebrow">TAKEAWAYS</p>
-          <h2>What operating the product changed in my practice</h2>
+          <div className="yap-takeaways-heading yap-title-effect">
+            <h2>
+              What operating <span className="yap-brand-highlight">yap.</span>{' '}
+              taught me beyond the interface
+            </h2>
+            <p className="yap-takeaways-intro">
+              <span className="yap-brand-highlight">yap.</span> was the first
+              product that pushed me past interface design and into the
+              realities of running a system: durable state, realtime delivery,
+              moderation, support, route health, and operator tooling. The
+              biggest shift was realizing that product design does not stop at
+              the user flow. It extends into how the product fails, recovers,
+              and gets operated.
+            </p>
+          </div>
           <div className="yap-takeaway-list">
             {project.takeaways.map((item, index) => (
               <details key={item.title}>

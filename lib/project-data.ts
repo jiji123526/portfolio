@@ -58,7 +58,7 @@ const projectCatalog: Project[] = [
     ],
     platformOperations: {
       title: 'Platform operations',
-      intro: 'Beyond room-level moderation, Yap needed an operational layer for monitoring service health, triaging reports, and handling support. This dashboard brought incident awareness, queue management, and escalated user issues into one place.',
+      intro: 'Beyond room-level moderation, yap. needed an operational layer for monitoring service health, triaging reports, and handling support. This dashboard brought incident awareness, queue management, and escalated user issues into one place.',
       cards: [
         { title: 'Layered enforcement', body: 'Message and channel reports enter separate review queues with evidence loaded on demand. Administrators can warn, restrict, dismiss, and resolve a case while preserving an owner’s path to petition.' },
         { title: 'Scoped user support', body: 'Authenticated users can open private one-to-one support threads. Ownership, visibility, closure, and user-side removal are enforced through server authorization rather than hidden UI.' },
@@ -79,9 +79,9 @@ const projectCatalog: Project[] = [
     impactLabel: 'PRODUCTION EVIDENCE',
     impactBody: 'From September 5–11, 2026 (UTC), yap. handled 6,517 created messages across public conversations and private DMs, including messages later deleted by users. Usage was event-driven rather than uniform: the median was 332 messages per day, while the average excluding the largest spike was approximately 550 per day.',
     takeaways: [
-      { title: 'Treat realtime delivery as acceleration, not the source of truth.', body: 'Durable persistence defines what happened; realtime transport makes that result feel immediate without becoming the authoritative record.' },
-      { title: 'Measure stage boundaries before blaming queries or infrastructure.', body: 'Separating authorization, SQL, media signing, fan-out, and rendering turned vague slowness into evidence that could guide a reversible response.' },
-      { title: 'Design retries, deletion, and moderation as recoverable state transitions.', body: 'Stable identities, explicit statuses, retained resolutions, and idempotent jobs let the system recover without hiding uncertainty from operators or users.' },
+      { title: 'Realtime makes chat feel immediate, but persistence makes it trustworthy.', body: 'Once messages, DMs, reactions, live state, and moderation actions had to survive reconnects, retries, and partial failure, I stopped treating realtime delivery as the system itself. yap. taught me to separate transport from the durable record and design the interface around recoverable sync rather than perfect immediacy.' },
+      { title: 'Operational visibility became part of the product, not just backend maintenance.', body: 'Once room entry, messaging, previews, authentication, and moderation were live, failures stopped being abstract engineering problems and became user experience problems. Building yap. pushed me to think in route-level health, alerting, queue triage, and reversible incident response, not just feature completion.' },
+      { title: 'Moderation works better as explicit, recoverable state.', body: 'Anonymous chat created edge cases around freezing rooms, passcodes, banned words, reports, deletion, and appeals. yap. taught me that enforcement should not be hidden operator intervention. It works better when actions are legible, stateful, and reversible where appropriate for both room owners and platform operators.' },
     ],
   },
   {
