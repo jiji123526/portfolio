@@ -76,7 +76,7 @@ export function YapHeroDemo() {
   };
 
   return (
-    <div className="yap-hero-stage reveal">
+    <div className="yap-hero-stage">
       <div className="yap-demo-wrap">
         <div className="yap-hero-stage-copy">
           <span>ANONYMOUS ENTRY, IN ONE STEP</span>

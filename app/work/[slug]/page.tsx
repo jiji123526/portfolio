@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { TransitionLink } from '@/components/transition-link';
+import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
-import { YapSystemDiagram } from '@/components/yap-system-diagram';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
 
@@ -33,14 +33,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {isYap ? (
         <header className="yap-case-opening">
-          <div className="yap-hero-copy reveal">
-            <span className="metric-pill">{project.metric}</span>
-            <h1>{project.headline}</h1>
-            <div className="opening-impact">
-              <span>IMPACT</span>
-              <strong>{project.impact}</strong>
-            </div>
-          </div>
           <YapHeroDemo />
         </header>
       ) : (
@@ -70,7 +62,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {isJangoing ? <JangoingCaseContent project={project} projectIndex={index} /> : <>
+      {isJangoing ? <JangoingCaseContent project={project} projectIndex={index} /> : isYap ? <YapCaseContent project={project} /> : <>
 
       {transformation ? <section className="compact-problem shell case-section reveal"><p className="eyebrow">PROBLEM</p><h2>{project.brief}</h2><p className="compact-problem-intro">{project.challengeIntro}</p><div className="insight-grid">{project.process?.map((item) => <article key={item.label}><span>{item.label}</span><strong>{item.title}</strong><p>{item.body}</p></article>)}</div><p className="compact-statement">{project.statement}</p></section> : <><section className="brief shell case-section reveal"><p className="eyebrow">PROJECT BRIEF</p><h2>{project.brief}</h2><p className="caption">The brief was narrowed by defining the audience, context, and measurable outcome.</p></section><section className="process-section shell case-section reveal"><p className="eyebrow">NAVIGATING AMBIGUITY</p><h2>{project.process ? <>I defined the product around <strong>three connected constraints.</strong></> : <>I started by answering <strong>who</strong> and <strong>why</strong>—the unknowns that shaped our research direction.</>}</h2><div className="insight-grid">{(project.process ?? [{ label: 'Literature review', title: 'A timely shift', body: 'The landscape was changing toward more human-centered practices.' }, { label: 'Stakeholder interviews', title: 'A familiar behavior', body: 'Existing workflows revealed an easier path for adoption.' }, { label: 'Concept testing', title: 'A complex system', body: 'Real-world constraints gave the concept a meaningful proving ground.' }]).map((item) => <article key={item.label}><span>{item.label}</span><strong>{item.title}</strong><p>{item.body}</p></article>)}</div></section><section className="challenge-block reveal"><div className="shell case-section"><p className="eyebrow">CORE TENSIONS</p><h2>What had to be true at the same time</h2><p className="section-note">{project.challengeIntro ?? 'Based on interviews, surveys, and workflow observation'}</p><div className="challenge-list">{project.challenges.map((challenge, i) => <article key={challenge}><span>Challenge {i + 1}</span><p>{challenge}</p></article>)}</div></div></section><section className="statement case-section shell scroll-focus"><p className="eyebrow">REFRAMED PROBLEM STATEMENT</p><h2>{project.statement ?? 'How might we make a complex choice feel informed, inclusive, and actionable?'}</h2></section></>}
 
@@ -80,7 +72,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.limitation && <section className="limitation-block reveal"><div className="shell case-section"><p className="eyebrow">LIMITATION</p><h2>{project.limitation.title}</h2><p className="limitation-copy">{project.limitation.body}</p><div className="tension-grid"><article><span>THE VALUE</span><p>{project.limitation.tension[0]}</p></article><article><span>THE RESPONSIBILITY</span><p>{project.limitation.tension[1]}</p></article></div></div></section>}
 
-      {project.architecture && <section className={`architecture shell case-section reveal ${isYap ? 'yap-architecture' : ''}`}><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p>{project.architecture.detail && <p>{project.architecture.detail}</p>}</div>{isYap ? <YapSystemDiagram /> : <div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div>}</section>}
+      {project.architecture && <section className="architecture shell case-section reveal"><div className="architecture-copy"><p className="eyebrow">SYSTEM DESIGN</p><h2>{project.architecture.title}</h2><p>{project.architecture.body}</p>{project.architecture.detail && <p>{project.architecture.detail}</p>}</div><div className="architecture-placeholder magnetic"><div className="architecture-flow">{(project.architecture.nodes ?? ['Browser', 'Next.js', 'Worker', 'Data']).flatMap((node, i, nodes) => [<span key={`${node}-node`}>{node}</span>, ...(i < nodes.length - 1 ? [<i key={`${node}-arrow`} aria-hidden="true">→</i>] : [])])}</div><p className="media-note">MEDIA PLACEHOLDER · {project.architecture.mediaNote}</p></div></section>}
 
       {operations && <section className="operations-block reveal"><div className="shell case-section"><p className="eyebrow">PLATFORM OPERATIONS</p><h2>{operations.title}</h2><p className="operations-intro">{operations.intro}</p><div className="operations-grid">{operations.cards.map((card, i) => <article key={card.title}><span>0{i + 1}</span><h3>{card.title}</h3><p>{card.body}</p></article>)}</div><aside className="operations-boundary"><span>SECURITY BOUNDARY</span><h3>{operations.boundary.title}</h3><p>{operations.boundary.body}</p></aside></div></section>}
 
