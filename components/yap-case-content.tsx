@@ -62,7 +62,7 @@ const constraints = [
 
 const solutionSlots = [
   'link-entry',
-  'channel-owner-authority',
+  'channel-owner-controls',
   'private-visibility',
   'live-session',
 ];

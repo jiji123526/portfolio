@@ -30,7 +30,7 @@ export type Project = {
 const projectCatalog: Project[] = [
   {
     slug: 'yap-anonymous-chat', metric: 'REALTIME CHAT · TRUST & SAFETY', category: 'Independent Product',
-    title: 'yap.', summary: 'Operating reliable realtime conversations with explicit moderation and trust boundaries',
+    title: 'yap.', summary: 'Anonymous realtime chat with owner controls, private messaging boundaries, and temporary live sessions',
     headline: 'Engineering a link-first realtime system for conversations that shouldn’t need an account', role: 'Full-stack Product Engineer',
     duration: 'Ongoing', client: 'Independent Product',
     responsibilities: 'Product strategy, UX/UI, frontend, edge backend, security, and operations', tools: 'Next.js, React, Tailwind CSS, Workers, D1, R2, Durable Objects',
@@ -52,9 +52,9 @@ const projectCatalog: Project[] = [
     solutionsLabel: 'KEY PRODUCT SOLUTIONS',
     solutions: [
       { title: 'A room begins with a link.', body: 'Hosts create a channel and share its URL. Guests can enter public rooms immediately, while optional passcodes add friction only when the conversation needs it.', mediaNote: 'Flow capture: create channel, copy link, open as a guest' },
-      { title: 'Anonymous does not mean chaotic.', body: 'Anonymous chat can still be structured. yap. uses lightweight conversation tools to keep rooms readable, and explicit moderation flows to pause, review, and recover when needed.', mediaNote: 'Channel owner flow: room controls → pause → review → recover' },
-      { title: 'Private messages have a visible boundary.', body: 'A visitor can start a thread that only they and the channel owner can read. Authorization is enforced on the server, not by hiding UI.', mediaNote: 'Split view: guest DM composer and owner-only thread' },
-      { title: 'Live is intentionally temporary.', body: 'A host can start a separate live session for a shared moment. Session identity, presence, and expiry are kept distinct from normal channel history.', mediaNote: 'Sequence: live starts, reactions appear, session ends cleanly' },
+      { title: 'Anonymous does not mean chaotic.', body: 'Owners can shape entry, pacing, and message rules without leaving the conversation. Passcodes, chat freezes, and word filters change the room immediately.', mediaNote: 'Passcode, freeze, and word filters change the room instantly' },
+      { title: 'Private messages have a visible boundary.', body: 'A visitor can message the channel owner privately without leaving the room. The sender and owner see the same exchange; other visitors continue to see only public messages.', mediaNote: 'Guest sends privately → owner replies → other visitor only sees the room' },
+      { title: 'Live is intentionally temporary.', body: 'A host can open a separate live session for a shared moment, then end it cleanly. Live messages and reactions disappear while the normal room remains.', mediaNote: 'Start → join → react → end → return' },
     ],
     platformOperations: {
       title: 'Moderation had to extend beyond a single room.',

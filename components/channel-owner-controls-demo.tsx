@@ -76,8 +76,8 @@ export function ChannelOwnerControlsDemo() {
     <div className="owner-control-demo">
       <aside className="owner-control-demo__controls" aria-label="Demo controls">
         <span className="owner-control-demo__label">DEMO CONTROLS</span>
-        <h3>Owner actions</h3>
-        <p>Change a room rule and see the participant experience update.</p>
+        <h3>Channel owner controls</h3>
+        <p>Passcode, freeze, and word filters change the room instantly.</p>
 
         <div className="owner-control-demo__state">
           <span>Current room state</span>

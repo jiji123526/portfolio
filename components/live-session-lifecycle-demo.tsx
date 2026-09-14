@@ -89,7 +89,7 @@ export function LiveSessionLifecycleDemo() {
       >
         <span className="live-session-demo__label">DEMO CONTROLS</span>
         <h3>Temporary live sessions</h3>
-        <p>Start a separate live moment, then end it without changing room history.</p>
+        <p>Start → join → react → end → return.</p>
 
         <div className="live-session-demo__state">
           <span>Current state</span>

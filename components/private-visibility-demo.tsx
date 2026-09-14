@@ -73,7 +73,10 @@ export function PrivateVisibilityDemo() {
       >
         <span className="private-visibility-demo__label">DEMO CONTROLS</span>
         <h3>Private visibility boundaries</h3>
-        <p>Switch perspectives to see exactly who can read the thread.</p>
+        <p>
+          Guest sends privately → owner replies → other visitor only sees the
+          room.
+        </p>
 
         <fieldset className="private-visibility-demo__roles">
           <legend className="sr-only">View the room as</legend>

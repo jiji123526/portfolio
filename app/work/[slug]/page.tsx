@@ -22,13 +22,11 @@ export async function generateMetadata({
   if (!project) return {};
   if (slug === 'yap-anonymous-chat') {
     return {
-      title: 'yap. Anonymous Chat Case Study — Jiwoo Jeong',
       description:
         'A case study on designing and operating yap., a link-first anonymous chat platform with explicit privacy, moderation, and realtime delivery boundaries.',
     };
   }
   return {
-    title: `${project.title} Case Study — Jiwoo Jeong`,
     description: project.summary,
   };
 }
