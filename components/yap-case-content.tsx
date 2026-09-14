@@ -1,5 +1,6 @@
 import type { Project } from '@/lib/project-data';
 import { DemoPlaceholder } from './demo-placeholder';
+import { LinkToRoomDemo } from './link-to-room-demo';
 import { YapIncidentExplorer } from './yap-incident-explorer';
 import { YapSystemDiagram } from './yap-system-diagram';
 
@@ -55,32 +56,43 @@ const constraints = [
   },
 ];
 
+const solutionSlots = [
+  'link-entry',
+  'moderation-workflow',
+  'private-visibility',
+  'live-session',
+];
+
 const solutionPlaceholders = [
   {
-    slot: 'link-entry',
-    title: 'Link-first room entry',
-    description: 'Shared link → anonymous room → first message',
-    futureComponent: 'LinkToRoomDemo',
-  },
-  {
-    slot: 'moderation-workflow',
     title: 'Recoverable moderation',
     description: 'Report → review → enforcement → resolution',
     futureComponent: 'ModerationWorkflowDemo',
   },
   {
-    slot: 'private-visibility',
     title: 'Private visibility boundaries',
     description: 'Guest → owner → unauthorized visitor',
     futureComponent: 'PrivateVisibilityDemo',
   },
   {
-    slot: 'live-session',
     title: 'Temporary live sessions',
     description: 'Ready → active → ended',
     futureComponent: 'LiveSessionLifecycleDemo',
   },
 ];
+
+function YapSolutionVisual({ index }: { index: number }) {
+  if (index === 0) return <LinkToRoomDemo />;
+  const placeholder = solutionPlaceholders[index - 1];
+  return (
+    <DemoPlaceholder
+      title={placeholder.title}
+      futureComponent={placeholder.futureComponent}
+      description={placeholder.description}
+      aspect="product"
+    />
+  );
+}
 
 export function YapCaseContent({ project }: { project: Project }) {
   const transformation = project.transformation!;
@@ -180,26 +192,18 @@ export function YapCaseContent({ project }: { project: Project }) {
 
       <section className="yap-solutions shell case-section">
         <p className="eyebrow">{project.solutionsLabel}</p>
-        {project.solutions.map((solution, index) => {
-          const placeholder = solutionPlaceholders[index];
-          return (
-            <article className="yap-solution-row" key={solution.title}>
-              <div className="yap-solution-copy">
-                <span>0{index + 1}</span>
-                <h2>{solution.title}</h2>
-                <p>{solution.body}</p>
-              </div>
-              <div className="yap-demo-slot" data-demo={placeholder.slot}>
-                <DemoPlaceholder
-                  title={placeholder.title}
-                  futureComponent={placeholder.futureComponent}
-                  description={placeholder.description}
-                  aspect="product"
-                />
-              </div>
-            </article>
-          );
-        })}
+        {project.solutions.map((solution, index) => (
+          <article className="yap-solution-row" key={solution.title}>
+            <div className="yap-solution-copy">
+              <span>0{index + 1}</span>
+              <h2>{solution.title}</h2>
+              <p>{solution.body}</p>
+            </div>
+            <div className="yap-demo-slot" data-demo={solutionSlots[index]}>
+              <YapSolutionVisual index={index} />
+            </div>
+          </article>
+        ))}
       </section>
 
       {project.architecture && (
