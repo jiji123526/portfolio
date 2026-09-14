@@ -1,7 +1,9 @@
 import type { Project } from '@/lib/project-data';
 import { ChannelOwnerControlsDemo } from './channel-owner-controls-demo';
 import { DemoPlaceholder } from './demo-placeholder';
+import { ImpactCount } from './impact-count';
 import { LinkToRoomDemo } from './link-to-room-demo';
+import { LiveSessionLifecycleDemo } from './live-session-lifecycle-demo';
 import { PrivateVisibilityDemo } from './private-visibility-demo';
 import { YapIncidentExplorer } from './yap-incident-explorer';
 import { YapSystemDiagram } from './yap-system-diagram';
@@ -65,27 +67,12 @@ const solutionSlots = [
   'live-session',
 ];
 
-const solutionPlaceholders = [
-  {
-    title: 'Temporary live sessions',
-    description: 'Ready → active → ended',
-    futureComponent: 'LiveSessionLifecycleDemo',
-  },
-];
-
 function YapSolutionVisual({ index }: { index: number }) {
   if (index === 0) return <LinkToRoomDemo />;
   if (index === 1) return <ChannelOwnerControlsDemo />;
   if (index === 2) return <PrivateVisibilityDemo />;
-  const placeholder = solutionPlaceholders[index - 3];
-  return (
-    <DemoPlaceholder
-      title={placeholder.title}
-      futureComponent={placeholder.futureComponent}
-      description={placeholder.description}
-      aspect="product"
-    />
-  );
+  if (index === 3) return <LiveSessionLifecycleDemo />;
+  return null;
 }
 
 export function YapCaseContent({ project }: { project: Project }) {
@@ -188,7 +175,7 @@ export function YapCaseContent({ project }: { project: Project }) {
         <p className="eyebrow">{project.solutionsLabel}</p>
         {project.solutions.map((solution, index) => (
           <article
-            className={`yap-solution-row ${index === 1 || index === 2 ? 'yap-solution-row--wide-demo' : ''}`}
+            className={`yap-solution-row ${index > 0 ? 'yap-solution-row--wide-demo' : ''}`}
             key={solution.title}
           >
             <div className="yap-solution-copy">
@@ -288,7 +275,7 @@ export function YapCaseContent({ project }: { project: Project }) {
         <div className="shell yap-impact-inner">
           <p className="eyebrow">PRODUCTION EVIDENCE</p>
           <div className="yap-impact-main">
-            <strong>6,517</strong>
+            <ImpactCount value={6517} />
             <span>messages created in one production week</span>
             <small>September 5–11, 2026 (UTC)</small>
           </div>
@@ -308,14 +295,19 @@ export function YapCaseContent({ project }: { project: Project }) {
           </div>
           <div className="yap-impact-notes">
             <p>
-              <span>COUNTING NOTE</span>Scope: public conversations and private
-              DMs. Created-message totals include messages later deleted by
-              users.
+              <span>COUNTING NOTE</span>
+              <span className="yap-impact-note-body">
+                Scope: public conversations and private DMs. Created-message
+                totals include messages later deleted by users.
+              </span>
             </p>
             <p>
-              <span>CALCULATION NOTE</span>Median and adjusted average use the
-              September 5–11, 2026 (UTC) window; the adjusted average excludes
-              the largest event-driven spike.
+              <span>CALCULATION NOTE</span>
+              <span className="yap-impact-note-body">
+                Median and adjusted average use the September 5–11, 2026 (UTC)
+                window; the adjusted average excludes the largest event-driven
+                spike.
+              </span>
             </p>
           </div>
         </div>
