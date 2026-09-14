@@ -1,290 +1,315 @@
-'use client';
-
-import { useState } from 'react';
 import type { Project } from '@/lib/project-data';
+import { DemoPlaceholder } from './demo-placeholder';
+import { YapIncidentExplorer } from './yap-incident-explorer';
 import { YapSystemDiagram } from './yap-system-diagram';
 
-const incidentMetrics = [
-  { before: '4–18 sec', after: '~80 ms', label: 'Channel initialization' },
-  { before: '212.62M', after: 'Bounded', label: 'Rows read' },
-  { before: 'Ambiguous', after: 'Idempotent', label: 'Retry behavior' },
+const constraints = [
+  {
+    number: '01',
+    category: 'Participation',
+    title: 'No-account entry',
+    description:
+      'A shared link should open directly into a room with the composer ready.',
+    diagram: (
+      <>
+        <span>Shared link</span>
+        <i>→</i>
+        <span>Room</span>
+        <i>→</i>
+        <span>Message</span>
+      </>
+    ),
+    kind: 'entry',
+  },
+  {
+    number: '02',
+    category: 'Trust',
+    title: 'Control without widening visibility',
+    description:
+      'Moderation authority should stay explicit without exposing private conversation context.',
+    diagram: (
+      <>
+        <span>Guest</span>
+        <i>Server boundary</i>
+        <span>Owner</span>
+      </>
+    ),
+    kind: 'trust',
+  },
+  {
+    number: '03',
+    category: 'Delivery',
+    title: 'Durable first, realtime second',
+    description:
+      'The durable write defines the record before realtime delivery accelerates it.',
+    diagram: (
+      <>
+        <span>Request</span>
+        <i>→</i>
+        <span>Commit</span>
+        <i>→</i>
+        <span>Deliver</span>
+      </>
+    ),
+    kind: 'delivery',
+  },
 ];
 
-function LinkSolutionDemo() {
-  const [joined, setJoined] = useState(false);
-
-  return (
-    <div className="yap-feature-demo yap-link-demo">
-      <span className="yap-demo-label">SHARED ROOM</span>
-      <div className="yap-link-address"><span>yapndot.com/room/after-hours</span><i aria-hidden="true">↗</i></div>
-      <div className="yap-link-participants">
-        <span className="owner">Host</span>
-        {joined && <span className="guest">Anonymous guest joined</span>}
-      </div>
-      <button type="button" onClick={() => setJoined(true)} disabled={joined}>
-        {joined ? 'Room opened' : 'Open shared link'}
-      </button>
-    </div>
-  );
-}
-
-function ModerationSolutionDemo() {
-  const [step, setStep] = useState(0);
-  const steps = ['Report received', 'Owner review', 'Resolution visible'];
-
-  return (
-    <div className="yap-feature-demo yap-moderation-demo">
-      <span className="yap-demo-label">RECOVERABLE MODERATION</span>
-      <div className="yap-moderation-track">
-        {steps.map((label, index) => (
-          <button
-            type="button"
-            aria-pressed={step === index}
-            className={step === index ? 'is-active' : step > index ? 'is-complete' : ''}
-            onClick={() => setStep(index)}
-            key={label}
-          >
-            <i>{index + 1}</i><span>{label}</span>
-          </button>
-        ))}
-      </div>
-      <p>{[
-        'The report enters a scoped queue with its evidence intact.',
-        'The owner can review context before choosing an action.',
-        'Warnings, restrictions, and appeals remain explicit state.',
-      ][step]}</p>
-    </div>
-  );
-}
-
-function PrivateMessageSolutionDemo() {
-  const [view, setView] = useState<'guest' | 'owner'>('guest');
-
-  return (
-    <div className="yap-feature-demo yap-private-demo">
-      <span className="yap-demo-label">PRIVATE THREAD BOUNDARY</span>
-      <div className="yap-segmented-control" aria-label="Private message viewpoint">
-        <button type="button" aria-pressed={view === 'guest'} onClick={() => setView('guest')}>Guest view</button>
-        <button type="button" aria-pressed={view === 'owner'} onClick={() => setView('owner')}>Owner view</button>
-      </div>
-      <div className="yap-private-thread">
-        <span className="received">Can I ask you something privately?</span>
-        <span className="sent">{view === 'owner' ? 'Yes — only you and I can read this.' : 'Private message sent to the owner.'}</span>
-      </div>
-      <p>{view === 'owner' ? 'Authorized owner thread' : 'This visitor’s private thread only'}</p>
-    </div>
-  );
-}
-
-function LiveSolutionDemo() {
-  const [active, setActive] = useState(false);
-
-  return (
-    <div className={`yap-feature-demo yap-live-demo ${active ? 'is-live' : ''}`}>
-      <span className="yap-demo-label">TEMPORARY LIVE SESSION</span>
-      <div className="yap-live-status">
-        <i aria-hidden="true" />
-        <strong>{active ? 'Live now' : 'Ready to begin'}</strong>
-        <span>{active ? 'Session state stays separate from room history' : 'Nothing temporary has entered the permanent timeline'}</span>
-      </div>
-      <div className="yap-live-progress" aria-hidden="true"><span /></div>
-      <button type="button" onClick={() => setActive((current) => !current)}>
-        {active ? 'End live session' : 'Start live session'}
-      </button>
-    </div>
-  );
-}
-
-function YapSolutionVisual({ index }: { index: number }) {
-  if (index === 0) return <LinkSolutionDemo />;
-  if (index === 1) return <ModerationSolutionDemo />;
-  if (index === 2) return <PrivateMessageSolutionDemo />;
-  return <LiveSolutionDemo />;
-}
+const solutionPlaceholders = [
+  {
+    slot: 'link-entry',
+    title: 'Link-first room entry',
+    description: 'Shared link → anonymous room → first message',
+    futureComponent: 'LinkToRoomDemo',
+  },
+  {
+    slot: 'moderation-workflow',
+    title: 'Recoverable moderation',
+    description: 'Report → review → enforcement → resolution',
+    futureComponent: 'ModerationWorkflowDemo',
+  },
+  {
+    slot: 'private-visibility',
+    title: 'Private visibility boundaries',
+    description: 'Guest → owner → unauthorized visitor',
+    futureComponent: 'PrivateVisibilityDemo',
+  },
+  {
+    slot: 'live-session',
+    title: 'Temporary live sessions',
+    description: 'Ready → active → ended',
+    futureComponent: 'LiveSessionLifecycleDemo',
+  },
+];
 
 export function YapCaseContent({ project }: { project: Project }) {
-  const [constraint, setConstraint] = useState(0);
-  const [operation, setOperation] = useState(0);
-  const [incident, setIncident] = useState(0);
   const transformation = project.transformation!;
   const operations = project.platformOperations!;
   const incidents = project.incidents!;
-  const transformationParts = transformation.body.split(' I later');
+  const transformationParts = transformation.body.split(' This required ');
+  const migrationParts = transformationParts[1]?.split(' I later ') ?? [];
 
   return (
     <div className="yap-case-content">
-      <section className="yap-problem shell case-section reveal">
+      <section className="yap-problem shell case-section">
         <p className="eyebrow">PROBLEM</p>
         <h2>
-          Joining should feel <mark>as light as opening a link.</mark> Ownership, privacy,
-          and safety should remain <mark>explicit.</mark>
+          Joining should feel <mark>as light as opening a link.</mark>{' '}
+          Ownership, privacy, and safety should remain <mark>explicit.</mark>
         </h2>
         <p className="yap-problem-intro">{project.challengeIntro}</p>
 
-        <div className="yap-constraint-layout">
-          <div className="yap-constraint-tabs" aria-label="Product constraints">
-            {project.process?.map((item, index) => (
-              <button
-                type="button"
-                aria-pressed={constraint === index}
-                onClick={() => setConstraint(index)}
-                key={item.label}
-              >
-                <span>0{index + 1} · {item.label}</span>
-                <strong>{item.title}</strong>
-                <p>{item.body}</p>
-              </button>
-            ))}
-          </div>
-
-          <div className={`yap-constraint-preview constraint-${constraint}`}>
-            {constraint === 0 && <>
-              <span className="yap-demo-label">ENTRY PATH</span>
-              <div className="constraint-link">shared link <i>→</i> room <i>→</i> first message</div>
-              <strong>No signup checkpoint</strong>
-            </>}
-            {constraint === 1 && <>
-              <span className="yap-demo-label">TRUST BOUNDARY</span>
-              <div className="constraint-boundary">
-                <span>Anonymous guest</span><i>Server authorization</i><span>Channel owner</span>
+        <div className="yap-constraint-grid">
+          {constraints.map((constraint) => (
+            <article key={constraint.category}>
+              <div className="yap-constraint-heading">
+                <span>{constraint.number}</span>
+                <small>{constraint.category}</small>
               </div>
-              <strong>Control without widening visibility</strong>
-            </>}
-            {constraint === 2 && <>
-              <span className="yap-demo-label">DELIVERY PRINCIPLE</span>
-              <div className="constraint-realtime"><span>Request</span><i /><span>Commit</span><i /><span>Deliver</span></div>
-              <strong>Durable first. Realtime second.</strong>
-            </>}
-          </div>
+              <h3>{constraint.title}</h3>
+              <p>{constraint.description}</p>
+              <div
+                className={`yap-constraint-diagram is-${constraint.kind}`}
+                aria-hidden="true"
+              >
+                {constraint.diagram}
+              </div>
+            </article>
+          ))}
         </div>
 
         <p className="yap-problem-statement">{project.statement}</p>
       </section>
 
-      <section className="yap-transformation reveal">
+      <section className="yap-transformation">
         <div className="shell case-section">
           <p className="eyebrow">FROM PERSONAL ROOM TO PLATFORM</p>
           <div className="yap-transformation-copy">
-            <h2>The original behavior became the specification for a larger system.</h2>
+            <h2>
+              Personal room <span aria-hidden="true">→</span> multi-tenant
+              platform
+            </h2>
             <div>
               <p>{transformationParts[0]}</p>
-              {transformationParts[1] && <p>I later{transformationParts[1]}</p>}
+              {transformationParts[1] && (
+                <p>
+                  This required {migrationParts[0]}
+                  {migrationParts[1] ? ` I later ${migrationParts[1]}` : ''}
+                </p>
+              )}
             </div>
           </div>
           <div className="yap-platform-timeline">
-            <article><span>01</span><strong>Single personal room</strong><p>Vanilla JS · Supabase</p></article>
-            <article><span>02</span><strong>Multi-tenant platform</strong><p>Explicit identity and ownership boundaries</p></article>
-            <article><span>03</span><strong>Verified migration</strong><p>History preserved without linking anonymous identities</p></article>
+            <article>
+              <span>01 · Original behavior</span>
+              <strong>Single personal room</strong>
+              <p>Vanilla JS and Supabase established the product behavior.</p>
+            </article>
+            <article>
+              <span>02 · Platform boundaries</span>
+              <strong>Explicit ownership and identity</strong>
+              <p>
+                Anonymous, authenticated, owner, and admin authority became
+                separate states.
+              </p>
+            </article>
+            <article>
+              <span>03 · Verified migration</span>
+              <strong>History preserved</strong>
+              <p>
+                References and record counts were checked before and after
+                migration.
+              </p>
+            </article>
           </div>
-          <div className="yap-transformation-stats">
-            {transformation.stats.map((stat) => <article key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></article>)}
+          <div className="yap-integrity-checks">
+            <p>Migration integrity checks</p>
+            <div className="yap-transformation-stats">
+              {transformation.stats.map((stat) => (
+                <article key={stat.label}>
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="yap-solutions shell case-section">
-        <p className="eyebrow reveal">{project.solutionsLabel}</p>
-        {project.solutions.map((solution, index) => (
-          <article className="yap-solution-row reveal" key={solution.title}>
-            <div className="yap-solution-copy">
-              <span>0{index + 1}</span>
-              <h2>{solution.title}</h2>
-              <p>{solution.body}</p>
-            </div>
-            <YapSolutionVisual index={index} />
-          </article>
-        ))}
+        <p className="eyebrow">{project.solutionsLabel}</p>
+        {project.solutions.map((solution, index) => {
+          const placeholder = solutionPlaceholders[index];
+          return (
+            <article className="yap-solution-row" key={solution.title}>
+              <div className="yap-solution-copy">
+                <span>0{index + 1}</span>
+                <h2>{solution.title}</h2>
+                <p>{solution.body}</p>
+              </div>
+              <div className="yap-demo-slot" data-demo={placeholder.slot}>
+                <DemoPlaceholder
+                  title={placeholder.title}
+                  futureComponent={placeholder.futureComponent}
+                  description={placeholder.description}
+                  aspect="product"
+                />
+              </div>
+            </article>
+          );
+        })}
       </section>
 
       {project.architecture && (
-        <section className="architecture shell case-section reveal yap-architecture">
+        <section className="architecture shell case-section yap-architecture">
           <div className="architecture-copy">
             <p className="eyebrow">SYSTEM DESIGN</p>
             <h2>{project.architecture.title}</h2>
             <p>{project.architecture.body}</p>
-            {project.architecture.detail && <p>{project.architecture.detail}</p>}
+            {project.architecture.detail && (
+              <p>{project.architecture.detail}</p>
+            )}
           </div>
           <YapSystemDiagram />
         </section>
       )}
 
-      <section className="yap-operations reveal">
+      <section className="yap-operations">
         <div className="shell case-section">
           <p className="eyebrow">PLATFORM OPERATIONS</p>
           <h2>{operations.title}</h2>
           <p className="yap-operations-intro">{operations.intro}</p>
-          <div className="yap-operations-layout">
-            <div className="yap-operation-tabs">
-              {operations.cards.map((card, index) => (
-                <button
-                  type="button"
-                  aria-pressed={operation === index}
-                  onClick={() => setOperation(index)}
-                  key={card.title}
-                >
-                  <span>0{index + 1}</span><strong>{card.title}</strong>
-                </button>
-              ))}
+
+          <div
+            className="yap-authority-comparison"
+            aria-label="Moderation authority comparison"
+          >
+            <div className="yap-authority-heading">
+              <span>Channel owner</span>
+              <span>Platform admin</span>
             </div>
-            <div className="yap-operation-detail" aria-live="polite">
-              <span>ACTIVE OPERATING LAYER</span>
-              <h3>{operations.cards[operation].title}</h3>
-              <p>{operations.cards[operation].body}</p>
+            <div>
+              <span>Room-level moderation</span>
+              <span>Escalated abuse</span>
+            </div>
+            <div>
+              <span>Local notices</span>
+              <span>Global notices</span>
+            </div>
+            <div>
+              <span>Channel restrictions</span>
+              <span>Platform restrictions</span>
             </div>
           </div>
+
+          <div
+            className="yap-demo-slot yap-admin-demo-slot"
+            data-demo="platform-admin"
+          >
+            <DemoPlaceholder
+              label="PLATFORM OPERATIONS"
+              title="Escalation → scoped evidence → action → global notice"
+              futureComponent="PlatformAdminDemo"
+              aspect="admin"
+              status="Interactive admin walkthrough planned"
+            />
+          </div>
+
           <aside className="yap-security-boundary">
             <span>SECURITY BOUNDARY</span>
             <h3>{operations.boundary.title}</h3>
-            <p>{operations.boundary.body}</p>
+            <p>
+              Interface visibility and server authorization are separate
+              controls. {operations.boundary.body}
+            </p>
           </aside>
         </div>
       </section>
 
-      <section className="yap-incidents reveal">
+      <section className="yap-incidents">
         <div className="shell case-section">
           <p className="eyebrow">INCIDENTS THAT CHANGED THE ARCHITECTURE</p>
-          <div className="yap-incident-tabs">
-            {incidents.cases.map((item, index) => (
-              <button
-                type="button"
-                aria-pressed={incident === index}
-                onClick={() => setIncident(index)}
-                key={item.title}
-              >
-                <span>0{index + 1}</span>
-                <strong>{item.title}</strong>
-                <small>{incidentMetrics[index].label}</small>
-              </button>
-            ))}
-          </div>
-
-          <div className="yap-incident-console" aria-live="polite">
-            <div className="yap-incident-metric">
-              <span>BEFORE</span><strong>{incidentMetrics[incident].before}</strong>
-              <i aria-hidden="true">→</i>
-              <span>AFTER</span><strong>{incidentMetrics[incident].after}</strong>
-            </div>
-            <dl>
-              <div><dt>SIGNAL</dt><dd>{incidents.cases[incident].signal}</dd></div>
-              <div><dt>DIAGNOSIS</dt><dd>{incidents.cases[incident].diagnosis}</dd></div>
-              <div><dt>RESPONSE</dt><dd>{incidents.cases[incident].response}</dd></div>
-              <div><dt>PREVENTION</dt><dd>{incidents.cases[incident].prevention}</dd></div>
-            </dl>
-          </div>
-          <aside className="yap-additional-hardening"><span>ADDITIONAL HARDENING</span><p>{incidents.additionalHardening}</p></aside>
+          <YapIncidentExplorer incidents={incidents.cases} />
+          <aside className="yap-additional-hardening">
+            <span>ADDITIONAL HARDENING</span>
+            <p>{incidents.additionalHardening}</p>
+          </aside>
         </div>
       </section>
 
       <section className="yap-impact">
         <div className="shell yap-impact-inner">
           <p className="eyebrow">PRODUCTION EVIDENCE</p>
-          <div className="yap-impact-main"><strong>6,517</strong><span>messages created in one production week</span></div>
-          <div className="yap-impact-stats">
-            <article><strong>332</strong><span>Median messages per day</span></article>
-            <article><strong>~550</strong><span>Average excluding the largest spike</span></article>
-            <article><strong>7 days</strong><span>Public conversations and private DMs</span></article>
+          <div className="yap-impact-main">
+            <strong>6,517</strong>
+            <span>messages created in one production week</span>
+            <small>September 5–11 UTC</small>
           </div>
-          <p className="yap-impact-copy">{project.impactBody}</p>
+          <div className="yap-impact-stats">
+            <article>
+              <strong>332</strong>
+              <span>Median messages per day</span>
+            </article>
+            <article>
+              <strong>~550</strong>
+              <span>Average excluding the largest spike</span>
+            </article>
+            <article>
+              <strong>7 days</strong>
+              <span>Public conversations and private DMs</span>
+            </article>
+          </div>
+          <div className="yap-impact-notes">
+            <p>
+              <span>COUNTING NOTE</span>Created-message totals include messages
+              later deleted by users.
+            </p>
+            <p>
+              <span>CALCULATION NOTE</span>Median and adjusted average use the
+              September 5–11 UTC window; the adjusted average excludes the
+              largest event-driven spike.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -294,8 +319,12 @@ export function YapCaseContent({ project }: { project: Project }) {
           <h2>What operating the product changed in my practice</h2>
           <div className="yap-takeaway-list">
             {project.takeaways.map((item, index) => (
-              <details key={item.title} open={index === 0}>
-                <summary><span>0{index + 1}</span><strong>{item.title}</strong><b aria-hidden="true">+</b></summary>
+              <details key={item.title}>
+                <summary>
+                  <span>0{index + 1}</span>
+                  <strong>{item.title}</strong>
+                  <b aria-hidden="true">+</b>
+                </summary>
                 <p>{item.body}</p>
               </details>
             ))}
