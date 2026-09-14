@@ -52,7 +52,7 @@ const projectCatalog: Project[] = [
     solutionsLabel: 'KEY PRODUCT SOLUTIONS',
     solutions: [
       { title: 'A room begins with a link.', body: 'Hosts create a channel and share its URL. Guests can enter public rooms immediately, while optional passcodes add friction only when the conversation needs it.', mediaNote: 'Flow capture: create channel, copy link, open as a guest' },
-      { title: 'Anonymous does not mean unstructured.', body: 'Replies, reactions, search, notices, and banned-word feedback give lightweight conversations structure. User reports can escalate from owner review to platform-level moderation, while blocking, freezing, warnings, petitions, and recoverable deletion make enforcement explicit and reversible where appropriate.', mediaNote: 'Moderation flow: user report → owner review → warning or enforcement → visible feedback' },
+      { title: 'Anonymous does not mean chaotic.', body: 'Anonymous chat can still be structured. yap. uses lightweight conversation tools to keep rooms readable, and explicit moderation flows to pause, review, and recover when needed.', mediaNote: 'Channel owner flow: room controls → pause → review → recover' },
       { title: 'Private messages have a visible boundary.', body: 'A visitor can start a thread that only they and the channel owner can read. Authorization is enforced on the server, not by hiding UI.', mediaNote: 'Split view: guest DM composer and owner-only thread' },
       { title: 'Live is intentionally temporary.', body: 'A host can start a separate live session for a shared moment. Session identity, presence, and expiry are kept distinct from normal channel history.', mediaNote: 'Sequence: live starts, reactions appear, session ends cleanly' },
     ],

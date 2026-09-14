@@ -1,6 +1,8 @@
 import type { Project } from '@/lib/project-data';
+import { ChannelOwnerControlsDemo } from './channel-owner-controls-demo';
 import { DemoPlaceholder } from './demo-placeholder';
 import { LinkToRoomDemo } from './link-to-room-demo';
+import { PrivateVisibilityDemo } from './private-visibility-demo';
 import { YapIncidentExplorer } from './yap-incident-explorer';
 import { YapSystemDiagram } from './yap-system-diagram';
 
@@ -58,22 +60,12 @@ const constraints = [
 
 const solutionSlots = [
   'link-entry',
-  'moderation-workflow',
+  'channel-owner-authority',
   'private-visibility',
   'live-session',
 ];
 
 const solutionPlaceholders = [
-  {
-    title: 'Recoverable moderation',
-    description: 'Report → review → enforcement → resolution',
-    futureComponent: 'ModerationWorkflowDemo',
-  },
-  {
-    title: 'Private visibility boundaries',
-    description: 'Guest → owner → unauthorized visitor',
-    futureComponent: 'PrivateVisibilityDemo',
-  },
   {
     title: 'Temporary live sessions',
     description: 'Ready → active → ended',
@@ -83,7 +75,9 @@ const solutionPlaceholders = [
 
 function YapSolutionVisual({ index }: { index: number }) {
   if (index === 0) return <LinkToRoomDemo />;
-  const placeholder = solutionPlaceholders[index - 1];
+  if (index === 1) return <ChannelOwnerControlsDemo />;
+  if (index === 2) return <PrivateVisibilityDemo />;
+  const placeholder = solutionPlaceholders[index - 3];
   return (
     <DemoPlaceholder
       title={placeholder.title}
@@ -193,7 +187,10 @@ export function YapCaseContent({ project }: { project: Project }) {
       <section className="yap-solutions shell case-section">
         <p className="eyebrow">{project.solutionsLabel}</p>
         {project.solutions.map((solution, index) => (
-          <article className="yap-solution-row" key={solution.title}>
+          <article
+            className={`yap-solution-row ${index === 1 || index === 2 ? 'yap-solution-row--wide-demo' : ''}`}
+            key={solution.title}
+          >
             <div className="yap-solution-copy">
               <span>0{index + 1}</span>
               <h2>{solution.title}</h2>
