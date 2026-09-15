@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
-import { PortfolioDock } from '@/components/portfolio-dock';
+import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
+import { homeContent } from '@/lib/home-content';
 import { getProject, projects } from '@/lib/project-data';
 import { MotionEffects } from '../../motion-effects';
 
@@ -52,12 +53,7 @@ export default async function ProjectPage({
     <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
       <MotionEffects />
       {isYap ? (
-        <PortfolioDock
-          current="work"
-          homeHref="/"
-          workHref="/#work"
-          aboutHref="/#about"
-        />
+        <ScrollTriggeredDock triggerId="yap-problem" />
       ) : (
         <nav className="case-top-nav" aria-label="Project navigation">
           <div className="case-nav-inner">
@@ -502,27 +498,17 @@ export default async function ProjectPage({
           )}
         </>
       )}
-      <section className="next-project shell">
-        <TransitionLink href="/" direction="back">
-          Home
-        </TransitionLink>
-        <TransitionLink href={`/work/${nextProject.slug}`} direction="forward">
-          Next project <span aria-hidden="true">&#8594;</span>
-        </TransitionLink>
-      </section>
-      <footer className="footer shell">
-        <nav className="text-links">
-          <a href="mailto:jiwoo315@ucla.edu">Contact me</a>
-          <a
-            href="https://github.com/jiji123526"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub <ExternalArrow />
-          </a>
-        </nav>
-        <p>Copyright © 2026 Jiwoo Jeong</p>
-      </footer>
+      <div className="aa-social-links">
+        <a href={homeContent.links.email}>Email</a>
+        {homeContent.links.resume ? (
+          <a href={homeContent.links.resume}>Resume</a>
+        ) : (
+          <span>Resume</span>
+        )}
+        <a href={homeContent.links.linkedin} rel="noreferrer" target="_blank">
+          LinkedIn
+        </a>
+      </div>
     </main>
   );
 }

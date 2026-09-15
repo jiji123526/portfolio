@@ -84,7 +84,7 @@ export function YapCaseContent({ project }: { project: Project }) {
 
   return (
     <div className="yap-case-content">
-      <section className="yap-problem shell case-section">
+      <section className="yap-problem shell case-section" id="yap-problem">
         <p className="eyebrow">PROBLEM</p>
         <h2 className="yap-title-effect">
           Joining should feel <mark>as light as opening a link.</mark>{' '}
@@ -121,10 +121,7 @@ export function YapCaseContent({ project }: { project: Project }) {
             <h2>
               <span className="yap-transformation-line">Personal room</span>
               <span className="yap-transformation-line yap-transformation-destination">
-                <span
-                  className="yap-transformation-arrow"
-                  aria-hidden="true"
-                >
+                <span className="yap-transformation-arrow" aria-hidden="true">
                   →
                 </span>{' '}
                 multi-tenant platform
@@ -133,9 +130,7 @@ export function YapCaseContent({ project }: { project: Project }) {
             <div>
               <p>{transformationParts[0]}</p>
               {transformationParts[1] && (
-                <p>
-                  This required {boundaryAndMigration[0]}
-                </p>
+                <p>This required {boundaryAndMigration[0]}</p>
               )}
               {boundaryAndMigration[1] && (
                 <p>I later {boundaryAndMigration[1]}</p>
@@ -215,10 +210,7 @@ export function YapCaseContent({ project }: { project: Project }) {
                   <>
                     A room begins with a{' '}
                     <span className="yap-link-title">
-                      <span
-                        className="yap-link-title__icon"
-                        aria-hidden="true"
-                      >
+                      <span className="yap-link-title__icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24">
                           <path d="M10.6 13.4a4.8 4.8 0 0 0 6.8 0l2-2a4.8 4.8 0 0 0-6.8-6.8l-1.1 1.1" />
                           <path d="M13.4 10.6a4.8 4.8 0 0 0-6.8 0l-2 2a4.8 4.8 0 0 0 6.8 6.8l1.1-1.1" />
@@ -261,10 +253,7 @@ export function YapCaseContent({ project }: { project: Project }) {
                   </>
                 ) : index === 3 ? (
                   <span className="yap-live-title">
-                    <span
-                      className="yap-live-title__dot"
-                      aria-hidden="true"
-                    />
+                    <span className="yap-live-title__dot" aria-hidden="true" />
                     <span className="yap-live-title__copy">
                       <span>Live is intentionally</span>
                       <span className="yap-temporary-title">
