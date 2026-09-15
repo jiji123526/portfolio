@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
+import { PortfolioDock } from '@/components/portfolio-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
@@ -50,19 +51,28 @@ export default async function ProjectPage({
   return (
     <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
       <MotionEffects />
-      <nav className="case-top-nav" aria-label="Project navigation">
-        <div className="case-nav-inner">
-          <TransitionLink href="/" direction="back">
-            <span aria-hidden="true">&#8249;</span> Home
-          </TransitionLink>
-          <TransitionLink
-            href={`/work/${nextProject.slug}`}
-            direction="forward"
-          >
-            Next project <span aria-hidden="true">&#8250;</span>
-          </TransitionLink>
-        </div>
-      </nav>
+      {isYap ? (
+        <PortfolioDock
+          current="work"
+          homeHref="/"
+          workHref="/#work"
+          aboutHref="/#about"
+        />
+      ) : (
+        <nav className="case-top-nav" aria-label="Project navigation">
+          <div className="case-nav-inner">
+            <TransitionLink href="/" direction="back">
+              <span aria-hidden="true">&#8249;</span> Home
+            </TransitionLink>
+            <TransitionLink
+              href={`/work/${nextProject.slug}`}
+              direction="forward"
+            >
+              Next project <span aria-hidden="true">&#8250;</span>
+            </TransitionLink>
+          </div>
+        </nav>
+      )}
 
       {isYap ? (
         <header className="yap-case-opening">
