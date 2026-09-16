@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { MouseEvent } from 'react';
 
 const sections = [
@@ -17,7 +17,6 @@ type SectionId = (typeof sections)[number]['id'];
 export function YapSectionNav() {
   const [activeId, setActiveId] = useState<SectionId>(sections[0].id);
   const [isVisible, setIsVisible] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let frame = 0;
@@ -56,21 +55,6 @@ export function YapSectionNav() {
     };
   }, []);
 
-  useEffect(() => {
-    const track = trackRef.current;
-    const active = track?.querySelector<HTMLAnchorElement>(
-      `a[href="#${activeId}"]`,
-    );
-    if (!track || !active || track.scrollWidth <= track.clientWidth) return;
-
-    track.scrollTo({
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth',
-      left: active.offsetLeft - (track.clientWidth - active.offsetWidth) / 2,
-    });
-  }, [activeId]);
-
   const jumpToSection = (
     event: MouseEvent<HTMLAnchorElement>,
     id: SectionId,
@@ -103,21 +87,18 @@ export function YapSectionNav() {
       aria-label="YAP case study sections"
       className={`yap-section-nav${isVisible ? ' is-visible' : ''}`}
     >
-      <div className="yap-section-nav__track" ref={trackRef}>
-        {sections.map((section, index) => {
+      <div className="yap-section-nav__track">
+        {sections.map((section) => {
           const isActive = activeId === section.id;
           return (
             <a
+              aria-label={section.label}
               aria-current={isActive ? 'location' : undefined}
               className={isActive ? 'is-active' : undefined}
               href={`#${section.id}`}
               key={section.id}
               onClick={(event) => jumpToSection(event, section.id)}
             >
-              <span className="yap-section-nav__part">
-                <i aria-hidden="true" />
-                Part {index + 1}
-              </span>
               <span className="yap-section-nav__label">{section.label}</span>
             </a>
           );
