@@ -29,7 +29,7 @@ export type Project = {
 
 const projectCatalog: Project[] = [
   {
-    slug: 'yap-anonymous-chat', metric: 'REALTIME CHAT · TRUST & SAFETY', category: 'Independent Product',
+    slug: 'yap-anonymous-chat', metric: '400+ ACTIVE USERS', category: 'Independent Product',
     title: 'yap.', summary: 'Anonymous realtime chat with owner controls, private messaging boundaries, and temporary live sessions',
     headline: 'Engineering a link-first realtime system for conversations that shouldn’t need an account', role: 'Full-stack Product Engineer',
     duration: 'Ongoing', client: 'Independent Product',
