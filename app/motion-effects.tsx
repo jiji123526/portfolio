@@ -12,12 +12,25 @@ export function MotionEffects() {
       root.dataset.transition = 'preparing';
       void root.offsetWidth;
       const frame = window.requestAnimationFrame(() => {
-        root.dataset.transition = 'ready';
-        window.setTimeout(() => { delete root.dataset.transitionDirection; }, 560);
+        root.dataset.transition = 'entering';
       });
-      return () => window.cancelAnimationFrame(frame);
+      const timer = window.setTimeout(() => {
+        root.dataset.transition = 'ready';
+        delete root.dataset.transitionDirection;
+      }, 900);
+      return () => {
+        window.cancelAnimationFrame(frame);
+        window.clearTimeout(timer);
+      };
     }
-    root.dataset.transition = 'ready';
+
+    if (!root.dataset.transition) {
+      root.dataset.transition = 'initial';
+      const timer = window.setTimeout(() => {
+        root.dataset.transition = 'ready';
+      }, 3300);
+      return () => window.clearTimeout(timer);
+    }
   }, [pathname]);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ type DockSection = 'home' | 'work' | 'about';
 
 type PortfolioDockProps = {
   current: DockSection;
+  className?: string;
   homeHref?: string;
   workHref?: string;
   aboutHref?: string;
@@ -15,6 +16,7 @@ const items: Array<{ id: DockSection; label: string }> = [
 
 export function PortfolioDock({
   current,
+  className = '',
   homeHref = '#home',
   workHref = '#work',
   aboutHref = '#about',
@@ -26,7 +28,10 @@ export function PortfolioDock({
   };
 
   return (
-    <nav className="aa-dock" aria-label="Primary navigation">
+    <nav
+      className={`aa-dock${className ? ` ${className}` : ''}`}
+      aria-label="Primary navigation"
+    >
       {items.map((item) => (
         <a
           className={current === item.id ? 'is-current' : undefined}

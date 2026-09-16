@@ -52,6 +52,10 @@ A recommendation system that structures subjective preferences into understandab
 
 The visual layout and motion rhythm were rebuilt from scratch from a portfolio reference. All project narratives, metrics, and future media belong to Jiwoo’s own work.
 
+## Current design reference
+
+- [Angelo Arcilla](https://angeloarcilla.com/) — primary visual and interaction reference for the portfolio currently being built. Use it as directional inspiration for composition, pacing, typography, motion, and case-study presentation rather than copying its content or media.
+
 ## Development
 
 Requirements: Node.js 22.13 or newer and npm.

@@ -1,7 +1,17 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { geoArea, geoDistance, geoOrthographic, geoPath } from 'd3-geo';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, PointerEvent as ReactPointerEvent } from 'react';
+import { feature } from 'topojson-client';
+import {
+  presimplify,
+  quantile,
+  simplify,
+  sphericalTriangleArea,
+} from 'topojson-simplify';
+import type { GeometryCollection, Topology } from 'topojson-specification';
+import landTopologyData from 'world-atlas/land-110m.json';
 import { PortfolioDock } from '@/components/portfolio-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
@@ -17,12 +27,225 @@ type HomeProject = {
   duration: string;
 };
 
-const specialties = [
-  'Product Design',
-  'Language Systems',
-  'Human-Centered Interfaces',
-  'Interaction Design',
-];
+const GLOBE_SIZE = 260;
+const GLOBE_CENTER = GLOBE_SIZE / 2;
+const SEATTLE_COORDINATES: [number, number] = [-122.3321, 47.6062];
+const KOREA_COORDINATES: [number, number] = [126.978, 37.5665];
+const topology = landTopologyData as unknown as Topology<{
+  land: GeometryCollection;
+}>;
+const weightedTopology = presimplify(topology, sphericalTriangleArea);
+const reducedTopology = simplify(
+  weightedTopology,
+  quantile(weightedTopology, 0.08),
+);
+const rawLand = feature(reducedTopology, reducedTopology.objects.land);
+
+const simplifiedLand = (() => {
+  if (rawLand.type !== 'FeatureCollection') return rawLand;
+
+  const land = rawLand.features[0];
+  if (!land || land.geometry?.type !== 'MultiPolygon') return rawLand;
+
+  return {
+    type: 'Feature' as const,
+    properties: {},
+    geometry: {
+      type: 'MultiPolygon' as const,
+      coordinates: land.geometry.coordinates.filter(
+        (coordinates) =>
+          geoArea({ type: 'Polygon', coordinates }) >= 0.01,
+      ),
+    },
+  };
+})();
+
+function WordGlobe() {
+  const [rotation, setRotation] = useState<[number, number]>([280, -30]);
+  const [isDragging, setIsDragging] = useState(false);
+  const introAnimation = useRef({ frame: 0, timeout: 0 });
+  const dragStart = useRef<{
+    pointerId: number;
+    x: number;
+    y: number;
+    rotation: [number, number];
+  } | null>(null);
+
+  useEffect(() => {
+    const targetRotation: [number, number] = [100, -30];
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setRotation(targetRotation);
+      return;
+    }
+
+    const revealDelay = 3650;
+    const preRoll = 48;
+    introAnimation.current.timeout = window.setTimeout(() => {
+      const startedAt = performance.now();
+      const duration = 1250 + preRoll;
+
+      const rotateIntoView = (now: number) => {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setRotation([280 - 180 * eased, -30]);
+
+        if (progress < 1) {
+          introAnimation.current.frame = window.requestAnimationFrame(rotateIntoView);
+        }
+      };
+
+      introAnimation.current.frame = window.requestAnimationFrame(rotateIntoView);
+    }, revealDelay - preRoll);
+
+    return () => {
+      window.clearTimeout(introAnimation.current.timeout);
+      window.cancelAnimationFrame(introAnimation.current.frame);
+    };
+  }, []);
+
+  const paths = useMemo(() => {
+    const projection = geoOrthographic()
+      .translate([GLOBE_CENTER, GLOBE_CENTER])
+      .scale(130)
+      .clipAngle(90)
+      .precision(1.5)
+      .rotate(rotation);
+    const path = geoPath(projection);
+    const visibleCenter = projection.invert?.([GLOBE_CENTER, GLOBE_CENTER]);
+    const projectMarker = (coordinates: [number, number]) => {
+      const point = projection(coordinates);
+      if (!point || !visibleCenter) return null;
+
+      return {
+        x: point[0],
+        y: point[1],
+        visible: geoDistance(coordinates, visibleCenter) < Math.PI / 2,
+      };
+    };
+
+    return {
+      sphere: path({ type: 'Sphere' }),
+      land: path(simplifiedLand),
+      seattle: projectMarker(SEATTLE_COORDINATES),
+      korea: projectMarker(KOREA_COORDINATES),
+    };
+  }, [rotation]);
+
+  const beginDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    window.clearTimeout(introAnimation.current.timeout);
+    window.cancelAnimationFrame(introAnimation.current.frame);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragStart.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      rotation,
+    };
+    setIsDragging(true);
+  };
+
+  const continueDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      '--aa-pointer-x',
+      `${event.clientX - rect.left}px`,
+    );
+    event.currentTarget.style.setProperty(
+      '--aa-pointer-y',
+      `${event.clientY - rect.top}px`,
+    );
+
+    const start = dragStart.current;
+    if (!start || start.pointerId !== event.pointerId) return;
+
+    const longitude = start.rotation[0] + (event.clientX - start.x) * 0.48;
+    const latitude = Math.max(
+      -68,
+      Math.min(68, start.rotation[1] - (event.clientY - start.y) * 0.38),
+    );
+    setRotation([longitude, latitude]);
+  };
+
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (dragStart.current?.pointerId !== event.pointerId) return;
+    dragStart.current = null;
+    setIsDragging(false);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  return (
+    <div
+      className="aa-word-globe"
+      data-dragging={isDragging ? 'true' : undefined}
+      aria-hidden="true"
+    >
+      <div
+        className="aa-word-globe__stage"
+        onPointerDown={beginDrag}
+        onPointerMove={continueDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
+        <svg
+          viewBox={`0 0 ${GLOBE_SIZE} ${GLOBE_SIZE}`}
+          role="presentation"
+        >
+          <g className="aa-word-globe__map">
+            <path
+              className="aa-word-globe__line aa-word-globe__sphere"
+              d={paths.sphere ?? undefined}
+              pathLength="1"
+            />
+            <path
+              className="aa-word-globe__line aa-word-globe__land"
+              d={paths.land ?? undefined}
+              pathLength="1"
+            />
+          </g>
+          {paths.seattle?.visible && (
+            <g
+              className="aa-word-globe__seattle"
+              transform={`translate(${paths.seattle.x} ${paths.seattle.y})`}
+            >
+              <circle className="aa-word-globe__seattle-pulse" r="5.5" />
+              <circle className="aa-word-globe__seattle-dot" r="2.4" />
+              <g className="aa-word-globe__seattle-label">
+                <polyline points="-4,0 -8.5,4.5 -15,4.5" />
+                <text className="aa-word-globe__seattle-city" x="-18" y="5.7">
+                  Seattle, WA
+                </text>
+                <text className="aa-word-globe__seattle-here" x="6" y="1.2">
+                  I&apos;m here!
+                </text>
+              </g>
+            </g>
+          )}
+          {paths.korea?.visible && (
+            <g
+              className="aa-word-globe__seattle aa-word-globe__seattle--korea"
+              transform={`translate(${paths.korea.x} ${paths.korea.y})`}
+            >
+              <circle className="aa-word-globe__seattle-pulse" r="5.5" />
+              <circle className="aa-word-globe__seattle-dot" r="2.4" />
+              <g className="aa-word-globe__seattle-label">
+                <polyline points="-4,0 -8.5,4.5 -15,4.5" />
+                <text className="aa-word-globe__seattle-city" x="-18" y="5.7">
+                  Seoul, Korea
+                </text>
+                <text className="aa-word-globe__seattle-here" x="6" y="1.2">
+                  I&apos;m from here!
+                </text>
+              </g>
+            </g>
+          )}
+        </svg>
+        <span className="aa-word-globe__pointer">FIND ME!</span>
+      </div>
+    </div>
+  );
+}
 
 function ImagePlaceholder({
   label,
@@ -38,11 +261,31 @@ function ImagePlaceholder({
   );
 }
 
+function updateViewPointer(event: ReactPointerEvent<HTMLElement>) {
+  const rect = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty(
+    '--aa-view-x',
+    `${event.clientX - rect.left}px`,
+  );
+  event.currentTarget.style.setProperty(
+    '--aa-view-y',
+    `${event.clientY - rect.top}px`,
+  );
+}
+
 function ProjectCopy({ project }: { project: HomeProject }) {
   return (
     <div className="aa-project-copy">
       <h3>
-        <span data-project-morph="title">{project.title}</span>
+        <TransitionLink
+          className="aa-project-title-link"
+          direction="forward"
+          href={`/work/${project.slug}`}
+          onPointerMove={updateViewPointer}
+        >
+          <span data-project-morph="title">{project.title}</span>
+          <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
+        </TransitionLink>
       </h3>
       <div className="aa-project-tags">
         <span data-project-morph="category">{project.category}</span>
@@ -88,6 +331,7 @@ function ProjectVisual({
       direction="forward"
       href={`/work/${project.slug}`}
       aria-label={`View ${project.title}`}
+      onPointerMove={updateViewPointer}
     >
       {isYap ? (
         <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
@@ -96,10 +340,13 @@ function ProjectVisual({
       ) : (
         <ImagePlaceholder label={`${project.title} image placeholder`} />
       )}
-      <span className="aa-project-visual__number">0{index + 1}</span>
+      {!isYap && (
+        <span className="aa-project-visual__number">0{index + 1}</span>
+      )}
       {!isYap && (
         <span className="aa-project-visual__title">{project.title}</span>
       )}
+      <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
     </TransitionLink>
   );
 }
@@ -112,11 +359,36 @@ export function HomeLanguageExperience({
   projects: HomeProject[];
 }) {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [isHeroActive, setIsHeroActive] = useState(true);
+  const [isDockVisible, setIsDockVisible] = useState(false);
   const projectPanels = useRef<Array<HTMLElement | null>>([]);
   const projectCopyStage = useRef<HTMLDivElement | null>(null);
   const previousMorphRects = useRef<Map<string, DOMRect> | null>(null);
   const activeProjectIndexRef = useRef(0);
   const activeProject = projects[activeProjectIndex] || projects[0]!;
+
+  useEffect(() => {
+    const updateHeroState = () => {
+      const hero = document.querySelector<HTMLElement>('.aa-hero');
+      const links = document.querySelector<HTMLElement>('.aa-social-links');
+      if (!hero || !links) return;
+
+      setIsHeroActive(
+        hero.getBoundingClientRect().bottom > links.getBoundingClientRect().top,
+      );
+      setIsDockVisible(
+        hero.getBoundingClientRect().bottom <= window.innerHeight * 0.92,
+      );
+    };
+
+    updateHeroState();
+    window.addEventListener('scroll', updateHeroState, { passive: true });
+    window.addEventListener('resize', updateHeroState);
+    return () => {
+      window.removeEventListener('scroll', updateHeroState);
+      window.removeEventListener('resize', updateHeroState);
+    };
+  }, []);
 
   const captureProjectMorphRects = () => {
     const stage = projectCopyStage.current;
@@ -262,48 +534,116 @@ export function HomeLanguageExperience({
 
   return (
     <main className="aa-home">
-      <div className="aa-loader" aria-hidden="true">
-        <div className="aa-loader__content">
-          <strong>{content.name}</strong>
-          <div className="aa-loader__progress">
-            <i />
-          </div>
-        </div>
-      </div>
-
       <section className="aa-hero" id="home" aria-label="Introduction">
         <div className="aa-stars" aria-hidden="true" />
+        <WordGlobe />
 
         <header className="aa-topbar">
-          <span>{content.name}</span>
+          <div className="aa-topbar__identity">
+            <span>{content.name}</span>
+            <dl className="aa-hero-career">
+              <div>
+                <dt>Current role</dt>
+                <dd>Machine Learning Data Associate</dd>
+              </div>
+              <div>
+                <dt>Building toward</dt>
+                <dd>Language Engineer</dd>
+              </div>
+              <div>
+                <dt>Engineering practice</dt>
+                <dd>Full-stack Systems</dd>
+              </div>
+            </dl>
+          </div>
         </header>
 
-        <div className="aa-hero-copy">
-          <span className="aa-specializing">[working across]</span>
-          {specialties.map((specialty, index) => (
-            <p key={specialty} style={{ '--line': index } as CSSProperties}>
-              {specialty}
-            </p>
-          ))}
-          <ImagePlaceholder
-            className="aa-hero-placeholder aa-hero-placeholder--left"
-            label="Image placeholder"
-          />
-          <ImagePlaceholder
-            className="aa-hero-placeholder aa-hero-placeholder--right"
-            label="Image placeholder"
-          />
+        <div className="aa-hero-words" aria-label="We are the words">
+          <span
+            style={
+              {
+                '--aa-chars': 2,
+                '--aa-delay': '3.7s',
+                '--aa-duration': '0.2s',
+                '--aa-width': '3.4ch',
+                '--aa-cursor-span': '0.45s',
+              } as CSSProperties
+            }
+          >
+            WE
+          </span>
+          <span
+            style={
+              {
+                '--aa-chars': 3,
+                '--aa-delay': '4.15s',
+                '--aa-duration': '0.3s',
+                '--aa-width': '4.5ch',
+                '--aa-cursor-span': '0.55s',
+              } as CSSProperties
+            }
+          >
+            ARE
+          </span>
+          <span
+            style={
+              {
+                '--aa-chars': 3,
+                '--aa-delay': '4.7s',
+                '--aa-duration': '0.3s',
+                '--aa-width': '4.3ch',
+                '--aa-cursor-span': '0.55s',
+              } as CSSProperties
+            }
+          >
+            THE
+          </span>
+          <span
+            style={
+              {
+                '--aa-chars': 8,
+                '--aa-delay': '5.25s',
+                '--aa-duration': '0.8s',
+                '--aa-width': '9ch',
+              } as CSSProperties
+            }
+          >
+            WORDS!!!
+          </span>
+          <p>
+            We are all made of words we use.
+            <br />
+            I design systems that listen closely to them.
+          </p>
         </div>
 
-        <ImagePlaceholder
-          className="aa-hero-placeholder aa-hero-placeholder--bottom"
-          label="Artwork placeholder"
-        />
+        <button
+          className={`aa-scroll-prompt${isDockVisible ? ' is-hidden' : ''}`}
+          type="button"
+          aria-label="Scroll to selected work"
+          onClick={() => {
+            const target = document.querySelector<HTMLElement>(
+              window.matchMedia('(max-width: 809.98px)').matches
+                ? '.aa-work-mobile'
+                : '#work',
+            );
+            if (!target) return;
+            setIsDockVisible(true);
+            window.requestAnimationFrame(() => {
+              target.scrollIntoView({
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
+                  .matches
+                  ? 'auto'
+                  : 'smooth',
+                block: 'start',
+              });
+            });
+          }}
+        >
+          <span>SCROLL</span>
+          <span className="aa-scroll-prompt__line" aria-hidden="true" />
+        </button>
 
-        <a className="aa-scroll-cue" href="#work">
-          <span>[scroll]</span>
-          <i aria-hidden="true">⌄</i>
-        </a>
       </section>
 
       <section className="aa-work aa-work--desktop" id="work">
@@ -425,7 +765,9 @@ export function HomeLanguageExperience({
         </div>
       </section>
 
-      <div className="aa-social-links">
+      <div
+        className={`aa-social-links${isHeroActive ? ' is-on-hero' : ''}`}
+      >
         <a href={content.links.email}>Email</a>
         {content.links.resume ? (
           <a href={content.links.resume}>Resume</a>
@@ -437,7 +779,10 @@ export function HomeLanguageExperience({
         </a>
       </div>
 
-      <PortfolioDock current="home" />
+      <PortfolioDock
+        className={isDockVisible ? 'is-home-visible' : 'is-home-hidden'}
+        current="home"
+      />
     </main>
   );
 }

@@ -8,7 +8,6 @@ import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
 import { homeContent } from '@/lib/home-content';
 import { getProject, projects } from '@/lib/project-data';
-import { MotionEffects } from '../../motion-effects';
 
 export function generateStaticParams() {
   return projects.map(({ slug }) => ({ slug }));
@@ -51,7 +50,6 @@ export default async function ProjectPage({
 
   return (
     <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
-      <MotionEffects />
       {isYap ? (
         <ScrollTriggeredDock triggerId="yap-problem" />
       ) : (

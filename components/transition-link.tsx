@@ -18,6 +18,10 @@ export function TransitionLink({ direction = 'forward', href, onClick, ...props 
     event.preventDefault();
     const url = new URL(event.currentTarget.href);
     const destination = `${url.pathname}${url.search}${url.hash}`;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      router.push(destination);
+      return;
+    }
     const root = document.documentElement;
     root.dataset.transitionDirection = direction;
     root.dataset.transition = 'leaving';
