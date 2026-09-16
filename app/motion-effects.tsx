@@ -8,29 +8,69 @@ export function MotionEffects() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (root.dataset.transition === 'leaving') {
+    let cancelled = false;
+    let exitTimer = 0;
+
+    const afterPaint = () =>
+      new Promise<void>((resolve) => {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => resolve());
+        });
+      });
+
+    const waitForImages = async () => {
+      const images = Array.from(document.images);
+      await Promise.all(
+        images.map(async (image) => {
+          if (image.complete) {
+            await image.decode().catch(() => undefined);
+            return;
+          }
+
+          const preload = new window.Image();
+          preload.decoding = 'async';
+          if (image.srcset) preload.srcset = image.srcset;
+          if (image.sizes) preload.sizes = image.sizes;
+          preload.src = image.currentSrc || image.src;
+          await preload.decode().catch(() => undefined);
+        }),
+      );
+    };
+
+    const waitForDestination = async () => {
+      await afterPaint();
+      await Promise.all([
+        document.fonts.ready,
+        waitForImages(),
+        new Promise<void>((resolve) => window.setTimeout(resolve, 2350)),
+      ]);
+      await afterPaint();
+    };
+
+    const revealDestination = async () => {
       root.dataset.transition = 'preparing';
       void root.offsetWidth;
-      const frame = window.requestAnimationFrame(() => {
-        root.dataset.transition = 'entering';
-      });
-      const timer = window.setTimeout(() => {
+
+      await Promise.race([
+        waitForDestination(),
+        new Promise<void>((resolve) => window.setTimeout(resolve, 12000)),
+      ]);
+      if (cancelled) return;
+
+      root.dataset.transition = 'entering';
+      exitTimer = window.setTimeout(() => {
+        if (cancelled) return;
         root.dataset.transition = 'ready';
         delete root.dataset.transitionDirection;
       }, 900);
-      return () => {
-        window.cancelAnimationFrame(frame);
-        window.clearTimeout(timer);
-      };
-    }
+    };
 
-    if (!root.dataset.transition) {
-      root.dataset.transition = 'initial';
-      const timer = window.setTimeout(() => {
-        root.dataset.transition = 'ready';
-      }, 3300);
-      return () => window.clearTimeout(timer);
-    }
+    void revealDestination();
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(exitTimer);
+    };
   }, [pathname]);
 
   useEffect(() => {

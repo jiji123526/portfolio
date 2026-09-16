@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { AboutConstellation } from '@/components/about-constellation';
+import { AboutExperience } from '@/components/about-experience';
 import { AboutSocialLinks } from '@/components/about-social-links';
 import { GravityStars } from '@/components/gravity-stars';
 import { PortfolioDock } from '@/components/portfolio-dock';
@@ -12,19 +13,6 @@ export const metadata: Metadata = {
   description:
     'About Jiwoo Jeong, a Machine Learning Data Associate building toward language engineering through full-stack product systems.',
 };
-
-const profile = [
-  ['Current role', 'Machine Learning Data Associate'],
-  ['Building toward', 'Language Engineer'],
-  ['Engineering practice', 'Full-stack Systems'],
-  ['Location', 'Seattle, WA · from Seoul'],
-];
-
-const principles = [
-  ['01', 'Listen before automating.'],
-  ['02', 'Make uncertain decisions reviewable.'],
-  ['03', 'Build the complete path from interface to evidence.'],
-];
 
 export default function AboutPage() {
   return (
@@ -103,32 +91,7 @@ export default function AboutPage() {
         resume={homeContent.links.resume}
       />
 
-      <section
-        className="aa-about-page__details"
-        id="about-details"
-        aria-label="About details"
-      >
-        <dl className="aa-about-page__profile">
-          {profile.map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="aa-about-page__principles">
-          <p>HOW I WORK</p>
-          <ol>
-            {principles.map(([number, principle]) => (
-              <li key={number}>
-                <span>{number}</span>
-                <strong>{principle}</strong>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <AboutExperience />
 
       <footer className="aa-about-page__footer">
         <TransitionLink direction="back" href="/#work">

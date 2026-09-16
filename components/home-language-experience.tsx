@@ -15,6 +15,7 @@ import landTopologyData from 'world-atlas/land-110m.json';
 import { PortfolioDock } from '@/components/portfolio-dock';
 import { GravityStars } from '@/components/gravity-stars';
 import { TransitionLink } from '@/components/transition-link';
+import { useStickyDrift } from '@/components/use-sticky-drift';
 import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
 import type { HomeContent } from '@/lib/home-content';
 
@@ -374,9 +375,21 @@ export function HomeLanguageExperience({
   const [isDockVisible, setIsDockVisible] = useState(false);
   const projectPanels = useRef<Array<HTMLElement | null>>([]);
   const projectCopyStage = useRef<HTMLDivElement | null>(null);
+  const workSection = useRef<HTMLElement | null>(null);
+  const workSelector = useRef<HTMLElement | null>(null);
+  const workDescription = useRef<HTMLElement | null>(null);
   const previousMorphRects = useRef<Map<string, DOMRect> | null>(null);
   const activeProjectIndexRef = useRef(0);
   const activeProject = projects[activeProjectIndex] || projects[0]!;
+
+  useStickyDrift(workSelector, workSection, {
+    distance: 26,
+    media: '(min-width: 810px)',
+  });
+  useStickyDrift(workDescription, workSection, {
+    distance: 26,
+    media: '(min-width: 810px)',
+  });
 
   useEffect(() => {
     const updateHeroState = () => {
@@ -657,8 +670,8 @@ export function HomeLanguageExperience({
 
       </section>
 
-      <section className="aa-work aa-work--desktop" id="work">
-        <aside className="aa-work-selector">
+      <section className="aa-work aa-work--desktop" id="work" ref={workSection}>
+        <aside className="aa-work-selector" ref={workSelector}>
           <div className="aa-work-selector__inner">
             <div className="aa-work-title">
               <span>Work</span>
@@ -691,7 +704,7 @@ export function HomeLanguageExperience({
           </div>
         </aside>
 
-        <aside className="aa-work-middle">
+        <aside className="aa-work-middle" ref={workDescription}>
           <div className="aa-project-copy-stage" ref={projectCopyStage}>
             <div className="aa-project-copy-layer">
               <ProjectCopy project={activeProject} />
