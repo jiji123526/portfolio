@@ -2384,15 +2384,11 @@ a {
   transition:
     color 0.2s ease,
     opacity 0.2s ease,
-    text-shadow 0.24s ease,
     translate 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .yap-section-nav a.is-active {
   opacity: 1;
   color: #2487ff;
-  text-shadow:
-    0 0 8px rgba(36, 135, 255, 0.42),
-    0 0 18px rgba(36, 135, 255, 0.22);
   translate: 0 0;
 }
 .yap-section-nav__label {
