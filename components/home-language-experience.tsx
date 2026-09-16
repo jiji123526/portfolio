@@ -437,23 +437,12 @@ export function HomeLanguageExperience({
       const links = document.querySelector<HTMLElement>('.aa-social-links');
       if (!hero || !links) return;
 
-      const isMobile = window.matchMedia('(max-width: 809.98px)').matches;
-      const firstProject = document.querySelector<HTMLElement>(
-        isMobile
-          ? '.aa-work-mobile [data-home-dock-trigger]'
-          : '.aa-work--desktop [data-home-dock-trigger]',
-      );
+      const heroRect = hero.getBoundingClientRect();
 
       setIsHeroActive(
-        hero.getBoundingClientRect().bottom > links.getBoundingClientRect().top,
+        heroRect.bottom > links.getBoundingClientRect().top,
       );
-      setIsDockVisible(
-        Boolean(
-          firstProject &&
-            firstProject.getBoundingClientRect().top <=
-              window.innerHeight * (isMobile ? 0.82 : 0.45),
-        ),
-      );
+      setIsDockVisible(heroRect.bottom <= window.innerHeight);
     };
 
     updateHeroState();
@@ -823,7 +812,6 @@ export function HomeLanguageExperience({
                   : undefined
               }
               data-project-index={index}
-              data-home-dock-trigger={index === 0 ? '' : undefined}
               key={project.slug}
               ref={(panel) => {
                 projectPanels.current[index] = panel;
@@ -838,10 +826,7 @@ export function HomeLanguageExperience({
       <section className="aa-work-mobile" aria-label="Selected work">
         <p>[selected projects]</p>
         {projects.map((project, index) => (
-          <article
-            data-home-dock-trigger={index === 0 ? '' : undefined}
-            key={project.slug}
-          >
+          <article key={project.slug}>
             <ProjectCopy project={project} />
             <ProjectVisual index={index} project={project} />
           </article>
