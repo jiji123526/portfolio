@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 const funFacts = [
   '2026 Portfolio',
   'Obsessed with musical films',
-  'Planting cherry tomato',
+  'Planting cherry tomatoes',
   'Any tips for skateboarding?',
 ] as const;
 
