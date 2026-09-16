@@ -285,19 +285,31 @@ function updateViewPointer(event: ReactPointerEvent<HTMLElement>) {
   );
 }
 
+function isProjectAvailable(project: HomeProject) {
+  return project.slug === 'yap-anonymous-chat';
+}
+
 function ProjectCopy({ project }: { project: HomeProject }) {
+  const isAvailable = isProjectAvailable(project);
+
   return (
     <div className="aa-project-copy">
       <h3>
-        <TransitionLink
-          className="aa-project-title-link"
-          direction="forward"
-          href={`/work/${project.slug}`}
-          onPointerMove={updateViewPointer}
-        >
+        {isAvailable ? (
+          <TransitionLink
+            className="aa-project-title-link"
+            direction="forward"
+            href={`/work/${project.slug}`}
+            onPointerMove={updateViewPointer}
+          >
+            <span data-project-morph="title">{project.title}</span>
+            <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
+          </TransitionLink>
+        ) : (
+          <span className="aa-project-title-link is-disabled">
           <span data-project-morph="title">{project.title}</span>
-          <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
-        </TransitionLink>
+          </span>
+        )}
       </h3>
       <div className="aa-project-tags">
         <span data-project-morph="category">{project.category}</span>
@@ -314,14 +326,24 @@ function ProjectCopy({ project }: { project: HomeProject }) {
           <dd>{project.duration}</dd>
         </div>
       </dl>
-      <TransitionLink
-        className="aa-project-link"
-        data-project-morph="link"
-        direction="forward"
-        href={`/work/${project.slug}`}
-      >
-        View Project <span aria-hidden="true">↗</span>
-      </TransitionLink>
+      {isAvailable ? (
+        <TransitionLink
+          className="aa-project-link"
+          data-project-morph="link"
+          direction="forward"
+          href={`/work/${project.slug}`}
+        >
+          View Project <span aria-hidden="true">↗</span>
+        </TransitionLink>
+      ) : (
+        <span
+          aria-disabled="true"
+          className="aa-project-link is-disabled"
+          data-project-morph="link"
+        >
+          Coming Soon
+        </span>
+      )}
     </div>
   );
 }
@@ -334,8 +356,30 @@ function ProjectVisual({
   index: number;
 }) {
   const isYap = project.slug === 'yap-anonymous-chat';
+  const isAvailable = isProjectAvailable(project);
 
-  return (
+  const visualContent = (
+    <>
+      {isYap ? (
+        <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
+          <YapAmbientThumbnail />
+        </div>
+      ) : (
+        <ImagePlaceholder label="Coming soon" />
+      )}
+      {isAvailable && !isYap && (
+        <span className="aa-project-visual__number">0{index + 1}</span>
+      )}
+      {isAvailable && !isYap && (
+        <span className="aa-project-visual__title">{project.title}</span>
+      )}
+      {isAvailable && (
+        <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
+      )}
+    </>
+  );
+
+  return isAvailable ? (
     <TransitionLink
       className={`aa-project-visual aa-project-visual--${index + 1}${
         isYap ? ' aa-project-visual--yap' : ''
@@ -345,21 +389,16 @@ function ProjectVisual({
       aria-label={`View ${project.title}`}
       onPointerMove={updateViewPointer}
     >
-      {isYap ? (
-        <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
-          <YapAmbientThumbnail />
-        </div>
-      ) : (
-        <ImagePlaceholder label={`${project.title} image placeholder`} />
-      )}
-      {!isYap && (
-        <span className="aa-project-visual__number">0{index + 1}</span>
-      )}
-      {!isYap && (
-        <span className="aa-project-visual__title">{project.title}</span>
-      )}
-      <span className="aa-view-pointer" aria-hidden="true">VIEW</span>
+      {visualContent}
     </TransitionLink>
+  ) : (
+    <div
+      aria-label={`${project.title} coming soon`}
+      className={`aa-project-visual aa-project-visual--${index + 1} is-disabled`}
+      role="img"
+    >
+      {visualContent}
+    </div>
   );
 }
 
@@ -373,6 +412,7 @@ export function HomeLanguageExperience({
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isHeroActive, setIsHeroActive] = useState(true);
   const [isDockVisible, setIsDockVisible] = useState(false);
+  const homeRoot = useRef<HTMLElement | null>(null);
   const projectPanels = useRef<Array<HTMLElement | null>>([]);
   const projectCopyStage = useRef<HTMLDivElement | null>(null);
   const workSection = useRef<HTMLElement | null>(null);
@@ -397,11 +437,22 @@ export function HomeLanguageExperience({
       const links = document.querySelector<HTMLElement>('.aa-social-links');
       if (!hero || !links) return;
 
+      const isMobile = window.matchMedia('(max-width: 809.98px)').matches;
+      const firstProject = document.querySelector<HTMLElement>(
+        isMobile
+          ? '.aa-work-mobile [data-home-dock-trigger]'
+          : '.aa-work--desktop [data-home-dock-trigger]',
+      );
+
       setIsHeroActive(
         hero.getBoundingClientRect().bottom > links.getBoundingClientRect().top,
       );
       setIsDockVisible(
-        hero.getBoundingClientRect().bottom <= window.innerHeight * 0.92,
+        Boolean(
+          firstProject &&
+            firstProject.getBoundingClientRect().top <=
+              window.innerHeight * (isMobile ? 0.82 : 0.45),
+        ),
       );
     };
 
@@ -411,6 +462,58 @@ export function HomeLanguageExperience({
     return () => {
       window.removeEventListener('scroll', updateHeroState);
       window.removeEventListener('resize', updateHeroState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = homeRoot.current;
+    if (!root) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileViewport = window.matchMedia('(max-width: 809.98px)');
+    let frame = 0;
+    let current = 0;
+    let destination = 0;
+
+    const render = () => {
+      const delta = destination - current;
+      current += delta * 0.14;
+      if (Math.abs(delta) < 0.04) current = destination;
+
+      root.style.setProperty('--aa-dock-scroll-drift', `${current.toFixed(2)}px`);
+      frame = current === destination ? 0 : window.requestAnimationFrame(render);
+    };
+
+    const update = () => {
+      const section = mobileViewport.matches
+        ? document.querySelector<HTMLElement>('.aa-work-mobile')
+        : workSection.current;
+
+      if (reducedMotion.matches || !section) {
+        destination = 0;
+      } else {
+        const rect = section.getBoundingClientRect();
+        const travel = Math.max(1, section.offsetHeight - window.innerHeight);
+        const progress = Math.max(0, Math.min(1, -rect.top / travel));
+        destination = progress * (mobileViewport.matches ? -16 : -24);
+      }
+
+      if (!frame) frame = window.requestAnimationFrame(render);
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    reducedMotion.addEventListener('change', update);
+    mobileViewport.addEventListener('change', update);
+
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      reducedMotion.removeEventListener('change', update);
+      mobileViewport.removeEventListener('change', update);
+      if (frame) window.cancelAnimationFrame(frame);
+      root.style.removeProperty('--aa-dock-scroll-drift');
     };
   }, []);
 
@@ -557,7 +660,7 @@ export function HomeLanguageExperience({
   };
 
   return (
-    <main className="aa-home">
+    <main className="aa-home" ref={homeRoot}>
       <section className="aa-hero" id="home" aria-label="Introduction">
         <GravityStars />
         <WordGlobe />
@@ -652,7 +755,6 @@ export function HomeLanguageExperience({
                 : '#work',
             );
             if (!target) return;
-            setIsDockVisible(true);
             window.requestAnimationFrame(() => {
               target.scrollIntoView({
                 behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -721,6 +823,7 @@ export function HomeLanguageExperience({
                   : undefined
               }
               data-project-index={index}
+              data-home-dock-trigger={index === 0 ? '' : undefined}
               key={project.slug}
               ref={(panel) => {
                 projectPanels.current[index] = panel;
@@ -735,7 +838,10 @@ export function HomeLanguageExperience({
       <section className="aa-work-mobile" aria-label="Selected work">
         <p>[selected projects]</p>
         {projects.map((project, index) => (
-          <article key={project.slug}>
+          <article
+            data-home-dock-trigger={index === 0 ? '' : undefined}
+            key={project.slug}
+          >
             <ProjectCopy project={project} />
             <ProjectVisual index={index} project={project} />
           </article>

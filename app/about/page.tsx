@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { AboutConstellation } from '@/components/about-constellation';
 import { AboutExperience } from '@/components/about-experience';
+import { AboutFunFacts } from '@/components/about-fun-facts';
 import { AboutSocialLinks } from '@/components/about-social-links';
 import { GravityStars } from '@/components/gravity-stars';
 import { PortfolioDock } from '@/components/portfolio-dock';
-import { TransitionLink } from '@/components/transition-link';
 import { homeContent } from '@/lib/home-content';
 
 export const metadata: Metadata = {
@@ -21,18 +21,12 @@ export default function AboutPage() {
         <GravityStars />
 
         <header className="aa-about-reference__header">
-          <TransitionLink
-            aria-label="Home"
-            className="aa-about-reference__mark"
-            direction="back"
-            href="/#home"
-          >
-            JJ
-          </TransitionLink>
-          <span>[ABOUT]</span>
-          <div>
-            <strong>{homeContent.name}</strong>
-            <span>LISTENING · BUILDING · ITERATING</span>
+          <span className="aa-about-reference__page-name">[About]</span>
+          <div className="aa-about-reference__header-identity">
+            <strong className="aa-about-reference__identity">
+              {homeContent.name}
+            </strong>
+            <AboutFunFacts />
           </div>
         </header>
 
@@ -51,19 +45,19 @@ export default function AboutPage() {
               About Jiwoo Jeong
             </h1>
             <p className="aa-about-reference__bio">
-              I&apos;m a <strong>Machine Learning Data Associate</strong> building
-              toward language engineering. I create reviewable language systems
-              and full-stack products that turn ambiguous human input into clear,
-              recoverable actions.
+              I work at <strong>Amazon AGI-DS</strong>, where I help shape reliable
+              language data for agentic AI. At the intersection of linguistics and
+              computer science, I design language systems and full-stack products
+              that turn ambiguous human input into clear, reviewable experiences.
             </p>
             <dl className="aa-about-reference__facts">
               <div>
                 <dt>Seattle, WA</dt>
-                <dd>Originally from Korea</dd>
+                <dd>SEA 106</dd>
               </div>
               <div>
                 <dt>Machine Learning Data Associate</dt>
-                <dd>Amazon</dd>
+                <dd>Amazon AGI-DS</dd>
               </div>
               <div>
                 <dt>Linguistics &amp; Computer Science</dt>
@@ -92,18 +86,6 @@ export default function AboutPage() {
       />
 
       <AboutExperience />
-
-      <footer className="aa-about-page__footer">
-        <TransitionLink direction="back" href="/#work">
-          Selected work ↗
-        </TransitionLink>
-        <div>
-          <a href={homeContent.links.email}>Email</a>
-          <a href={homeContent.links.linkedin} rel="noreferrer" target="_blank">
-            LinkedIn
-          </a>
-        </div>
-      </footer>
 
       <PortfolioDock
         aboutHref="/about"

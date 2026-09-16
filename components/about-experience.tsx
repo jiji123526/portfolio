@@ -17,7 +17,7 @@ const expertise = [
 const experiences = [
   {
     mark: 'A',
-    company: 'Amazon Autonomy',
+    company: 'Amazon AGI-DS',
     role: 'Machine Learning Data Associate',
     period: 'Feb 2026 - Present',
     description:
@@ -42,6 +42,36 @@ const experiences = [
     tags: ['Speech-to-Text', 'Python', 'Data QA'],
   },
   {
+    mark: 'J',
+    company: 'Jangoing',
+    role: 'Language Engineer & NLP Systems Designer',
+    period: '2026 - Present',
+    description:
+      'Building a review-first English language and evaluation system for a multi-user household product and future Raspberry Pi kitchen assistant.',
+    bullets: [
+      'Designed a five-stage NLU framework that separates relevance, an 11-intent ontology, entity spans, household-scoped normalization, and joint-action validation into independently testable decisions.',
+      'Built structured, editable proposals that require user confirmation before changing inventory or shopping state, while logging corrections, cancellations, and unsupported requests as reviewable learning evidence.',
+      'Created nine annotation queues, versioned JSONL exports, dataset manifests, deduplication rules, and phrase-family leakage checks to keep generated training candidates separate from independently reviewed evaluation data.',
+      'Connected the language layer to a working Next.js, Cloudflare Worker, and D1 product with household authorization, append-only events, shared-state projections, and a reproducible Python baseline and evaluation pipeline.',
+    ],
+    tags: ['NLP', 'Annotation & Evaluation', 'Python', 'Next.js', 'D1'],
+  },
+  {
+    mark: 'Y',
+    company: 'yap.',
+    role: 'Full-Stack Product Engineer',
+    period: '2026 - Present',
+    description:
+      'Designing, building, and operating a link-first anonymous realtime chat platform across product strategy, UX/UI, edge architecture, trust and safety, and production operations.',
+    bullets: [
+      'Re-architected the original single-room Vanilla JS and Supabase product as a multi-tenant Next.js and Cloudflare system with explicit channel ownership, separate anonymous and authenticated identities, D1 persistence, Durable Object delivery, and protected R2 media.',
+      'Designed zero-account room entry, owner moderation controls, scoped private messages, temporary live sessions, platform-admin review queues, and support flows with server-side authorization at each trust boundary.',
+      'Diagnosed production reliability issues, reducing database-scoped channel initialization from 4–18 seconds to a limited ~80 ms post-cutover sample and replacing a reply lookup that accumulated 212.62M rows read with bounded, indexed reads.',
+      'Built route-health monitoring, alerting, queue triage, and reversible incident workflows while the product handled 6,517 created messages across public conversations and private DMs in one measured production week.',
+    ],
+    tags: ['Next.js', 'Cloudflare Workers', 'D1', 'Durable Objects', 'R2'],
+  },
+  {
     mark: 'G',
     company: 'GOLA.IO',
     role: 'NLP Project Lead',
@@ -64,18 +94,6 @@ const experiences = [
       'Evaluated generated content for grammaticality, semantic coherence, answerability, and ambiguity, then used recurring errors to refine prompts and quality criteria.',
     ],
     tags: ['Content Generation', 'Evaluation', 'Python'],
-  },
-  {
-    mark: 'Y',
-    company: 'yap.',
-    role: 'Full-Stack Developer',
-    period: 'Summer 2025',
-    description:
-      'Built a bilingual, mobile-first anonymous chat platform with live chat, media sharing, channel creation, and profile customization.',
-    bullets: [
-      'Implemented authentication, ownership flows, admin moderation, account recovery, synced preferences, and deployment across Vercel and Cloudflare.',
-    ],
-    tags: ['Next.js', 'Cloudflare Workers', 'D1'],
   },
   {
     mark: 'A',
@@ -191,8 +209,8 @@ export function AboutExperience() {
           <div className="aa-about-path__rail-group">
             <h2>Education</h2>
             <p>
-              <strong>B.A. Computer Science &amp; Linguistics</strong>
-              <span> | UCLA · Sep 2026</span>
+              <strong>Linguistics &amp; Computer Science</strong>
+              <span> | UCLA</span>
             </p>
           </div>
 
@@ -237,10 +255,18 @@ export function AboutExperience() {
                 key={experience.company}
               >
                 <header>
-                  <span aria-hidden="true" className="aa-about-path__mark">
-                    {experience.mark}
+                  <div className="aa-about-path__entry-heading">
+                    <span aria-hidden="true" className="aa-about-path__mark">
+                      {experience.mark}
+                    </span>
+                    <h2>{experience.company}</h2>
+                  </div>
+                  <span className="aa-about-path__experience-kind">
+                    {experience.company === 'Amazon AGI-DS' ||
+                    experience.company === 'ITFACT'
+                      ? 'Professional Experience'
+                      : 'Project'}
                   </span>
-                  <h2>{experience.company}</h2>
                 </header>
                 <div className="aa-about-path__meta">
                   <strong>{experience.role}</strong>

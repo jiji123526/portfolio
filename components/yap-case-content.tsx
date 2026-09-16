@@ -114,7 +114,7 @@ export function YapCaseContent({ project }: { project: Project }) {
         <p className="yap-problem-statement">{project.statement}</p>
       </section>
 
-      <section className="yap-transformation">
+      <section className="yap-transformation" id="yap-transformation">
         <div className="shell case-section">
           <p className="eyebrow">FROM PERSONAL ROOM TO PLATFORM</p>
           <div className="yap-transformation-copy">
@@ -174,7 +174,7 @@ export function YapCaseContent({ project }: { project: Project }) {
         </div>
       </section>
 
-      <section className="yap-solutions shell case-section">
+      <section className="yap-solutions shell case-section" id="yap-solutions">
         <p className="eyebrow">{project.solutionsLabel}</p>
         <aside
           className="yap-demo-guide reveal"
@@ -279,7 +279,10 @@ export function YapCaseContent({ project }: { project: Project }) {
       </section>
 
       {project.architecture && (
-        <section className="architecture shell case-section yap-architecture">
+        <section
+          className="architecture shell case-section yap-architecture"
+          id="yap-architecture"
+        >
           <div className="architecture-copy">
             <p className="eyebrow">SYSTEM DESIGN</p>
             <h2>{project.architecture.title}</h2>
@@ -292,7 +295,7 @@ export function YapCaseContent({ project }: { project: Project }) {
         </section>
       )}
 
-      <section className="yap-operations">
+      <section className="yap-operations" id="yap-operations">
         <div className="shell case-section">
           <p className="eyebrow">PLATFORM OPERATIONS</p>
           <h2>{operations.title}</h2>
@@ -391,7 +394,10 @@ export function YapCaseContent({ project }: { project: Project }) {
       </section>
 
       {project.takeaways && (
-        <section className="yap-takeaways shell case-section">
+        <section
+          className="yap-takeaways shell case-section"
+          id="yap-takeaways"
+        >
           <p className="eyebrow">TAKEAWAYS</p>
           <div className="yap-takeaways-heading yap-title-effect">
             <h2>

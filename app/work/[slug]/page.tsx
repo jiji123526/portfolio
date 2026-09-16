@@ -6,6 +6,7 @@ import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
+import { YapSectionNav } from '@/components/yap-section-nav';
 import { homeContent } from '@/lib/home-content';
 import { getProject, projects } from '@/lib/project-data';
 
@@ -51,7 +52,10 @@ export default async function ProjectPage({
   return (
     <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
       {isYap ? (
-        <ScrollTriggeredDock triggerId="yap-problem" />
+        <>
+          <ScrollTriggeredDock triggerId="yap-problem" />
+          <YapSectionNav />
+        </>
       ) : (
         <nav className="case-top-nav" aria-label="Project navigation">
           <div className="case-nav-inner">

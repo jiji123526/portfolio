@@ -61,6 +61,8 @@ function useConstellationTypewriter() {
     }
 
     let timeout = 0;
+    let animationFrame = 0;
+    let hasStarted = false;
     let line: 0 | 1 = 0;
     let character = 0;
 
@@ -91,20 +93,28 @@ function useConstellationTypewriter() {
     };
 
     const beginTyping = () => {
+      if (hasStarted) return;
+      hasStarted = true;
       setCopy({ intro: '', prompt: '', activeLine: 0 });
       typeNextCharacter();
     };
 
-    const transition = document.documentElement.dataset.transition;
-    const startDelay =
-      !transition || transition === 'initial'
-        ? 3400
-        : transition === 'ready'
-          ? 180
-          : 960;
-    timeout = window.setTimeout(beginTyping, startDelay);
+    const root = document.documentElement;
+    const startWhenReady = () => {
+      if (root.dataset.transition !== 'ready' || hasStarted) return;
+      timeout = window.setTimeout(beginTyping, 120);
+    };
+
+    const observer = new MutationObserver(startWhenReady);
+    observer.observe(root, {
+      attributeFilter: ['data-transition'],
+      attributes: true,
+    });
+    animationFrame = window.requestAnimationFrame(startWhenReady);
 
     return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(animationFrame);
       window.clearTimeout(timeout);
     };
   }, []);

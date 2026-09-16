@@ -146,7 +146,7 @@ export function MotionEffects() {
       window.removeEventListener('scroll', requestUpdate); window.removeEventListener('resize', requestUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [pathname]);
 
   return <div className="scroll-progress" aria-hidden="true" />;
 }
