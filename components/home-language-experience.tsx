@@ -13,6 +13,7 @@ import {
 import type { GeometryCollection, Topology } from 'topojson-specification';
 import landTopologyData from 'world-atlas/land-110m.json';
 import { PortfolioDock } from '@/components/portfolio-dock';
+import { GravityStars } from '@/components/gravity-stars';
 import { TransitionLink } from '@/components/transition-link';
 import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
 import type { HomeContent } from '@/lib/home-content';
@@ -192,15 +193,25 @@ function WordGlobe() {
           viewBox={`0 0 ${GLOBE_SIZE} ${GLOBE_SIZE}`}
           role="presentation"
         >
+          <defs>
+            <clipPath id="aa-word-globe-land-clip">
+              <circle
+                cx={GLOBE_CENTER}
+                cy={GLOBE_CENTER}
+                r={GLOBE_CENTER}
+              />
+            </clipPath>
+          </defs>
           <g className="aa-word-globe__map">
-            <path
-              className="aa-word-globe__line aa-word-globe__sphere"
-              d={paths.sphere ?? undefined}
-              pathLength="1"
-            />
             <path
               className="aa-word-globe__line aa-word-globe__land"
               d={paths.land ?? undefined}
+              clipPath="url(#aa-word-globe-land-clip)"
+              pathLength="1"
+            />
+            <path
+              className="aa-word-globe__line aa-word-globe__sphere"
+              d={paths.sphere ?? undefined}
               pathLength="1"
             />
           </g>
@@ -535,7 +546,7 @@ export function HomeLanguageExperience({
   return (
     <main className="aa-home">
       <section className="aa-hero" id="home" aria-label="Introduction">
-        <div className="aa-stars" aria-hidden="true" />
+        <GravityStars />
         <WordGlobe />
 
         <header className="aa-topbar">
@@ -718,53 +729,6 @@ export function HomeLanguageExperience({
         ))}
       </section>
 
-      <section className="aa-process" id="about">
-        <div className="aa-process-heart" aria-hidden="true">
-          <span>♡</span>
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-
-        <div className="aa-process-body">
-          <a className="aa-work-word" href="#work">
-            work
-          </a>
-
-          <div className="aa-process-footer">
-            <p>
-              I create detail-driven design that feels alive,{' '}
-              <strong>
-                anchored in fundamentals, charged with emotion, and adaptable
-                for the future.
-              </strong>{' '}
-              Tools help me innovate efficiently while ensuring every experience
-              is{' '}
-              <strong>
-                intentional, authentic, and <em>distinctly human.</em>
-              </strong>
-            </p>
-
-            <div className="aa-process-picture">
-              <ImagePlaceholder label="Portrait placeholder" />
-              <span className="aa-process-tape">IMAGE PLACEHOLDER</span>
-              <i className="aa-process-scribble aa-process-scribble--one" />
-              <i className="aa-process-scribble aa-process-scribble--two" />
-            </div>
-
-            <ImagePlaceholder
-              className="aa-process-object aa-process-object--left"
-              label="Image placeholder"
-            />
-            <ImagePlaceholder
-              className="aa-process-object aa-process-object--right"
-              label="Image placeholder"
-            />
-          </div>
-        </div>
-      </section>
-
       <div
         className={`aa-social-links${isHeroActive ? ' is-on-hero' : ''}`}
       >
@@ -782,6 +746,7 @@ export function HomeLanguageExperience({
       <PortfolioDock
         className={isDockVisible ? 'is-home-visible' : 'is-home-hidden'}
         current="home"
+        aboutHref="/about"
       />
     </main>
   );

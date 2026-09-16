@@ -34,7 +34,7 @@ export function ScrollTriggeredDock({ triggerId }: { triggerId: string }) {
         current="work"
         homeHref="/"
         workHref="/#work"
-        aboutHref="/#about"
+        aboutHref="/about"
       />
     </div>
   );

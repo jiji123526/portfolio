@@ -1,3 +1,5 @@
+import { TransitionLink } from '@/components/transition-link';
+
 type DockSection = 'home' | 'work' | 'about';
 
 type PortfolioDockProps = {
@@ -19,7 +21,7 @@ export function PortfolioDock({
   className = '',
   homeHref = '#home',
   workHref = '#work',
-  aboutHref = '#about',
+  aboutHref = '/about',
 }: PortfolioDockProps) {
   const hrefs: Record<DockSection, string> = {
     home: homeHref,
@@ -32,18 +34,33 @@ export function PortfolioDock({
       className={`aa-dock${className ? ` ${className}` : ''}`}
       aria-label="Primary navigation"
     >
-      {items.map((item) => (
-        <a
-          className={current === item.id ? 'is-current' : undefined}
-          href={hrefs[item.id]}
-          key={item.id}
-        >
-          <span>{item.label}</span>
-          <div className="aa-image-placeholder" aria-hidden="true">
+      {items.map((item) => {
+        const href = hrefs[item.id];
+        const content = (
+          <>
             <span>{item.label}</span>
-          </div>
-        </a>
-      ))}
+            <div className="aa-image-placeholder" aria-hidden="true">
+              <span>{item.label}</span>
+            </div>
+          </>
+        );
+        const className = current === item.id ? 'is-current' : undefined;
+
+        return href.startsWith('#') ? (
+          <a className={className} href={href} key={item.id}>
+            {content}
+          </a>
+        ) : (
+          <TransitionLink
+            className={className}
+            direction={item.id === 'home' ? 'back' : 'forward'}
+            href={href}
+            key={item.id}
+          >
+            {content}
+          </TransitionLink>
+        );
+      })}
     </nav>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
+import { AmbientCursor } from '@/components/ambient-cursor';
 import { homeContent } from '@/lib/home-content';
 import { MotionEffects } from './motion-effects';
 import './globals.css';
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" data-scroll-behavior="smooth">
       <body className={poppins.variable}>
         <MotionEffects />
+        <AmbientCursor />
         <div className="aa-loader" aria-hidden="true">
           <div className="aa-loader__content">
             <strong>{homeContent.name}</strong>
