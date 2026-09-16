@@ -11030,7 +11030,7 @@ a {
 html[data-transition='ready'] .aa-loader {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-100%);
+  transform: translateY(100%);
 }
 html[data-transition='leaving'] .aa-loader {
   animation: aa-loader-enter 0.52s cubic-bezier(0.76, 0, 0.24, 1) both;
@@ -12282,7 +12282,7 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 @keyframes aa-loader-enter {
   from {
-    transform: translateY(-100%);
+    transform: translateY(100%);
   }
   to {
     transform: translateY(0);
