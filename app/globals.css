@@ -16758,3 +16758,61 @@ html[data-transition='entering'] .aa-loader__progress i {
     border-left: 0;
   }
 }
+
+/* TagSpark browser-QA refinements: keep the shared case-study rhythm without
+   letting fixed chrome or media placeholders overpower the content. */
+.case-study.tagspark-case-study .case-section {
+  padding-block: 112px;
+}
+.case-study.tagspark-case-study .tagspark-case-content .yap-problem {
+  padding-bottom: 84px;
+}
+.case-study.tagspark-case-study .tagspark-feature {
+  padding-top: 84px;
+}
+.case-study.tagspark-case-study .tagspark-placeholder-grid {
+  margin-top: 52px;
+}
+.case-study.tagspark-case-study
+  .tagspark-placeholder-grid
+  .tagspark-media-placeholder {
+  min-height: 320px;
+}
+.case-study.tagspark-case-study .tagspark-system {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.case-study.tagspark-case-study .tagspark-system h2 {
+  font-size: clamp(2rem, 3.45vw, 3.35rem);
+}
+
+@media (max-width: 899px) {
+  .case-study.tagspark-case-study .tagspark-system {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .case-study.tagspark-case-study .yap-section-nav {
+    display: none;
+  }
+  .case-study.tagspark-case-study .case-section {
+    padding-block: 76px;
+  }
+  .case-study.tagspark-case-study .tagspark-case-content .yap-problem {
+    padding-bottom: 64px;
+  }
+  .case-study.tagspark-case-study .tagspark-feature {
+    padding-top: 64px;
+  }
+  .case-study.tagspark-case-study
+    .tagspark-placeholder-grid
+    .tagspark-media-placeholder {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 599px) {
+  .case-study.tagspark-case-study .tagspark-case-opening .yap-demo-wrap {
+    padding-top: 154px;
+  }
+}
