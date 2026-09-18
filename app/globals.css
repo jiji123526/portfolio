@@ -15427,3 +15427,77 @@ html[data-transition='entering'] .aa-loader__progress i {
     padding: 20px;
   }
 }
+
+/* Jangoing-only navigation and contact theme. */
+.jangoing-case-study .yap-section-nav a {
+  color: rgba(255, 45, 85, 0.34);
+}
+.jangoing-case-study .yap-section-nav a:hover,
+.jangoing-case-study .yap-section-nav a:focus-visible {
+  color: rgba(255, 45, 85, 0.72);
+  opacity: 1;
+}
+.jangoing-case-study .yap-section-nav a.is-active {
+  color: var(--project-accent);
+  opacity: 1;
+}
+
+.jangoing-case-study .aa-dock {
+  --aa-blue: var(--project-accent);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 0 0 1px rgba(255, 45, 85, 0.09),
+    0 12px 36px rgba(31, 107, 69, 0.08);
+}
+.jangoing-case-study .aa-dock > a,
+.jangoing-case-study .aa-dock > a > .aa-image-placeholder,
+.jangoing-case-study .aa-dock .aa-image-placeholder > span {
+  color: var(--project-accent);
+}
+.jangoing-case-study .aa-dock > a > .aa-image-placeholder {
+  background: rgba(255, 255, 255, 0.94);
+}
+.jangoing-case-study .aa-dock > a.is-current > .aa-image-placeholder {
+  background: var(--project-accent);
+  color: #fff;
+}
+.jangoing-case-study .aa-dock > a.is-current > .aa-image-placeholder > span {
+  color: #fff;
+}
+
+.jangoing-case-study .aa-dock-talk {
+  --aa-blue: var(--project-accent);
+  border-color: rgba(255, 45, 85, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(31, 107, 69, 0.1);
+  color: var(--project-accent);
+}
+.jangoing-case-study .aa-dock-talk:hover,
+.jangoing-case-study .aa-dock-talk:focus-visible {
+  background: var(--project-accent);
+  color: #fff;
+}
+
+.jangoing-case-study .aa-social-links {
+  --aa-blue: var(--project-accent);
+}
+.jangoing-case-study .aa-social-links a,
+.jangoing-case-study .aa-social-links a:visited {
+  color: var(--project-accent);
+}
+.jangoing-case-study .aa-social-links a:hover,
+.jangoing-case-study .aa-social-links a:focus-visible {
+  color: var(--project-secondary);
+}
+
+@media (max-width: 809px) {
+  .jangoing-case-study .aa-social-links a,
+  .jangoing-case-study .aa-social-links span {
+    border-color: rgba(255, 45, 85, 0.2);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 5px 18px rgba(31, 107, 69, 0.08);
+  }
+  .jangoing-case-study .aa-social-links a::before {
+    color: var(--project-accent);
+  }
+}
