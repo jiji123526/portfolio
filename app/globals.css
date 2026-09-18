@@ -1739,6 +1739,64 @@ a {
 }
 .jangoing-case-study .roadmap-section li::before { color: var(--jg-tertiary); font-size: 13px; }
 
+/* Keep the product language, but use the same centered case-study rhythm as yap. */
+.jangoing-case-study .case-section > .eyebrow,
+.jangoing-case-study .case-section > h2,
+.jangoing-case-study .case-section > .product-environment-intro,
+.jangoing-case-study .case-section > .current-future-copy,
+.jangoing-case-study .case-section > .annotation-intro,
+.jangoing-case-study .case-section > .review-diagram-caption,
+.jangoing-case-study .case-section > .section-compact-copy {
+  width: min(100%, 1000px);
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.jangoing-case-study .product-environment h2,
+.jangoing-case-study .language-problem h2,
+.jangoing-case-study .language-stages > h2,
+.jangoing-case-study .language-tint h2,
+.jangoing-case-study .evidence-section > h2,
+.jangoing-case-study .safety-path h2,
+.jangoing-case-study .jg-cross-lingual h2 {
+  max-width: 1000px;
+}
+.jangoing-case-study .product-environment-grid,
+.jangoing-case-study .language-context-note,
+.jangoing-case-study .utterance-card,
+.jangoing-case-study .language-card-grid,
+.jangoing-case-study .language-existing-media,
+.jangoing-case-study .jg-normalization-note,
+.jangoing-case-study .language-flow,
+.jangoing-case-study .queue-boundary,
+.jangoing-case-study .candidate-stats,
+.jangoing-case-study .dataset-warning,
+.jangoing-case-study .jg-governance-highlight,
+.jangoing-case-study .principle-list,
+.jangoing-case-study .two-column-copy,
+.jangoing-case-study .review-loop-diagram,
+.jangoing-case-study .roadmap-section ol {
+  width: min(100%, 1000px);
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.jangoing-case-study .jg-language-lab,
+.jangoing-case-study .jg-queue-explorer {
+  width: 100%;
+  max-width: none;
+}
+.jangoing-case-study .product-environment-grid {
+  margin-top: 48px;
+}
+.jangoing-case-study .language-problem > p,
+.jangoing-case-study .jg-cross-lingual .case-section > div {
+  width: min(100%, 1000px);
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .aa-project-visual__jangoing-thumbnail {
   position: absolute;
   inset: 8% 13%;
