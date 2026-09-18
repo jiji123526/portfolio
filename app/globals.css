@@ -16448,6 +16448,7 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .case-study.jangoing-case-study .jg-xling-tabs {
   grid-column: 1;
+  grid-row: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
@@ -16456,6 +16457,18 @@ html[data-transition='entering'] .aa-loader__progress i {
   border: 1px solid var(--project-line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.45);
+}
+.case-study.jangoing-case-study .jg-xling-utterance {
+  grid-column: 1;
+  grid-row: 2;
+}
+.case-study.jangoing-case-study .jg-xling-resolution {
+  grid-column: 2;
+  grid-row: 2;
+}
+.case-study.jangoing-case-study .jg-xling-action {
+  grid-column: 3;
+  grid-row: 2;
 }
 .case-study.jangoing-case-study .jg-xling-tabs button {
   min-height: 38px;
@@ -16729,6 +16742,13 @@ html[data-transition='entering'] .aa-loader__progress i {
   }
   .case-study.jangoing-case-study .jg-xling-tabs {
     width: 100%;
+  }
+  .case-study.jangoing-case-study .jg-xling-tabs,
+  .case-study.jangoing-case-study .jg-xling-utterance,
+  .case-study.jangoing-case-study .jg-xling-resolution,
+  .case-study.jangoing-case-study .jg-xling-action {
+    grid-column: auto;
+    grid-row: auto;
   }
   .case-study.jangoing-case-study .jg-xling-resolution {
     flex-direction: row;
