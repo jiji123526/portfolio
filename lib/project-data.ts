@@ -100,7 +100,7 @@ const projectCatalog: Project[] = [
     ],
     challengeIntro: 'The core challenge was not adding a chatbot to an inventory app. It was building a trustworthy bridge between ambiguous household language and durable shared state.',
     challenges: ['Everyday speech mixes relevant actions with context, shorthand, and household-specific vocabulary.', 'Dates such as “tomorrow” or “next Friday” need deterministic grounding to avoid unsafe inventory changes.', 'A model can look accurate on easy examples while failing on joint intent, entity span, or normalization.'],
-    statement: 'How might we let an assistant learn household language while keeping every consequential interpretation visible and correctable?',
+    statement: 'How might an assistant act on natural speech only when it is sure — and ask, rather than guess, when it is not?',
     solutions: [
       // Future media: use “Add two cartons of oat milk tomorrow.” and expose relevance,
       // intent, ITEM, QUANTITY, UNIT, EXPIRY_DATE, normalized values, and the joint action.
@@ -114,12 +114,13 @@ const projectCatalog: Project[] = [
     // Worker/D1; annotation → export → baseline) from FUTURE (Pi → ASR → trained
     // contextual NLU), then show the shared confirmation/authorization/event path.
     architecture: { title: 'A product foundation built for model iteration.', body: 'Next.js serves the household and annotation experience. A Cloudflare Worker and D1 persist household-scoped events, while shared contracts keep the web app, API, and Python evaluation tools aligned.', mediaNote: 'Current-to-future architecture: multi-user web MVP → shared structured-action contract → Worker/D1 household state and inference logging → annotation and evaluation pipeline; future Raspberry Pi + ASR replaces the input surface while reusing the same language contract, confirmation, and event path', nodes: ['Next.js', 'Contracts', 'Worker · D1', 'ML evaluation'] },
-    impact: 'Built the annotation schema, review workflow, dataset pipeline, and reproducible baseline required to collect Jangoing’s first reviewed English benchmark',
+    impact: 'Built a 5-stage annotation schema (11-intent ontology, entity-span + normalization policy), a 9-queue review pipeline, and a reproducible evaluation gate; bootstrapped ~1,400 candidate examples toward a pilot target of 300 reviewed training / 100 independent evaluation examples for Jangoing’s first reviewed English benchmark',
     takeaways: [
       { title: 'Annotation policy is part of model architecture', body: 'Deciding what becomes an entity span and what remains contextual evidence defines the problem the model is asked to learn.' },
       { title: 'Generated and evaluation data require different trust policies', body: 'Synthetic data can expand coverage, but examples influenced by a generator cannot become independent evidence of model quality.' },
       { title: 'Text-first development makes voice errors diagnosable', body: 'Validating NLU first preserves the ability to separate future ASR failures from language-understanding failures on the Raspberry Pi.' },
       { title: 'Physical actions require visible uncertainty', body: 'A confidence score is insufficient when language can change household state; clarification, confirmation, and correction logging must travel together.' },
+      { title: 'Cross-lingual grounding is a design concern, not an afterthought', body: 'English-first today, with a Korean-English ASR phase on the roadmap; as a native Korean and fluent English speaker, I designed the language contract so the input surface can change without redesigning intent, entity, and normalization policy.' },
     ],
   },
   {
@@ -140,16 +141,17 @@ const projectCatalog: Project[] = [
     statement: 'How might we translate subjective taste into a recommendation model users can see, adjust, and understand?',
     solutions: [
       { title: 'A lightweight preference canvas.', body: 'Mobile onboarding and tag selection turn an abstract question—“what do I like?”—into a set of quick, reversible choices.', mediaNote: 'Mobile sequence: onboarding, tag groups, selected preference state' },
-      { title: 'Scoring with context.', body: 'The recommendation engine ranks works through tag overlap, weighted categories, and alias matching so related preferences can still surface useful results.', mediaNote: 'Animated explainer: selected tags flowing into weighted ranked cards' },
+      { title: 'Scoring with context.', body: 'The engine normalizes surface variants to canonical forms (e.g. "oat milk" → oat_milk, NFKC folding, punctuation stripped), then ranks works through a hierarchy: exact tag → alias overlap → same category → curated cluster similarity, each weighted by category and length-normalized so tag-heavy works do not dominate.', mediaNote: 'Animated explainer: selected tags flowing into weighted ranked cards' },
       { title: 'A maintained recommendation catalog.', body: 'Serverless APIs expose works and tags, support catalog management, and refresh metadata through a scheduled scrape.', mediaNote: 'System view: catalog CRUD, daily metadata refresh, recommendation response' },
     ],
     architecture: { title: 'A compact full-stack recommendation service.', body: 'A React and TypeScript client renders the selection and discovery flows. Vercel serverless functions handle works, tags, recommendation data, and scheduled metadata refreshes against Neon Postgres.', mediaNote: 'Architecture: React client → Vercel functions → Neon database + scheduled scraper', nodes: ['React', 'Vercel API', 'Neon', 'Daily scrape'] },
-    impact: 'Built an interpretable rule-based baseline for normalizing metadata and ranking recommendations',
+    impact: 'Built an interpretable rule-based recommender over an 8-dimension tag taxonomy: alias normalization (NFKC + token overlap), ~15 curated similarity clusters, and hierarchical category-weighted scoring — a legible baseline before any learned similarity',
     impactBody: 'The production flow combines onboarding, explicit tag selection, alias-aware matching, category-weighted ranking, semantic exclusion, catalog management, and scheduled metadata refresh. Hand-curated clusters and fixed weights remain visible as a baseline rather than being presented as learned similarity.',
     takeaways: [
       { title: 'Explicit signals can feel more personal', body: 'Letting people state and revise their preferences creates control that passive recommendation systems often lack.' },
       { title: 'Aliases are a product decision', body: 'Deciding which tags should be treated as related changes the recommendation experience, not just the implementation.' },
       { title: 'Catalog quality shapes recommendation quality', body: 'Fresh, consistent metadata is a prerequisite for useful ranking, so ingestion and maintenance are part of the user experience.' },
+      { title: 'What I’d improve next', body: 'Move the hand-curated similarity clusters from code into a data table with per-edge weights (a path toward embedding-derived similarity), tighten alias matching from substring containment to boundary-aware token intersection, and add tests that pin the intended scoring order.' },
     ],
   },
 ];
