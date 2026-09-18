@@ -603,17 +603,24 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="roadmap-section shell case-section reveal" id="jangoing-roadmap">
-        <p className="eyebrow">FOUR-PHASE ROADMAP</p>
-        <div className="yap-takeaways-heading">
+      <section
+        className="yap-takeaways shell case-section reveal"
+        id="jangoing-roadmap"
+      >
+        <p className="eyebrow">TAKEAWAYS</p>
+        <div className="yap-takeaways-heading yap-title-effect">
           <h2>
-            The next phase makes the language system{' '}
-            <span className="jangoing-brand-highlight">measurable.</span>
+            What building{' '}
+            <span className="yap-brand-highlight jangoing-brand-highlight">
+              Jangoing
+            </span>{' '}
+            is teaching me about language systems
           </h2>
           <p className="yap-takeaways-intro">
-            Each phase has a visible completion condition: reviewed data,
-            independent evaluation, diagnosable speech input, and explainable
-            recommendations.
+            Language engineering does not stop at model output. It extends into
+            annotation policy, reviewable product decisions, reproducible
+            evaluation, household context, and the boundaries that keep an
+            ambiguous interpretation from becoming an unsafe action.
           </p>
         </div>
         <div className="yap-takeaway-list jangoing-takeaway-list">
@@ -628,10 +635,6 @@ export function JangoingCaseContent() {
             </details>
           ))}
         </div>
-        <p className="section-compact-copy">
-          Detailed implementation notes, schemas, and research artifacts remain
-          available through the project’s GitHub repository.
-        </p>
       </section>
     </>
   );

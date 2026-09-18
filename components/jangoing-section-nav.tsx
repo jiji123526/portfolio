@@ -11,7 +11,7 @@ const sections = [
   { id: 'jangoing-evaluation', label: 'EVALUATION' },
   { id: 'jangoing-cross-lingual', label: 'CROSS-LINGUAL' },
   { id: 'jangoing-architecture', label: 'SYSTEM DESIGN' },
-  { id: 'jangoing-roadmap', label: 'ROADMAP' },
+  { id: 'jangoing-roadmap', label: 'TAKEAWAYS' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];

@@ -15523,19 +15523,55 @@ html[data-transition='entering'] .aa-loader__progress i {
   );
 }
 .jangoing-case-opening .yap-hero-stage-copy > span {
+  display: block;
+  margin-bottom: 22px;
   color: var(--project-accent);
+  font-size: .68rem;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: .12em;
 }
 .jangoing-case-opening .yap-hero-stage-copy h2 {
+  max-width: 430px;
+  margin: 0;
   color: var(--project-text);
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+  line-height: 1.14;
+  font-weight: 400;
+  letter-spacing: -.045em;
 }
 .jangoing-case-opening .yap-hero-stage-copy p {
+  max-width: 350px;
+  margin: 24px 0 0;
   color: var(--project-muted);
+  font-size: .9rem;
+  line-height: 1.7;
 }
 .case-study.jangoing-case-study .case-meta.yap-case-meta {
   margin-top: -3px;
-  padding-block: 64px;
+  padding-block: 90px 110px;
   border: 0;
   background: var(--project-bg);
+}
+.case-study.jangoing-case-study .shell {
+  width: min(100% - 48px, 1000px);
+  max-width: 1000px;
+}
+.case-study.jangoing-case-study .case-facts {
+  grid-template-columns: .8fr 1.2fr;
+  gap: 80px;
+}
+.case-study.jangoing-case-study .case-facts dt {
+  margin-bottom: 7px;
+  color: #8f8f8a;
+  font-size: .6rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+}
+.case-study.jangoing-case-study .case-facts dd {
+  color: var(--project-text);
+  font-size: .78rem;
+  line-height: normal;
 }
 .case-study.jangoing-case-study .case-section {
   padding-block: 112px;
@@ -15655,6 +15691,7 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .case-study.jangoing-case-study .language-card-grid article,
 .case-study.jangoing-case-study .language-card-grid article:last-child {
+  grid-column: auto;
   min-height: 280px;
   padding: 22px;
   gap: 34px;
@@ -15813,6 +15850,30 @@ html[data-transition='entering'] .aa-loader__progress i {
   }
 }
 @media (max-width: 599px) {
+  .jangoing-case-opening .yap-hero-stage-copy > span {
+    margin-bottom: 12px;
+    font-size: .62rem;
+  }
+  .jangoing-case-opening .yap-hero-stage-copy h2 {
+    max-width: 350px;
+    font-size: 1.55rem;
+    line-height: 1.18;
+  }
+  .jangoing-case-opening .yap-hero-stage-copy p {
+    margin-top: 14px;
+    font-size: .86rem;
+  }
+  .case-study.jangoing-case-study .shell {
+    width: min(100% - 32px, 1000px);
+  }
+  .case-study.jangoing-case-study .case-meta.yap-case-meta {
+    padding-block: 70px 86px;
+  }
+  .case-study.jangoing-case-study .case-facts,
+  .case-study.jangoing-case-study .case-facts dl:first-child {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
   .case-study.jangoing-case-study .case-section {
     padding-block: 90px;
   }

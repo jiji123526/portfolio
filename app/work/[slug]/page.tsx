@@ -97,11 +97,11 @@ export default async function ProjectPage({
           <div className="yap-hero-stage">
             <div className="yap-demo-wrap">
               <div className="yap-hero-stage-copy">
-                <span>{project.metric}</span>
-                <h2>Review language before it changes household state.</h2>
+                <span>CONTEXT BEFORE ACTION</span>
+                <h2>Understand the request before changing the kitchen.</h2>
                 <p>
-                  An English-first language and evaluation system for a future
-                  Raspberry Pi kitchen assistant.
+                  Jangoing grounds everyday language in household context and
+                  asks for review before updating shared state.
                 </p>
               </div>
               <div
@@ -200,12 +200,6 @@ export default async function ProjectPage({
             )}
           </dl>
         </div>
-        {isJangoing && (
-          <aside className="jangoing-meta-impact">
-            <span>IMPACT</span>
-            <p>{project.impact}</p>
-          </aside>
-        )}
       </section>
 
       {isJangoing ? (
