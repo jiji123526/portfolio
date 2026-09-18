@@ -57,20 +57,20 @@ const productEnvironmentCards = [
 
 const roadmap = [
   {
-    title: 'Freeze the reviewed English benchmark',
-    body: 'Complete human review, deduplication, leakage checks, and a versioned split manifest before reporting baseline performance.',
+    title: 'Freeze the first reviewed English benchmark',
+    body: 'Complete human review, deduplication, leakage checks, and versioned train–evaluation manifests before reporting baseline performance.',
   },
   {
-    title: 'Add multi-turn household context',
-    body: 'Evaluate whether prior turns and household-specific state improve interpretation without weakening permission or review boundaries.',
+    title: 'Add multi-turn, household-grounded context',
+    body: 'Evaluate whether prior turns and authorized household state improve interpretation without weakening permission, clarification, or review boundaries.',
   },
   {
-    title: 'Evaluate Korean-English ASR on Raspberry Pi',
-    body: 'Measure speech recognition independently from semantic interpretation so each failure remains diagnosable.',
+    title: 'Evaluate Korean–English ASR on Raspberry Pi',
+    body: 'Measure transcription quality, latency, household-noise robustness, and code-switching separately from semantic interpretation so ASR and NLU failures remain distinguishable.',
   },
   {
     title: 'Add explainable recommendations',
-    body: 'Rank deals and household suggestions only when the source, reasoning, and user control can remain visible.',
+    body: 'Ground diet, replenishment, and deal suggestions in household state and user goals, with visible sources, rationale, and user controls.',
   },
 ];
 
