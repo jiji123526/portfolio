@@ -288,7 +288,8 @@ function updateViewPointer(event: ReactPointerEvent<HTMLElement>) {
 function isProjectAvailable(project: HomeProject) {
   return (
     project.slug === 'yap-anonymous-chat' ||
-    project.slug === 'jangoing-kitchen-intelligence'
+    project.slug === 'jangoing-kitchen-intelligence' ||
+    project.slug === 'tag-spark-recommendations'
   );
 }
 
@@ -360,6 +361,7 @@ function ProjectVisual({
 }) {
   const isYap = project.slug === 'yap-anonymous-chat';
   const isJangoing = project.slug === 'jangoing-kitchen-intelligence';
+  const isTagSpark = project.slug === 'tag-spark-recommendations';
   const isAvailable = isProjectAvailable(project);
 
   const visualContent = (
@@ -368,7 +370,7 @@ function ProjectVisual({
         <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
           <YapAmbientThumbnail />
         </div>
-      ) : isJangoing ? (
+      ) : isJangoing || isTagSpark ? (
         <ImagePlaceholder label="Media placeholder" />
       ) : (
         <ImagePlaceholder label="Coming soon" />

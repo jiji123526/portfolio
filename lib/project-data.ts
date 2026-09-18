@@ -123,11 +123,11 @@ const projectCatalog: Project[] = [
     ],
   },
   {
-    slug: 'tag-spark-recommendations', metric: 'TAXONOMY · RANKING', category: 'Recommendation Systems', title: 'TagSpark',
-    summary: 'Structuring subjective preferences into transparent, tag-based rankings',
-    headline: 'Building a taxonomy-driven recommendation system from preference input to ranked results', role: 'Recommendation Systems & Full-stack Developer',
-    duration: '2026', client: 'Independent Product', responsibilities: 'Tag taxonomy, alias logic, weighted ranking, product design, APIs, database, and deployment',
-    tools: 'React, TypeScript, Tailwind CSS, Neon Postgres, Vercel', brief: 'How might we make recommendations feel understandable and controllable instead of opaque?',
+    slug: 'tag-spark-recommendations', metric: 'LEXICAL RESOURCES · RANKING', category: 'Recommendation Systems', title: 'TagSpark',
+    summary: 'Normalizing noisy human tags into canonical, explainable recommendation signals',
+    headline: 'Turning noisy, user-generated tags into a usable signal', role: 'Language Systems & Full-stack Developer',
+    duration: '2026', client: 'Independent Product', responsibilities: 'Text normalization, alias sets, category taxonomy, hand-curated similarity thesaurus, weighted ranking, product design, APIs, database, and deployment',
+    tools: 'React 18, TypeScript, Vite, Tailwind CSS, Neon Postgres, Vercel', brief: 'How might we make recommendations feel understandable and controllable instead of opaque?',
     liveUrl: 'https://kwkrecom.vercel.app', repoUrl: 'https://github.com/jiji123526/tag-spark',
     coverNote: 'Product demo: onboarding → tag selection → ranked recommendation results',
     process: [
@@ -135,7 +135,7 @@ const projectCatalog: Project[] = [
       { label: 'Ranking model', title: 'Transparent weighted matching', body: 'Recommendations combine tag overlap, category weights, and alias matching rather than relying on an unexplained black box.' },
       { label: 'Product loop', title: 'Discovery beyond one result', body: 'Filtered lists, sorting, and work detail patterns let the user continue exploring after the first recommendation.' },
     ],
-    challengeIntro: 'Recommendation products often hide why something appeared. TagSpark instead makes preference input visible and keeps the path from selection to result legible.',
+    challengeIntro: 'A recommender is only as good as the metadata beneath it. TagSpark treats user-generated tags as a lexical-resource problem: normalize surface variation, model related meaning, and keep ranking evidence legible.',
     challenges: ['Free-form taste is difficult to compare consistently across different works.', 'Exact tag matching misses related terms and category context.', 'A mobile recommendation flow needs enough control without turning preference setup into a form.'],
     statement: 'How might we translate subjective taste into a recommendation model users can see, adjust, and understand?',
     solutions: [
@@ -144,8 +144,8 @@ const projectCatalog: Project[] = [
       { title: 'A maintained recommendation catalog.', body: 'Serverless APIs expose works and tags, support catalog management, and refresh metadata through a scheduled scrape.', mediaNote: 'System view: catalog CRUD, daily metadata refresh, recommendation response' },
     ],
     architecture: { title: 'A compact full-stack recommendation service.', body: 'A React and TypeScript client renders the selection and discovery flows. Vercel serverless functions handle works, tags, recommendation data, and scheduled metadata refreshes against Neon Postgres.', mediaNote: 'Architecture: React client → Vercel functions → Neon database + scheduled scraper', nodes: ['React', 'Vercel API', 'Neon', 'Daily scrape'] },
-    impact: 'Shipped a production-ready recommendation flow with a live catalog and scheduled data refresh',
-    impactBody: 'The product includes first-time onboarding, mobile tag selection, ranked recommendation results, filtered work lists, catalog CRUD, and a daily metadata scrape. The same system runs locally through Vite middleware and in production through Vercel serverless functions.',
+    impact: 'Built an interpretable rule-based baseline for normalizing metadata and ranking recommendations',
+    impactBody: 'The production flow combines onboarding, explicit tag selection, alias-aware matching, category-weighted ranking, semantic exclusion, catalog management, and scheduled metadata refresh. Hand-curated clusters and fixed weights remain visible as a baseline rather than being presented as learned similarity.',
     takeaways: [
       { title: 'Explicit signals can feel more personal', body: 'Letting people state and revise their preferences creates control that passive recommendation systems often lack.' },
       { title: 'Aliases are a product decision', body: 'Deciding which tags should be treated as related changes the recommendation experience, not just the implementation.' },

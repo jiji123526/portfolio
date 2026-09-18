@@ -4,6 +4,8 @@ import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { JangoingSectionNav } from '@/components/jangoing-section-nav';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
+import { TagSparkCaseContent } from '@/components/tagspark-case-content';
+import { TagSparkSectionNav } from '@/components/tagspark-section-nav';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
 import { YapHeroDemo } from '@/components/yap-hero-demo';
@@ -49,17 +51,30 @@ export default async function ProjectPage({
   const incidents = project.incidents;
   const isJangoing = project.slug === 'jangoing-kitchen-intelligence';
   const isYap = project.slug === 'yap-anonymous-chat';
+  const isTagSpark = project.slug === 'tag-spark-recommendations';
 
   return (
     <main
-      className={`case-study ${isYap ? 'yap-case-study' : ''} ${isJangoing ? 'jangoing-case-study' : ''}`}
+      className={`case-study ${isYap || isTagSpark ? 'yap-case-study' : ''} ${isJangoing ? 'jangoing-case-study' : ''} ${isTagSpark ? 'tagspark-case-study' : ''}`}
     >
-      {isYap || isJangoing ? (
+      {isYap || isJangoing || isTagSpark ? (
         <>
           <ScrollTriggeredDock
-            triggerId={isYap ? 'yap-problem' : 'jangoing-environment'}
+            triggerId={
+              isYap
+                ? 'yap-problem'
+                : isJangoing
+                  ? 'jangoing-environment'
+                  : 'tagspark-problem'
+            }
           />
-          {isYap ? <YapSectionNav /> : <JangoingSectionNav />}
+          {isYap ? (
+            <YapSectionNav />
+          ) : isJangoing ? (
+            <JangoingSectionNav />
+          ) : (
+            <TagSparkSectionNav />
+          )}
         </>
       ) : (
         <nav className="case-top-nav" aria-label="Project navigation">
@@ -119,6 +134,35 @@ export default async function ProjectPage({
             </div>
           </div>
         </header>
+      ) : isTagSpark ? (
+        <header className="yap-case-opening tagspark-case-opening">
+          <div className="yap-hero-stage">
+            <div className="yap-demo-wrap">
+              <div className="yap-hero-stage-copy">
+                <span>LEXICAL SIGNALS BEFORE RANKING</span>
+                <h2>Turn noisy tags into a usable recommendation signal.</h2>
+                <p>
+                  TagSpark normalizes aliases, models curated semantic
+                  neighbors, and ranks results through an explicit evidence
+                  hierarchy.
+                </p>
+              </div>
+              <div
+                aria-label="TagSpark preference-to-ranking media placeholder"
+                className="tagspark-hero-placeholder magnetic"
+                role="img"
+              >
+                <div aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <i />
+                </div>
+                <p>MEDIA PLACEHOLDER · PREFERENCE-TO-RANKING LOOP</p>
+              </div>
+            </div>
+          </div>
+        </header>
       ) : (
         <header className="case-opening reveal">
           <div className="case-opening-inner">
@@ -154,7 +198,7 @@ export default async function ProjectPage({
       )}
 
       <section
-        className={`case-meta shell ${isYap || isJangoing ? 'yap-case-meta' : 'reveal'}`}
+        className={`case-meta shell ${isYap || isJangoing || isTagSpark ? 'yap-case-meta' : 'reveal'}`}
         aria-label="Project details"
       >
         <div className="case-facts">
@@ -206,6 +250,8 @@ export default async function ProjectPage({
         <JangoingCaseContent />
       ) : isYap ? (
         <YapCaseContent project={project} />
+      ) : isTagSpark ? (
+        <TagSparkCaseContent />
       ) : (
         <>
           {transformation ? (
