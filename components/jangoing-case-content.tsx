@@ -5,31 +5,31 @@ import {
 
 const stages = [
   {
-    label: 'STAGE A · RELEVANCE',
+    label: 'A',
     term: '4-class actionability classification',
     title: 'Is it actionable?',
     body: 'Four classes separate actionable requests from contextual preference, domain-related but non-actionable speech, and unrelated conversation.',
   },
   {
-    label: 'STAGE B · INTENT',
+    label: 'B',
     term: '11-intent semantic ontology',
     title: 'What action is supported?',
     body: 'An 11-intent ontology distinguishes supported actions, clarification needs, and meaningful but unsupported requests.',
   },
   {
-    label: 'STAGE C · ENTITY SPAN',
+    label: 'C',
     term: 'sequence labeling / span policy',
     title: 'Which words carry arguments?',
     body: 'ITEM, CATEGORY, QUANTITY, UNIT, LOCATION, and EXPIRY_DATE are labeled as spans; action cues remain evidence for intent.',
   },
   {
-    label: 'STAGE D · NORMALIZATION',
+    label: 'D',
     term: 'rule-based finite-state normalization',
     title: 'How does language map to state?',
     body: 'Surface language stays intact while values map to canonical, household-scoped forms such as “oat milk” → oat_milk.',
   },
   {
-    label: 'STAGE E · JOINT ACTION',
+    label: 'E',
     term: 'structured semantic parse',
     title: 'Does the full interpretation hold?',
     body: 'The final structure connects relevance, one or more actions, assigned entities, normalized values, and clarification requirements.',
@@ -44,68 +44,20 @@ const annotationPrinciples = [
 
 const productEnvironmentCards = [
   {
-    title: 'Shared household context',
+    title: 'Shared Household',
     body: 'Google-authenticated users can create, join, and switch households through invitation codes. Owners and members interact with the same household-scoped inventory and shopping state.',
   },
   {
-    title: 'Usable kitchen workflows',
+    title: 'Inventory',
     body: 'Members can manage inventory, shopping lists, quantities, expiry dates, categories, low-stock status, and leftovers through the current MVP.',
   },
   {
-    title: 'Reviewable language actions',
+    title: 'Reviewable Actions',
     body: 'Natural-language updates become structured, editable proposals before they modify shared household state.',
   },
   {
-    title: 'Continuous evaluation',
+    title: 'Continuous Evaluation',
     body: 'Confirmations, corrections, cancellations, and unsupported requests are logged, routed into annotation queues, and exported as training or evaluation candidates.',
-  },
-];
-
-const annotationQueues = [
-  {
-    category: 'Production',
-    name: 'Correction',
-    description: 'Production cases users already corrected',
-  },
-  {
-    category: 'Production',
-    name: 'Confirmed',
-    description: 'Correct predictions from normal product usage',
-  },
-  {
-    category: 'Targeted',
-    name: 'Low confidence',
-    description: 'Ambiguous, unknown, and clarification cases',
-  },
-  {
-    category: 'Targeted',
-    name: 'Expiry',
-    description: 'Temporal spans and date-normalization cases',
-  },
-  {
-    category: 'Generated',
-    name: 'Generated review',
-    description: 'Human review of synthetic coverage candidates',
-  },
-  {
-    category: 'Generated',
-    name: 'Preference / context',
-    description: 'Goals and preferences without immediate actions',
-  },
-  {
-    category: 'Generated',
-    name: 'Domain non-actionable',
-    description: 'Food-related hard negatives with no executable request',
-  },
-  {
-    category: 'Generated',
-    name: 'Unrelated negative',
-    description: 'Outside-domain rejection examples',
-  },
-  {
-    category: 'Evaluation',
-    name: 'Evaluation holdout',
-    description: 'Production candidates reserved for later evaluation review',
   },
 ];
 
@@ -181,9 +133,11 @@ export function JangoingCaseContent() {
           {stages.map((stage) => (
             <article key={stage.label}>
               <span>{stage.label}</span>
-              <small>{stage.term}</small>
-              <h3>{stage.title}</h3>
-              <p>{stage.body}</p>
+              <div>
+                <h3>{stage.title}</h3>
+                <small>{stage.term}</small>
+                <p>{stage.body}</p>
+              </div>
             </article>
           ))}
         </div>
@@ -219,15 +173,6 @@ export function JangoingCaseContent() {
             raw utterance <i>→</i> deterministic or AI-assisted draft <i>→</i>{' '}
             relevance, action, span, and normalization review <i>→</i> reviewed
             annotation <i>→</i> task-specific JSONL
-          </div>
-          <div className="annotation-queue-grid">
-            {annotationQueues.map((queue) => (
-              <article key={queue.name}>
-                <span data-category={queue.category}>{queue.category}</span>
-                <h3>{queue.name}</h3>
-                <p>{queue.description}</p>
-              </article>
-            ))}
           </div>
           <p className="queue-boundary">
             Queues prioritize annotation work; they do not determine the final

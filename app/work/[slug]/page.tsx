@@ -51,7 +51,9 @@ export default async function ProjectPage({
   const isYap = project.slug === 'yap-anonymous-chat';
 
   return (
-    <main className={`case-study ${isYap ? 'yap-case-study' : ''}`}>
+    <main
+      className={`case-study ${isYap ? 'yap-case-study' : ''} ${isJangoing ? 'jangoing-case-study' : ''}`}
+    >
       {isYap ? (
         <>
           <ScrollTriggeredDock triggerId="yap-problem" />

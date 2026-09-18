@@ -29,23 +29,29 @@ const readings: Record<
 };
 
 const queues = [
-  ['Correction', 'A user changed the proposed interpretation.'],
-  ['Confirmed', 'A proposal was accepted in normal product use.'],
-  ['Low confidence', 'The interpreter could not resolve a safe action.'],
-  ['Expiry', 'A temporal phrase needs date grounding review.'],
+  ['Correction', 'A user changed the proposed interpretation.', 'Production feedback', 'Review required'],
+  ['Confirmed', 'A proposal was accepted in normal product use.', 'Production feedback', 'Human reviewed'],
+  ['Low confidence', 'The interpreter could not resolve a safe action.', 'Targeted routing', 'Review required'],
+  ['Expiry', 'A temporal phrase needs date grounding review.', 'Targeted routing', 'Review required'],
   [
     'Generated review',
     'A synthetic coverage candidate needs a human decision.',
+    'Generated candidate',
+    'Draft only',
   ],
   [
     'Preference / context',
     'Useful household context without an immediate action.',
+    'Generated candidate',
+    'Review required',
   ],
-  ['Domain non-actionable', 'Kitchen language with no executable request.'],
-  ['Unrelated negative', 'Speech outside the supported household domain.'],
+  ['Domain non-actionable', 'Kitchen language with no executable request.', 'Generated candidate', 'Review required'],
+  ['Unrelated negative', 'Speech outside the supported household domain.', 'Generated candidate', 'Review required'],
   [
     'Evaluation holdout',
     'A reviewed production candidate reserved for evaluation.',
+    'Production candidate',
+    'Candidate holdout',
   ],
 ] as const;
 
@@ -59,17 +65,19 @@ export function JangoingProductDemo() {
       aria-label="Simulated confirm-before-mutation product flow"
     >
       <div className="jg-demo-toolbar">
-        <span>JANGOING / HOUSEHOLD</span>
-        <span>SIMULATED LOCALLY</span>
+        <strong>Jiwoo&apos;s Kitchen</strong>
+        <span>Quick Add</span>
       </div>
       <div className="jg-demo-conversation">
         <p className="jg-demo-utterance">
           “Add two cartons of oat milk tomorrow.”
         </p>
         <div className="jg-proposal-card">
+          <i className="jg-sheet-grabber" aria-hidden="true" />
           <div>
-            <span>STRUCTURED PROPOSAL</span>
-            <strong>Add to inventory</strong>
+            <button type="button">Cancel</button>
+            <strong>Review before updating</strong>
+            <span>PROPOSAL</span>
           </div>
           <dl>
             <div>
@@ -111,11 +119,21 @@ export function JangoingProductDemo() {
             onClick={() => setConfirmed(true)}
           >
             {confirmed
-              ? 'Confirmed · shared state updated'
-              : 'Review and confirm'}
+              ? 'Saved to Jiwoo’s Kitchen'
+              : 'Confirm update'}
           </button>
         </div>
       </div>
+      <nav className="jg-demo-tabbar" aria-label="Product preview navigation">
+        {['Home', 'Inventory', 'Add', 'Shopping', 'Account'].map(
+          (item, index) => (
+            <span className={index === 2 ? 'is-active' : ''} key={item}>
+              <i />
+              {item}
+            </span>
+          ),
+        )}
+      </nav>
       <p className="jg-honesty-label">
         Simulated locally — does not send data.
       </p>
@@ -217,12 +235,24 @@ export function JangoingQueueExplorer() {
         <p>{queues[active][1]}</p>
         <dl>
           <div>
-            <dt>INPUT</dt>
-            <dd>Reviewed interaction evidence</dd>
+            <dt>SOURCE</dt>
+            <dd>{queues[active][2]}</dd>
+          </div>
+          <div>
+            <dt>ROUTING REASON</dt>
+            <dd>{queues[active][1]}</dd>
+          </div>
+          <div>
+            <dt>REVIEW REQUIREMENT</dt>
+            <dd>Human decision before dataset use</dd>
           </div>
           <div>
             <dt>OUTPUT</dt>
             <dd>Annotation candidate, not a dataset split</dd>
+          </div>
+          <div className={queues[active][3] === 'Human reviewed' ? 'is-reviewed' : ''}>
+            <dt>DATASET STATUS</dt>
+            <dd>{queues[active][3]}</dd>
           </div>
         </dl>
       </aside>

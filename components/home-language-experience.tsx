@@ -286,7 +286,10 @@ function updateViewPointer(event: ReactPointerEvent<HTMLElement>) {
 }
 
 function isProjectAvailable(project: HomeProject) {
-  return project.slug === 'yap-anonymous-chat';
+  return (
+    project.slug === 'yap-anonymous-chat' ||
+    project.slug === 'jangoing-kitchen-intelligence'
+  );
 }
 
 function ProjectCopy({ project }: { project: HomeProject }) {
@@ -356,6 +359,7 @@ function ProjectVisual({
   index: number;
 }) {
   const isYap = project.slug === 'yap-anonymous-chat';
+  const isJangoing = project.slug === 'jangoing-kitchen-intelligence';
   const isAvailable = isProjectAvailable(project);
 
   const visualContent = (
@@ -363,6 +367,21 @@ function ProjectVisual({
       {isYap ? (
         <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
           <YapAmbientThumbnail />
+        </div>
+      ) : isJangoing ? (
+        <div className="aa-project-visual__jangoing-thumbnail" aria-hidden="true">
+          <div className="aa-jg-thumb__header">
+            <strong>Jiwoo&apos;s Kitchen</strong>
+            <span>Quick Add</span>
+          </div>
+          <div className="aa-jg-thumb__shelf"><i /><i /><i /></div>
+          <div className="aa-jg-thumb__sheet">
+            <span>REVIEW BEFORE UPDATING</span>
+            <strong>Add oat milk</strong>
+            <p>2 cartons · Tomorrow</p>
+            <b>Confirm</b>
+          </div>
+          <div className="aa-jg-thumb__tabs"><i /><i /><i /><i /><i /></div>
         </div>
       ) : (
         <ImagePlaceholder label="Coming soon" />
@@ -383,7 +402,7 @@ function ProjectVisual({
     <TransitionLink
       className={`aa-project-visual aa-project-visual--${index + 1}${
         isYap ? ' aa-project-visual--yap' : ''
-      }`}
+      }${isJangoing ? ' aa-project-visual--jangoing' : ''}`}
       direction="forward"
       href={`/work/${project.slug}`}
       aria-label={`View ${project.title}`}
