@@ -53,11 +53,6 @@ const productEnvironmentCards = [
     title: 'Reviewable Actions',
     body: 'Natural-language updates become structured, editable proposals before they modify shared household state.',
   },
-  {
-    category: 'EVALUATION',
-    title: 'Continuous Evaluation',
-    body: 'Confirmations, corrections, cancellations, and unsupported requests are logged, routed into annotation queues, and exported as training or evaluation candidates.',
-  },
 ];
 
 const roadmap = [
@@ -134,6 +129,10 @@ export function JangoingCaseContent() {
               </article>
             ))}
           </div>
+          <p className="jangoing-environment-statement">
+            Confirmations, corrections, cancellations, and unsupported requests
+            become reviewable evidence for continuous evaluation.
+          </p>
           <aside className="language-context-note">
             <span>LANGUAGE CONTEXT NOTE</span>
             <p>
@@ -606,12 +605,24 @@ export function JangoingCaseContent() {
 
       <section className="roadmap-section shell case-section reveal" id="jangoing-roadmap">
         <p className="eyebrow">FOUR-PHASE ROADMAP</p>
-        <div className="jangoing-roadmap-list">
+        <div className="yap-takeaways-heading">
+          <h2>
+            The next phase makes the language system{' '}
+            <span className="jangoing-brand-highlight">measurable.</span>
+          </h2>
+          <p className="yap-takeaways-intro">
+            Each phase has a visible completion condition: reviewed data,
+            independent evaluation, diagnosable speech input, and explainable
+            recommendations.
+          </p>
+        </div>
+        <div className="yap-takeaway-list jangoing-takeaway-list">
           {roadmap.map((item, index) => (
-            <details key={item.title} open={index === 0}>
+            <details key={item.title}>
               <summary>
                 <span>0{index + 1}</span>
-                {item.title}
+                <strong>{item.title}</strong>
+                <b aria-hidden="true">+</b>
               </summary>
               <p>{item.body}</p>
             </details>

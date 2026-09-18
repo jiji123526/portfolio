@@ -15501,3 +15501,341 @@ html[data-transition='entering'] .aa-loader__progress i {
     color: var(--project-accent);
   }
 }
+
+/* Match Jangoing's editorial structure to the Yap case-study system. */
+.jangoing-case-opening {
+  --yap-page-bg: var(--project-bg);
+}
+.jangoing-case-opening .yap-hero-stage {
+  background:
+    radial-gradient(
+      circle at 64% 28%,
+      rgba(255, 45, 85, 0.1),
+      transparent 42%
+    ),
+    linear-gradient(145deg, #edf5ef, var(--project-bg) 68%);
+}
+.jangoing-case-opening .yap-hero-stage::after {
+  background: linear-gradient(
+    180deg,
+    rgba(243, 247, 244, 0),
+    var(--project-bg) 88%
+  );
+}
+.jangoing-case-opening .yap-hero-stage-copy > span {
+  color: var(--project-accent);
+}
+.jangoing-case-opening .yap-hero-stage-copy h2 {
+  color: var(--project-text);
+}
+.jangoing-case-opening .yap-hero-stage-copy p {
+  color: var(--project-muted);
+}
+.case-study.jangoing-case-study .case-meta.yap-case-meta {
+  margin-top: -3px;
+  padding-block: 64px;
+  border: 0;
+  background: var(--project-bg);
+}
+.case-study.jangoing-case-study .case-section {
+  padding-block: 112px;
+}
+.case-study.jangoing-case-study .case-section > h2,
+.case-study.jangoing-case-study .product-environment h2,
+.case-study.jangoing-case-study .language-stages > h2,
+.case-study.jangoing-case-study .language-tint h2,
+.case-study.jangoing-case-study .evidence-section > h2,
+.case-study.jangoing-case-study .safety-path h2,
+.case-study.jangoing-case-study .jg-cross-lingual h2 {
+  max-width: 970px;
+  margin: 0;
+  font-size: clamp(2.2rem, 4.8vw, 4.7rem);
+  line-height: 1.12;
+  font-weight: 300;
+  letter-spacing: -0.055em;
+}
+.case-study.jangoing-case-study .case-section > .eyebrow {
+  margin-bottom: 22px;
+}
+.case-study.jangoing-case-study .product-environment-intro,
+.case-study.jangoing-case-study .annotation-intro,
+.case-study.jangoing-case-study .review-diagram-caption,
+.case-study.jangoing-case-study .language-problem > p {
+  max-width: 720px;
+  margin: 30px 0 0;
+  color: var(--project-muted);
+  font-size: .9rem;
+  line-height: 1.8;
+}
+.case-study.jangoing-case-study .product-environment-intro,
+.case-study.jangoing-case-study .language-problem > p {
+  margin-bottom: 78px;
+}
+.case-study.jangoing-case-study .annotation-intro {
+  margin-bottom: 44px;
+}
+.case-study.jangoing-case-study .review-diagram-caption {
+  margin-bottom: 54px;
+}
+.case-study.jangoing-case-study .review-loop-diagram {
+  margin-top: 0;
+}
+.case-study.jangoing-case-study .product-environment-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 0;
+}
+.case-study.jangoing-case-study .product-environment-grid article {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid rgba(31, 107, 69, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.62);
+}
+.case-study.jangoing-case-study .jangoing-card-kicker {
+  margin-bottom: 42px;
+}
+.case-study.jangoing-case-study .product-environment-grid h3 {
+  min-height: 72px;
+  margin: 0 0 14px;
+  color: var(--project-text);
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+.case-study.jangoing-case-study .product-environment-grid p {
+  margin: 0;
+  color: var(--project-muted);
+  font-size: .88rem;
+  line-height: 1.72;
+}
+.jangoing-environment-statement {
+  max-width: 900px !important;
+  margin: 90px auto 0 !important;
+  padding: 28px 0 0;
+  border-top: 2px solid var(--project-accent);
+  color: var(--project-text) !important;
+  font-size: clamp(1.5rem, 3vw, 2.8rem) !important;
+  line-height: 1.32 !important;
+  letter-spacing: -.04em;
+}
+.case-study.jangoing-case-study .language-context-note,
+.case-study.jangoing-case-study .current-future-copy {
+  max-width: 900px;
+}
+.case-study.jangoing-case-study .language-problem h2 {
+  max-width: 970px;
+  margin: 0;
+  font-size: clamp(2.2rem, 4.8vw, 4.7rem);
+  line-height: 1.12;
+  font-weight: 300;
+  letter-spacing: -.055em;
+}
+.case-study.jangoing-case-study .language-problem h2 mark {
+  padding: 0 .08em;
+  background-color: transparent;
+  background-image: linear-gradient(
+    transparent 62%,
+    rgba(255, 45, 85, .18) 62%
+  );
+  color: var(--project-accent);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.case-study.jangoing-case-study .utterance-card {
+  margin-top: 0;
+}
+.case-study.jangoing-case-study .language-card-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 64px;
+}
+.case-study.jangoing-case-study .language-card-grid article,
+.case-study.jangoing-case-study .language-card-grid article:last-child {
+  min-height: 280px;
+  padding: 22px;
+  gap: 34px;
+  border: 1px solid rgba(31, 107, 69, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .6);
+}
+.case-study.jangoing-case-study .language-card-grid h3 {
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.case-study.jangoing-case-study .language-card-grid article > div > small,
+.case-study.jangoing-case-study .language-card-grid p {
+  font-size: .75rem;
+  line-height: 1.62;
+}
+.case-study.jangoing-case-study .jangoing-feature-row {
+  min-height: 520px;
+  grid-template-columns: .72fr 1.28fr;
+  gap: 72px;
+  align-items: center;
+  margin-top: 0;
+  padding: 94px 0;
+  border-top: 1px solid var(--project-line);
+}
+.case-study.jangoing-case-study .jangoing-feature-copy h3 {
+  margin: 28px 0 18px;
+  color: var(--project-text);
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -.045em;
+}
+.case-study.jangoing-case-study .jangoing-feature-copy dl {
+  margin-top: 28px;
+  border-top: 1px solid rgba(31, 107, 69, .2);
+  border-bottom: 1px solid rgba(31, 107, 69, .2);
+}
+.case-study.jangoing-case-study .jangoing-feature-copy dl > div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 18px;
+  padding: 14px 0;
+  border: 0;
+}
+.case-study.jangoing-case-study .jangoing-feature-copy dl > div + div {
+  border-top: 1px solid rgba(31, 107, 69, .12);
+}
+.case-study.jangoing-case-study .jangoing-feature-copy dd {
+  margin: 0;
+  font-size: .76rem;
+  line-height: 1.62;
+}
+.case-study.jangoing-case-study .jangoing-media-placeholder {
+  min-height: 420px;
+}
+.case-study.jangoing-case-study .candidate-stats {
+  margin-top: 54px;
+}
+.case-study.jangoing-case-study .candidate-stats article,
+.case-study.jangoing-case-study .candidate-stats article:last-child {
+  min-height: 170px;
+}
+.case-study.jangoing-case-study .candidate-stats strong {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+}
+.case-study.jangoing-case-study .two-column-copy {
+  margin-top: 64px;
+  gap: 18px;
+}
+.case-study.jangoing-case-study .two-column-copy > div {
+  min-height: 250px;
+  padding: 26px;
+  border: 1px solid rgba(31, 107, 69, .18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .6);
+}
+.case-study.jangoing-case-study .two-column-copy h3 {
+  margin: 0 0 18px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+  font-weight: 400;
+}
+.case-study.jangoing-case-study .roadmap-section > .eyebrow,
+.case-study.jangoing-case-study .roadmap-section > .yap-takeaways-heading,
+.case-study.jangoing-case-study .roadmap-section > .jangoing-takeaway-list,
+.case-study.jangoing-case-study .roadmap-section > .section-compact-copy {
+  width: min(100%, 1000px);
+  margin-right: auto;
+  margin-left: auto;
+}
+.case-study.jangoing-case-study .yap-takeaways-heading h2 {
+  max-width: 820px;
+  margin: 0 0 24px;
+  color: var(--project-text);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: -.05em;
+}
+.case-study.jangoing-case-study .yap-takeaways-intro {
+  max-width: 820px;
+  margin: 0 0 64px;
+  color: var(--project-muted);
+  font-size: .92rem;
+  line-height: 1.82;
+}
+.jangoing-brand-highlight {
+  padding: 0 .04em;
+  background-image: linear-gradient(
+    transparent 68%,
+    rgba(255, 45, 85, .18) 68%
+  );
+  color: var(--project-accent);
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list {
+  border-top-color: rgba(31, 107, 69, .22);
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list details {
+  border-bottom-color: rgba(31, 107, 69, .22);
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list details[open] {
+  border-left-color: var(--project-accent);
+  background: var(--project-accent-soft);
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list summary > span,
+.case-study.jangoing-case-study .jangoing-takeaway-list summary b {
+  color: var(--project-accent);
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list summary strong {
+  font-size: .92rem;
+  font-weight: 400;
+}
+.case-study.jangoing-case-study .jangoing-takeaway-list details > p {
+  color: var(--project-muted);
+  font-size: .88rem;
+  line-height: 1.78;
+}
+
+@media (max-width: 899px) {
+  .case-study.jangoing-case-study .product-environment-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-study.jangoing-case-study .product-environment-grid article {
+    min-height: 300px;
+  }
+  .case-study.jangoing-case-study .language-card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .case-study.jangoing-case-study .jangoing-feature-row {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding: 72px 0;
+  }
+}
+@media (max-width: 599px) {
+  .case-study.jangoing-case-study .case-section {
+    padding-block: 90px;
+  }
+  .case-study.jangoing-case-study .case-section > h2,
+  .case-study.jangoing-case-study .language-problem h2 {
+    font-size: clamp(2rem, 9vw, 3.5rem);
+  }
+  .case-study.jangoing-case-study .language-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-study.jangoing-case-study .language-card-grid article,
+  .case-study.jangoing-case-study .language-card-grid article:last-child {
+    min-height: 230px;
+  }
+  .case-study.jangoing-case-study .jangoing-feature-copy dl > div {
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+  .case-study.jangoing-case-study .jangoing-takeaway-list summary {
+    grid-template-columns: 30px 1fr auto;
+    gap: 10px;
+    padding: 22px 14px;
+  }
+  .case-study.jangoing-case-study .jangoing-takeaway-list details > p {
+    padding: 0 54px 28px;
+  }
+}

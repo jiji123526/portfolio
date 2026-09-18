@@ -92,23 +92,18 @@ export default async function ProjectPage({
             </div>
           </div>
         </header>
-      ) : (
-        <header className="case-opening reveal">
-          <div className="case-opening-inner">
-            <div className="case-opening-copy">
-              <span className="metric-pill">{project.metric}</span>
-              <h1>{project.headline}</h1>
-              {isJangoing && (
-                <p className="opening-description">{project.brief}</p>
-              )}
-              {!isJangoing && (
-                <div className="opening-impact">
-                  <span>IMPACT</span>
-                  <strong>{project.impact}</strong>
-                </div>
-              )}
-            </div>
-            {isJangoing ? (
+      ) : isJangoing ? (
+        <header className="yap-case-opening jangoing-case-opening">
+          <div className="yap-hero-stage">
+            <div className="yap-demo-wrap">
+              <div className="yap-hero-stage-copy">
+                <span>{project.metric}</span>
+                <h2>Review language before it changes household state.</h2>
+                <p>
+                  An English-first language and evaluation system for a future
+                  Raspberry Pi kitchen assistant.
+                </p>
+              </div>
               <div
                 className="jangoing-hero-placeholder magnetic"
                 aria-label="Jangoing product media placeholder"
@@ -121,33 +116,45 @@ export default async function ProjectPage({
                 </div>
                 <p>MEDIA PLACEHOLDER · LANGUAGE-TO-ACTION PRODUCT LOOP</p>
               </div>
-            ) : (
-              <div
-                className="case-opening-media magnetic"
-                aria-label="Project media placeholder"
-              >
-                <div className="cover-interface">
-                  <div className="cover-sidebar" />
-                  <div className="cover-content">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div>
-                <p className="media-note">
-                  MEDIA PLACEHOLDER ·{' '}
-                  {project.coverNote ??
-                    'Project overview and key product moments'}
-                </p>
+            </div>
+          </div>
+        </header>
+      ) : (
+        <header className="case-opening reveal">
+          <div className="case-opening-inner">
+            <div className="case-opening-copy">
+              <span className="metric-pill">{project.metric}</span>
+              <h1>{project.headline}</h1>
+              <div className="opening-impact">
+                <span>IMPACT</span>
+                <strong>{project.impact}</strong>
               </div>
-            )}
+            </div>
+            <div
+              className="case-opening-media magnetic"
+              aria-label="Project media placeholder"
+            >
+              <div className="cover-interface">
+                <div className="cover-sidebar" />
+                <div className="cover-content">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+              <p className="media-note">
+                MEDIA PLACEHOLDER ·{' '}
+                {project.coverNote ??
+                  'Project overview and key product moments'}
+              </p>
+            </div>
           </div>
         </header>
       )}
 
       <section
-        className={`case-meta shell ${isYap ? 'yap-case-meta' : 'reveal'}`}
+        className={`case-meta shell ${isYap || isJangoing ? 'yap-case-meta' : 'reveal'}`}
         aria-label="Project details"
       >
         <div className="case-facts">
