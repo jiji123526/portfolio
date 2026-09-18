@@ -102,19 +102,6 @@ const solutionRationales = [
   },
 ] as const;
 
-const listeningSignals = [
-  {
-    number: '01',
-    title: 'Product signals',
-    body: '400+ active users and 6,517 messages in one production week, from 433 active senders, show that the entry-to-message loop holds under real use.',
-  },
-  {
-    number: '02',
-    title: 'In-product feedback',
-    body: "A feedback prompt appears on a user's 10th visit, when returning users have enough lived context to offer specific input rather than a first impression.",
-  },
-] as const;
-
 const experienceRefinements = [
   {
     feedback:
@@ -124,16 +111,19 @@ const experienceRefinements = [
   },
   {
     feedback:
-      'The interface felt visually tiring — the colors were hard on the eyes.',
-    change: 'Shifted to a softer, lower-strain color palette.',
+      'Users wanted notifications so they could keep up with new activity without continuously watching the chat.',
+    change: 'Added notifications for new chat activity.',
   },
   {
-    feedback: 'Text felt a bit large.',
-    change: 'Refined the type scale for calmer reading.',
+    feedback:
+      'Users wanted clearer time context when reading and returning to conversations.',
+    change: 'Added timestamps to chat messages.',
   },
   {
-    feedback: 'Messages felt cramped together.',
-    change: 'Opened up the spacing between messages.',
+    feedback:
+      'The interface felt visually tiring: the colors were hard on the eyes, text felt large, and messages felt cramped.',
+    change:
+      'Refined the interface as one system with a softer palette, a calmer type scale, and more space between messages.',
   },
 ] as const;
 
@@ -491,16 +481,6 @@ export function YapCaseContent({ project }: { project: Project }) {
             </p>
           </header>
 
-          <div className="yap-listening-signals">
-            {listeningSignals.map((signal) => (
-              <article key={signal.number}>
-                <span>{signal.number}</span>
-                <h3>{signal.title}</h3>
-                <p>{signal.body}</p>
-              </article>
-            ))}
-          </div>
-
           <div className="yap-feedback-loop">
             <div className="yap-feedback-loop__heading">
               <span>FEEDBACK → ITERATION</span>
@@ -541,10 +521,17 @@ export function YapCaseContent({ project }: { project: Project }) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Messages sometimes posted twice on send.</td>
                       <td>
-                        Fixed the duplicate-send path with stable client message
-                        IDs, idempotent retries, and authoritative persistence.
+                        Rapid repeat taps and retries after a lost server
+                        response could create duplicate messages during slow or
+                        interrupted connections.
+                      </td>
+                      <td>
+                        Combined stable send IDs, idempotent retries, database
+                        duplicate prevention, and persistence-based UI updates
+                        so one send attempt converges on one stored message—even
+                        after reconnecting, re-entering the channel, or losing
+                        the original response.
                       </td>
                     </tr>
                   </tbody>
