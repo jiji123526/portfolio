@@ -974,13 +974,13 @@ a {
   --jg-orange: #ff9500;
   background: var(--jg-canvas);
   color: var(--jg-label);
-  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  font-family: var(--font-poppins), Arial, sans-serif;
 }
 .jangoing-case-study h1,
 .jangoing-case-study h2,
 .jangoing-case-study h3,
 .jangoing-case-study .candidate-stats strong {
-  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-poppins), Arial, sans-serif;
 }
 .jangoing-case-study .shell,
 .jangoing-case-study .case-opening-inner,
@@ -1004,7 +1004,7 @@ a {
 .jangoing-case-study .metric-pill,
 .jangoing-case-study .eyebrow {
   color: var(--jg-pink);
-  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-poppins), Arial, sans-serif;
   font-size: 11px;
   font-weight: 700;
   line-height: 15px;
@@ -1067,6 +1067,18 @@ a {
   background: #fff;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.09);
   font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.jangoing-case-study .jg-language-lab,
+.jangoing-case-study .jg-queue-explorer {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+}
+.jangoing-case-study .jg-product-demo h3,
+.jangoing-case-study .jg-language-lab h3,
+.jangoing-case-study .jg-queue-explorer h3,
+.jangoing-case-study .jg-product-demo strong,
+.jangoing-case-study .jg-language-lab strong,
+.jangoing-case-study .jg-queue-explorer strong {
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 .jangoing-case-study .jg-demo-toolbar {
   min-height: 59px;

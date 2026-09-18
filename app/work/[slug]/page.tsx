@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { JangoingProductDemo } from '@/components/jangoing-interactives';
+import { JangoingSectionNav } from '@/components/jangoing-section-nav';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
@@ -54,10 +55,12 @@ export default async function ProjectPage({
     <main
       className={`case-study ${isYap ? 'yap-case-study' : ''} ${isJangoing ? 'jangoing-case-study' : ''}`}
     >
-      {isYap ? (
+      {isYap || isJangoing ? (
         <>
-          <ScrollTriggeredDock triggerId="yap-problem" />
-          <YapSectionNav />
+          <ScrollTriggeredDock
+            triggerId={isYap ? 'yap-problem' : 'jangoing-environment'}
+          />
+          {isYap ? <YapSectionNav /> : <JangoingSectionNav />}
         </>
       ) : (
         <nav className="case-top-nav" aria-label="Project navigation">

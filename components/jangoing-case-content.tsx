@@ -64,7 +64,7 @@ const productEnvironmentCards = [
 export function JangoingCaseContent() {
   return (
     <>
-      <section className="product-environment reveal">
+      <section className="product-environment reveal" id="jangoing-environment">
         <div className="shell case-section">
           <p className="eyebrow">
             A REAL PRODUCT ENVIRONMENT FOR LANGUAGE LEARNING
@@ -108,7 +108,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="language-problem shell case-section reveal">
+      <section className="language-problem shell case-section reveal" id="jangoing-problem">
         <p className="eyebrow">LANGUAGE PROBLEM</p>
         <h2>Conversation is not a command line.</h2>
         <p>
@@ -126,7 +126,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="language-stages case-section shell reveal">
+      <section className="language-stages case-section shell reveal" id="jangoing-language-system">
         <p className="eyebrow">FIVE-STAGE NLU SYSTEM DESIGN</p>
         <h2>One utterance becomes five independently testable decisions.</h2>
         <div className="language-card-grid">
@@ -158,7 +158,7 @@ export function JangoingCaseContent() {
         </aside>
       </section>
 
-      <section className="language-tint reveal">
+      <section className="language-tint reveal" id="jangoing-data">
         <div className="shell case-section">
           <p className="eyebrow">ANNOTATION + DATASET GOVERNANCE</p>
           <h2>
@@ -229,7 +229,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="evidence-section shell case-section reveal">
+      <section className="evidence-section shell case-section reveal" id="jangoing-evaluation">
         <p className="eyebrow">BASELINE + EVALUATION STATUS</p>
         <h2>
           A simple baseline tests the data system before model complexity
@@ -265,7 +265,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="jg-cross-lingual language-tint reveal">
+      <section className="jg-cross-lingual language-tint reveal" id="jangoing-cross-lingual">
         <div className="shell case-section">
           <p className="eyebrow">CROSS-LINGUAL BY DESIGN</p>
           <h2>
@@ -289,7 +289,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="safety-path language-tint reveal">
+      <section className="safety-path language-tint reveal" id="jangoing-architecture">
         <div className="shell case-section">
           <p className="eyebrow">CURRENT SYSTEM + REVIEWED LEARNING LOOP</p>
           <h2>
@@ -514,7 +514,7 @@ export function JangoingCaseContent() {
         </div>
       </section>
 
-      <section className="roadmap-section shell case-section reveal">
+      <section className="roadmap-section shell case-section reveal" id="jangoing-roadmap">
         <p className="eyebrow">FOUR-PHASE ROADMAP</p>
         <ol>
           {[
