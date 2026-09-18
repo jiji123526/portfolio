@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
+import { JangoingProductDemo } from '@/components/jangoing-interactives';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
@@ -101,25 +102,29 @@ export default async function ProjectPage({
                 <strong>{project.impact}</strong>
               </div>
             </div>
-            <div
-              className="case-opening-media magnetic"
-              aria-label="Project media placeholder"
-            >
-              <div className="cover-interface">
-                <div className="cover-sidebar" />
-                <div className="cover-content">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
+            {isJangoing ? (
+              <JangoingProductDemo />
+            ) : (
+              <div
+                className="case-opening-media magnetic"
+                aria-label="Project media placeholder"
+              >
+                <div className="cover-interface">
+                  <div className="cover-sidebar" />
+                  <div className="cover-content">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </div>
                 </div>
+                <p className="media-note">
+                  MEDIA PLACEHOLDER ·{' '}
+                  {project.coverNote ??
+                    'Project overview and key product moments'}
+                </p>
               </div>
-              <p className="media-note">
-                MEDIA PLACEHOLDER ·{' '}
-                {project.coverNote ??
-                  'Project overview and key product moments'}
-              </p>
-            </div>
+            )}
           </div>
         </header>
       )}
@@ -174,7 +179,7 @@ export default async function ProjectPage({
       </section>
 
       {isJangoing ? (
-        <JangoingCaseContent project={project} projectIndex={index} />
+        <JangoingCaseContent />
       ) : isYap ? (
         <YapCaseContent project={project} />
       ) : (
