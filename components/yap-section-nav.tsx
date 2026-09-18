@@ -9,6 +9,7 @@ const sections = [
   { id: 'yap-solutions', label: 'PRODUCT FLOWS' },
   { id: 'yap-architecture', label: 'SYSTEM DESIGN' },
   { id: 'yap-operations', label: 'OPERATIONS' },
+  { id: 'yap-listening', label: 'LISTENING' },
   { id: 'yap-takeaways', label: 'TAKEAWAYS' },
 ] as const;
 

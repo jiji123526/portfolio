@@ -67,6 +67,76 @@ const solutionSlots = [
   'live-session',
 ];
 
+const solutionRationales = [
+  {
+    userProblem:
+      'A signup form makes people leave before the conversation even starts.',
+    designDecision:
+      'A shared link opens directly into a room with the composer ready: no login, nickname, or profile.',
+    whyThisWay:
+      'Friction belongs only where the conversation needs it, through optional passcodes, never at the front door.',
+  },
+  {
+    userProblem:
+      "Anonymity invites participation, but without controls it also invites chaos, and owners feel they can't keep a room safe.",
+    designDecision:
+      'Passcodes, chat freezes, and word filters change the room instantly without making the owner leave the conversation.',
+    whyThisWay:
+      'Moderation authority should stay explicit and immediate without widening visibility. Control, not surveillance.',
+  },
+  {
+    userProblem:
+      'In an anonymous space, “wait, who can see this?” is the fear that quietly breaks trust.',
+    designDecision:
+      'The sender and owner share the same private thread; other visitors continue to see only public messages.',
+    whyThisWay:
+      'Privacy has to be a visible boundary, not a hidden rule. People share honestly when they can see who is on the other side.',
+  },
+  {
+    userProblem:
+      'The weight of a permanent record discourages the light, in-the-moment exchanges people actually want.',
+    designDecision:
+      'A host opens a separate live session whose messages and reactions disappear when it ends, while the normal room stays intact.',
+    whyThisWay:
+      'Making impermanence an explicit state gives people permission to be casual without worrying about a lasting record.',
+  },
+] as const;
+
+const listeningSignals = [
+  {
+    number: '01',
+    title: 'Product signals',
+    body: '400+ active users and 6,517 messages in one production week, from 433 active senders, show that the entry-to-message loop holds under real use.',
+  },
+  {
+    number: '02',
+    title: 'In-product feedback',
+    body: "A feedback prompt appears on a user's 10th visit, when returning users have enough lived context to offer specific input rather than a first impression.",
+  },
+] as const;
+
+const experienceRefinements = [
+  {
+    feedback:
+      'New messages pulled me back down while I was scrolling up to read earlier messages.',
+    change:
+      'Held the reader’s position until they return to the bottom, alongside anchor-based scroll correction for long histories.',
+  },
+  {
+    feedback:
+      'The interface felt visually tiring — the colors were hard on the eyes.',
+    change: 'Shifted to a softer, lower-strain color palette.',
+  },
+  {
+    feedback: 'Text felt a bit large.',
+    change: 'Refined the type scale for calmer reading.',
+  },
+  {
+    feedback: 'Messages felt cramped together.',
+    change: 'Opened up the spacing between messages.',
+  },
+] as const;
+
 function YapSolutionVisual({ index }: { index: number }) {
   if (index === 0) return <LinkToRoomDemo />;
   if (index === 1) return <ChannelOwnerControlsDemo />;
@@ -270,6 +340,20 @@ export function YapCaseContent({ project }: { project: Project }) {
                 )}
               </h2>
               <p>{solution.body}</p>
+              <dl className="yap-ux-rationale" aria-label="UX rationale">
+                <div>
+                  <dt>User problem</dt>
+                  <dd>{solutionRationales[index].userProblem}</dd>
+                </div>
+                <div>
+                  <dt>Design decision</dt>
+                  <dd>{solutionRationales[index].designDecision}</dd>
+                </div>
+                <div>
+                  <dt>Why this way</dt>
+                  <dd>{solutionRationales[index].whyThisWay}</dd>
+                </div>
+              </dl>
             </div>
             <div className="yap-demo-slot" data-demo={solutionSlots[index]}>
               <YapSolutionVisual index={index} />
@@ -390,6 +474,95 @@ export function YapCaseContent({ project }: { project: Project }) {
               </span>
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="yap-listening" id="yap-listening">
+        <div className="shell case-section">
+          <p className="eyebrow">LISTENING</p>
+          <header className="yap-listening-heading">
+            <h2>Listening to real users, then shipping</h2>
+            <p>
+              yap. asks for feedback on each user&apos;s 10th visit — late
+              enough for the response to be grounded in real experience. I
+              review what returning users report, identify recurring themes, and
+              ship changes from that evidence instead of guessing at
+              improvements.
+            </p>
+          </header>
+
+          <div className="yap-listening-signals">
+            {listeningSignals.map((signal) => (
+              <article key={signal.number}>
+                <span>{signal.number}</span>
+                <h3>{signal.title}</h3>
+                <p>{signal.body}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="yap-feedback-loop">
+            <div className="yap-feedback-loop__heading">
+              <span>FEEDBACK → ITERATION</span>
+              <h3>What users told me → what I shipped</h3>
+            </div>
+
+            <section>
+              <h4>Experience refinements</h4>
+              <div className="yap-feedback-table-wrap">
+                <table className="yap-feedback-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">User feedback</th>
+                      <th scope="col">What I changed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {experienceRefinements.map((item) => (
+                      <tr key={item.feedback}>
+                        <td>{item.feedback}</td>
+                        <td>{item.change}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section>
+              <h4>Reliability fix from feedback</h4>
+              <div className="yap-feedback-table-wrap">
+                <table className="yap-feedback-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">User feedback</th>
+                      <th scope="col">What I changed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Messages sometimes posted twice on send.</td>
+                      <td>
+                        Fixed the duplicate-send path with stable client message
+                        IDs, idempotent retries, and authoritative persistence.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <aside className="yap-listening-principle">
+            <span>HOW I DECIDE WHAT TO BUILD NEXT</span>
+            <p>
+              Usage data tells me what happens; returning-user feedback tells me
+              what experienced users want. Reading both together — and staying
+              aware that neither explains why a new user might leave early —
+              keeps the roadmap evidence-led without overstating what the data
+              can prove.
+            </p>
+          </aside>
         </div>
       </section>
 
