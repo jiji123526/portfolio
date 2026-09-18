@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
-import { JangoingProductDemo } from '@/components/jangoing-interactives';
 import { JangoingSectionNav } from '@/components/jangoing-section-nav';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TransitionLink } from '@/components/transition-link';
@@ -102,13 +101,26 @@ export default async function ProjectPage({
               {isJangoing && (
                 <p className="opening-description">{project.brief}</p>
               )}
-              <div className="opening-impact">
-                <span>IMPACT</span>
-                <strong>{project.impact}</strong>
-              </div>
+              {!isJangoing && (
+                <div className="opening-impact">
+                  <span>IMPACT</span>
+                  <strong>{project.impact}</strong>
+                </div>
+              )}
             </div>
             {isJangoing ? (
-              <JangoingProductDemo />
+              <div
+                className="jangoing-hero-placeholder magnetic"
+                aria-label="Jangoing product media placeholder"
+              >
+                <div className="jangoing-placeholder-ui" aria-hidden="true">
+                  <span />
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <p>MEDIA PLACEHOLDER · LANGUAGE-TO-ACTION PRODUCT LOOP</p>
+              </div>
             ) : (
               <div
                 className="case-opening-media magnetic"
@@ -181,6 +193,12 @@ export default async function ProjectPage({
             )}
           </dl>
         </div>
+        {isJangoing && (
+          <aside className="jangoing-meta-impact">
+            <span>IMPACT</span>
+            <p>{project.impact}</p>
+          </aside>
+        )}
       </section>
 
       {isJangoing ? (

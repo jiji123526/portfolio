@@ -1,8 +1,3 @@
-import {
-  JangoingLanguageLab,
-  JangoingQueueExplorer,
-} from '@/components/jangoing-interactives';
-
 const stages = [
   {
     label: 'A',
@@ -44,22 +39,69 @@ const annotationPrinciples = [
 
 const productEnvironmentCards = [
   {
+    category: 'HOUSEHOLD',
     title: 'Shared Household',
     body: 'Google-authenticated users can create, join, and switch households through invitation codes. Owners and members interact with the same household-scoped inventory and shopping state.',
   },
   {
+    category: 'STATE',
     title: 'Inventory',
     body: 'Members can manage inventory, shopping lists, quantities, expiry dates, categories, low-stock status, and leftovers through the current MVP.',
   },
   {
+    category: 'REVIEW',
     title: 'Reviewable Actions',
     body: 'Natural-language updates become structured, editable proposals before they modify shared household state.',
   },
   {
+    category: 'EVALUATION',
     title: 'Continuous Evaluation',
     body: 'Confirmations, corrections, cancellations, and unsupported requests are logged, routed into annotation queues, and exported as training or evaluation candidates.',
   },
 ];
+
+const roadmap = [
+  {
+    title: 'Freeze the reviewed English benchmark',
+    body: 'Complete human review, deduplication, leakage checks, and a versioned split manifest before reporting baseline performance.',
+  },
+  {
+    title: 'Add multi-turn household context',
+    body: 'Evaluate whether prior turns and household-specific state improve interpretation without weakening permission or review boundaries.',
+  },
+  {
+    title: 'Evaluate Korean-English ASR on Raspberry Pi',
+    body: 'Measure speech recognition independently from semantic interpretation so each failure remains diagnosable.',
+  },
+  {
+    title: 'Add explainable recommendations',
+    body: 'Rank deals and household suggestions only when the source, reasoning, and user control can remain visible.',
+  },
+];
+
+function MediaPlaceholder({
+  label,
+  note,
+}: {
+  label: string;
+  note: string;
+}) {
+  return (
+    <div
+      className="jangoing-media-placeholder"
+      role="img"
+      aria-label={`${label} media placeholder`}
+    >
+      <div aria-hidden="true">
+        <span />
+        <i />
+        <i />
+      </div>
+      <strong>{label}</strong>
+      <p>MEDIA PLACEHOLDER · {note}</p>
+    </div>
+  );
+}
 
 export function JangoingCaseContent() {
   return (
@@ -83,7 +125,10 @@ export function JangoingCaseContent() {
           <div className="product-environment-grid">
             {productEnvironmentCards.map((card, index) => (
               <article key={card.title}>
-                <span>0{index + 1}</span>
+                <div className="jangoing-card-kicker">
+                  <span>0{index + 1}</span>
+                  <small>{card.category}</small>
+                </div>
                 <h3>{card.title}</h3>
                 <p>{card.body}</p>
               </article>
@@ -110,7 +155,9 @@ export function JangoingCaseContent() {
 
       <section className="language-problem shell case-section reveal" id="jangoing-problem">
         <p className="eyebrow">LANGUAGE PROBLEM</p>
-        <h2>Conversation is not a command line.</h2>
+        <h2>
+          Conversation is not <mark>a command line.</mark>
+        </h2>
         <p>
           Household speech mixes requests, context, shorthand, and observations.
           The system must decide what is actionable, what language forms an
@@ -128,7 +175,10 @@ export function JangoingCaseContent() {
 
       <section className="language-stages case-section shell reveal" id="jangoing-language-system">
         <p className="eyebrow">FIVE-STAGE NLU SYSTEM DESIGN</p>
-        <h2>One utterance becomes five independently testable decisions.</h2>
+        <h2>
+          One utterance becomes five{' '}
+          <mark>independently testable decisions.</mark>
+        </h2>
         <div className="language-card-grid">
           {stages.map((stage) => (
             <article key={stage.label}>
@@ -141,9 +191,29 @@ export function JangoingCaseContent() {
             </article>
           ))}
         </div>
-        <div className="language-existing-media">
-          <span>01 · INTERACTIVE BREAKDOWN</span>
-          <JangoingLanguageLab />
+        <div className="jangoing-feature-row">
+          <div className="jangoing-feature-copy">
+            <span>01</span>
+            <h3>One sentence can support multiple readings.</h3>
+            <dl>
+              <div>
+                <dt>USER PROBLEM</dt>
+                <dd>Ordinary household language does not always state an explicit action.</dd>
+              </div>
+              <div>
+                <dt>DESIGN DECISION</dt>
+                <dd>Separate relevance, intent, spans, normalization, and joint interpretation.</dd>
+              </div>
+              <div>
+                <dt>WHY THIS WAY</dt>
+                <dd>The system can ask instead of mutating household state when confidence is insufficient.</dd>
+              </div>
+            </dl>
+          </div>
+          <MediaPlaceholder
+            label="Ambiguity Lab"
+            note="FUTURE INTERACTIVE BREAKDOWN"
+          />
         </div>
         <aside className="jg-normalization-note">
           <span>NORMALIZATION AS A FINITE-STATE CONTRACT</span>
@@ -222,9 +292,29 @@ export function JangoingCaseContent() {
             Production exports use pseudonymous identifiers and exclude
             unrelated personal content and secrets.
           </p>
-          <div className="language-existing-media">
-            <span>02 · ANNOTATION WORKSPACE</span>
-            <JangoingQueueExplorer />
+          <div className="jangoing-feature-row">
+            <div className="jangoing-feature-copy">
+              <span>02</span>
+              <h3>Human review turns routed evidence into reliable data.</h3>
+              <dl>
+                <div>
+                  <dt>USER PROBLEM</dt>
+                  <dd>Production evidence arrives with different risks, gaps, and annotation needs.</dd>
+                </div>
+                <div>
+                  <dt>DESIGN DECISION</dt>
+                  <dd>Use nine overlapping queues for work routing while keeping dataset splits independent.</dd>
+                </div>
+                <div>
+                  <dt>WHY THIS WAY</dt>
+                  <dd>Review priority can change without contaminating the frozen evaluation boundary.</dd>
+                </div>
+              </dl>
+            </div>
+            <MediaPlaceholder
+              label="Annotation Workspace"
+              note="FUTURE REVIEW WORKFLOW"
+            />
           </div>
         </div>
       </section>
@@ -516,16 +606,17 @@ export function JangoingCaseContent() {
 
       <section className="roadmap-section shell case-section reveal" id="jangoing-roadmap">
         <p className="eyebrow">FOUR-PHASE ROADMAP</p>
-        <ol>
-          {[
-            'Freeze the reviewed English benchmark.',
-            'Add multi-turn context and household-specific language adaptation.',
-            'Evaluate Korean-English ASR and deploy to Raspberry Pi.',
-            'Add explainable recommendations and verified deal ranking.',
-          ].map((x) => (
-            <li key={x}>{x}</li>
+        <div className="jangoing-roadmap-list">
+          {roadmap.map((item, index) => (
+            <details key={item.title} open={index === 0}>
+              <summary>
+                <span>0{index + 1}</span>
+                {item.title}
+              </summary>
+              <p>{item.body}</p>
+            </details>
           ))}
-        </ol>
+        </div>
         <p className="section-compact-copy">
           Detailed implementation notes, schemas, and research artifacts remain
           available through the project’s GitHub repository.

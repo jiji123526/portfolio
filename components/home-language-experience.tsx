@@ -369,20 +369,7 @@ function ProjectVisual({
           <YapAmbientThumbnail />
         </div>
       ) : isJangoing ? (
-        <div className="aa-project-visual__jangoing-thumbnail" aria-hidden="true">
-          <div className="aa-jg-thumb__header">
-            <strong>Jiwoo&apos;s Kitchen</strong>
-            <span>Quick Add</span>
-          </div>
-          <div className="aa-jg-thumb__shelf"><i /><i /><i /></div>
-          <div className="aa-jg-thumb__sheet">
-            <span>REVIEW BEFORE UPDATING</span>
-            <strong>Add oat milk</strong>
-            <p>2 cartons · Tomorrow</p>
-            <b>Confirm</b>
-          </div>
-          <div className="aa-jg-thumb__tabs"><i /><i /><i /><i /><i /></div>
-        </div>
+        <ImagePlaceholder label="Media placeholder" />
       ) : (
         <ImagePlaceholder label="Coming soon" />
       )}

@@ -55,7 +55,7 @@ Jangoing should receive media first because it most directly demonstrates Langua
 
 ### Cover: language-to-action loop — P0
 
-**Status:** Implemented as a local interactive product simulation; replace with recorded production evidence when available.
+**Status:** Placeholder retained until recorded production evidence is available.
 
 - **Format:** 8–12 second MP4 loop
 - **Scene:** type a natural household request → show relevance/intent/entities → review the structured proposal → confirm → inventory changes
@@ -64,7 +64,7 @@ Jangoing should receive media first because it most directly demonstrates Langua
 
 ### Solution 01: reviewable interpretation — P0
 
-**Status:** Implemented as an interactive five-stage utterance and ambiguity breakdown.
+**Status:** Placeholder retained; the page currently explains the intended five-stage interaction.
 
 - **Format:** mobile or desktop screen recording
 - **Scene:** extracted entity spans, normalized values, confidence or validation state, and an editable action proposal
@@ -72,7 +72,7 @@ Jangoing should receive media first because it most directly demonstrates Langua
 
 ### Solution 02: annotation workflow — P0
 
-**Status:** Implemented as an interactive nine-queue routing explorer.
+**Status:** Placeholder retained; the page currently explains the intended annotation workflow.
 
 - **Format:** two screenshots or a short loop
 - **Scene:** annotation queue → candidate labels → human correction → reviewed state → JSONL export

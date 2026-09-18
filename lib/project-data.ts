@@ -87,7 +87,7 @@ const projectCatalog: Project[] = [
   {
     slug: 'jangoing-kitchen-intelligence', metric: 'LANGUAGE DATA · EVALUATION', category: 'Language Engineering', title: 'Jangoing',
     summary: 'A review-first language system for a Raspberry Pi–based conversational kitchen device',
-    headline: 'Designing a review-first language system for a physical kitchen assistant', role: 'Language Engineer & NLP Systems Designer\nFull-stack implementation',
+    headline: 'Designing a review-first language system for a physical kitchen assistant.', role: 'Language Engineer & NLP Systems Designer\nFull-stack implementation',
     duration: 'Ongoing', client: 'Independent Product', responsibilities: 'Language ontology, annotation conventions, corpus design, relevance and intent taxonomy, entity-span policy, normalization, temporal grounding, evaluation methodology, error analysis, and product integration',
     tools: 'Python, scikit-learn, TypeScript, Next.js, Cloudflare Workers, D1, Zod', brief: 'Jangoing is an English-first language and evaluation system for a future Raspberry Pi–based kitchen assistant. It asks how ordinary conversation can be grounded in permitted household context and turned into safe, correctable actions or recommendations.',
     liveUrl: 'https://jangoing-web.vercel.app', repoUrl: 'https://github.com/jiji123526/jangoing',
