@@ -102,23 +102,9 @@ body {
   color: #ff2d55;
 }
 @media (hover: hover) and (pointer: fine) {
-  html.has-ambient-cursor body {
-    cursor: none;
-  }
-  html.has-ambient-cursor :where(
-      a,
-      button,
-      label,
-      [role='button'],
-      [data-cursor-interactive]
-    ) {
+  html.has-ambient-cursor,
+  html.has-ambient-cursor * {
     cursor: none !important;
-  }
-  html.has-ambient-cursor :where(input, textarea) {
-    cursor: text;
-  }
-  html.has-ambient-cursor :where(select) {
-    cursor: default;
   }
   html.has-ambient-cursor .aa-view-pointer,
   html.has-ambient-cursor .aa-word-globe__pointer {
@@ -15547,7 +15533,7 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .jangoing-case-study .aa-social-links a:hover,
 .jangoing-case-study .aa-social-links a:focus-visible {
-  color: var(--project-secondary);
+  color: #b76f7d;
 }
 
 @media (max-width: 809px) {
@@ -15958,5 +15944,383 @@ html[data-transition='entering'] .aa-loader__progress i {
   }
   .case-study.jangoing-case-study .jangoing-takeaway-list details > p {
     padding: 0 54px 28px;
+  }
+}
+
+/* Cross-lingual grounding: one semantic contract, separately diagnosed layers. */
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-description-grid,
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-contract,
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-evaluation,
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-span-policy,
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-evidence-caption {
+  width: min(100%, 1000px);
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-description-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 52px;
+  padding: 0;
+  border: 0;
+}
+.case-study.jangoing-case-study .jg-xling-description-grid article {
+  min-height: 190px;
+  padding: 24px;
+  border: 1px solid var(--project-line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.42);
+}
+.case-study.jangoing-case-study .jg-xling-description-grid article > span,
+.case-study.jangoing-case-study .jg-xling-action > span,
+.case-study.jangoing-case-study .jg-xling-utterance > span {
+  display: block;
+  color: var(--project-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-description-grid p {
+  min-height: 0;
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--project-muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-evidence-caption {
+  min-height: 0;
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding: 0 4px;
+  border: 0;
+  color: var(--project-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-contract {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 54px;
+  padding: 0;
+  border: 0;
+}
+.case-study.jangoing-case-study .jg-xling-tabs {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: min(100%, 480px);
+  padding: 4px;
+  border: 1px solid var(--project-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.case-study.jangoing-case-study .jg-xling-tabs button {
+  min-height: 38px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--project-muted);
+  font: 500 11px/1 var(--font-poppins), Arial, sans-serif;
+  letter-spacing: 0.03em;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.case-study.jangoing-case-study .jg-xling-tabs button.is-selected {
+  background: var(--project-accent);
+  box-shadow: 0 7px 18px rgba(255, 45, 85, 0.18);
+  color: #fff;
+}
+.case-study.jangoing-case-study .jg-xling-tabs button:focus-visible {
+  outline-color: var(--project-accent);
+}
+.case-study.jangoing-case-study .jg-xling-utterance,
+.case-study.jangoing-case-study .jg-xling-action {
+  min-height: 215px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px;
+  border: 1px solid var(--project-line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.54);
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-utterance p {
+  min-height: 0;
+  margin: auto 0;
+  padding: 28px 0 0;
+  border: 0;
+  color: var(--project-text);
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: -0.025em;
+}
+.case-study.jangoing-case-study .jg-xling-resolution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 82px;
+  color: var(--project-muted);
+  text-align: center;
+}
+.case-study.jangoing-case-study .jg-xling-resolution span {
+  max-width: 72px;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.case-study.jangoing-case-study .jg-xling-resolution i {
+  color: var(--project-accent);
+  font-size: 25px;
+  font-style: normal;
+}
+.case-study.jangoing-case-study .jg-xling-action {
+  border-color: rgba(31, 107, 69, 0.28);
+  background: var(--project-secondary-soft);
+}
+.case-study.jangoing-case-study .jg-xling-action > span {
+  color: var(--project-secondary);
+}
+.case-study.jangoing-case-study .jg-xling-action > strong {
+  margin: auto 0 24px;
+  color: var(--project-secondary);
+  font:
+    600 clamp(16px, 1.8vw, 23px)/1.25 'AA Roboto Mono',
+    monospace;
+  overflow-wrap: anywhere;
+}
+.case-study.jangoing-case-study .jg-xling-action dl {
+  margin: 0;
+}
+.case-study.jangoing-case-study .jg-xling-action dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(31, 107, 69, 0.2);
+}
+.case-study.jangoing-case-study .jg-xling-action dt {
+  color: var(--project-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.case-study.jangoing-case-study .jg-xling-action dd {
+  margin: 0;
+  color: var(--project-secondary);
+  font:
+    600 14px/1.4 'AA Roboto Mono',
+    monospace;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-evaluation {
+  display: block;
+  margin-top: 72px;
+  padding: 0;
+  border: 0;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-pipeline {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1.35fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 22px 24px;
+  border: 1px solid var(--project-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--project-text);
+  font:
+    500 11px/1.4 'AA Roboto Mono',
+    monospace;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+.case-study.jangoing-case-study .jg-xling-pipeline i {
+  color: var(--project-accent);
+  font-size: 20px;
+  font-style: normal;
+}
+.case-study.jangoing-case-study .jg-xling-pipeline strong {
+  color: var(--project-accent);
+  font-weight: 600;
+}
+.case-study.jangoing-case-study .jg-xling-metrics {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 1fr;
+  gap: 0;
+  margin-top: 18px;
+  border-top: 1px solid var(--project-line);
+  border-bottom: 1px solid var(--project-line);
+}
+.case-study.jangoing-case-study .jg-xling-metrics section {
+  padding: 22px 24px 24px;
+}
+.case-study.jangoing-case-study .jg-xling-metrics section + section {
+  border-left: 1px solid var(--project-line);
+}
+.case-study.jangoing-case-study .jg-xling-metrics h3 {
+  margin: 0 0 14px;
+  color: var(--project-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.case-study.jangoing-case-study .jg-xling-metrics ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.case-study.jangoing-case-study .jg-xling-metrics li {
+  position: relative;
+  padding-left: 10px;
+  color: var(--project-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.case-study.jangoing-case-study .jg-xling-metrics li::before {
+  content: '';
+  position: absolute;
+  top: 0.68em;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--project-secondary);
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-span-policy {
+  display: block;
+  margin-top: 22px;
+  padding: 0;
+  border-top: 1px solid var(--project-line);
+  border-bottom: 1px solid var(--project-line);
+}
+.case-study.jangoing-case-study .jg-xling-span-policy summary {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 4px;
+  color: var(--project-text);
+  cursor: pointer;
+  list-style: none;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy summary::-webkit-details-marker {
+  display: none;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy summary span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy summary b {
+  color: var(--project-accent);
+  font-size: 20px;
+  font-weight: 400;
+  transition: transform 0.18s ease;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy[open] summary b {
+  transform: rotate(45deg);
+}
+.case-study.jangoing-case-study .jg-xling-span-policy > div {
+  display: block;
+  padding: 6px 4px 26px;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy dl {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy dl > div {
+  padding: 14px;
+  border: 1px solid var(--project-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.38);
+}
+.case-study.jangoing-case-study .jg-xling-span-policy dt {
+  color: var(--project-muted);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.case-study.jangoing-case-study .jg-xling-span-policy dd {
+  margin: 7px 0 0;
+  color: var(--project-text);
+  font:
+    500 12px/1.45 'AA Roboto Mono',
+    monospace;
+}
+.case-study.jangoing-case-study .jg-cross-lingual .jg-xling-span-policy p {
+  min-height: 0;
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+  color: var(--project-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .case-study.jangoing-case-study .jg-cross-lingual .jg-xling-description-grid,
+  .case-study.jangoing-case-study .jg-cross-lingual .jg-xling-contract,
+  .case-study.jangoing-case-study .jg-xling-metrics,
+  .case-study.jangoing-case-study .jg-xling-span-policy dl {
+    grid-template-columns: 1fr;
+  }
+  .case-study.jangoing-case-study .jg-xling-description-grid article {
+    min-height: 0;
+  }
+  .case-study.jangoing-case-study .jg-xling-tabs {
+    width: 100%;
+  }
+  .case-study.jangoing-case-study .jg-xling-resolution {
+    flex-direction: row;
+    width: 100%;
+    min-height: 52px;
+  }
+  .case-study.jangoing-case-study .jg-xling-resolution span {
+    max-width: none;
+  }
+  .case-study.jangoing-case-study .jg-xling-utterance,
+  .case-study.jangoing-case-study .jg-xling-action {
+    min-height: 190px;
+  }
+  .case-study.jangoing-case-study .jg-cross-lingual .jg-xling-pipeline {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 22px;
+  }
+  .case-study.jangoing-case-study .jg-xling-pipeline i {
+    transform: rotate(90deg);
+  }
+  .case-study.jangoing-case-study .jg-xling-metrics section {
+    padding: 20px 4px;
+  }
+  .case-study.jangoing-case-study .jg-xling-metrics section + section {
+    border-top: 1px solid var(--project-line);
+    border-left: 0;
   }
 }

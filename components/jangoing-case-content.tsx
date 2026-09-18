@@ -1,3 +1,5 @@
+import { JangoingCrossLingual } from './jangoing-cross-lingual';
+
 const stages = [
   {
     label: 'A',
@@ -356,25 +358,7 @@ export function JangoingCaseContent() {
 
       <section className="jg-cross-lingual language-tint reveal" id="jangoing-cross-lingual">
         <div className="shell case-section">
-          <p className="eyebrow">CROSS-LINGUAL BY DESIGN</p>
-          <h2>
-            English first, with Korean-English speech grounding on the roadmap.
-          </h2>
-          <div>
-            <p>
-              As a native Korean and fluent English speaker, I treat
-              cross-lingual grounding as a core system concern rather than a
-              translation layer added at the end. The planned Raspberry Pi phase
-              evaluates Korean-English ASR independently from NLU so
-              speech-recognition errors remain distinguishable from semantic
-              errors.
-            </p>
-            <p>
-              This direction connects to prior Korean technical-meeting
-              speech-to-text data work while preserving the same reviewable
-              structured-action contract.
-            </p>
-          </div>
+          <JangoingCrossLingual />
         </div>
       </section>
 
