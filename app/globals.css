@@ -2704,8 +2704,11 @@ a {
 }
 .case-study.jangoing-case-study .jg-annotation-utterance mark small {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   left: 2px;
+  z-index: 1;
+  padding: 0 2px;
+  background: #fffdf5;
   font: 700 6px/1.2 'AA Roboto Mono', monospace;
   letter-spacing: 0.05em;
 }
