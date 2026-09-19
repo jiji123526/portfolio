@@ -2515,6 +2515,388 @@ a {
   }
 }
 
+/* Keep the interactive workspace ahead of the earlier static-demo rules. */
+.case-study.jangoing-case-study .jangoing-annotation-workspace {
+  container-type: inline-size;
+  width: 100%;
+  min-height: 0;
+  display: block;
+  padding: clamp(16px, 3cqw, 28px);
+  overflow: hidden;
+  border: 1px solid var(--project-line);
+  border-radius: 24px;
+  background: #fff;
+  text-align: left;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar {
+  display: flex;
+  grid-template-columns: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0 14px;
+  border-bottom-color: var(--annotation-divider);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance {
+  padding: 16px 0 0;
+}
+.case-study.jangoing-case-study .jg-annotation-footer {
+  padding: 12px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 10px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-footer.is-reviewed {
+  border-color: rgba(31, 107, 69, 0.28);
+  background: var(--annotation-green-soft);
+}
+.case-study.jangoing-case-study .jangoing-annotation-workspace > p {
+  margin: 6px 0 0;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+/* Interactive annotation review demo. */
+.case-study.jangoing-case-study .jangoing-annotation-workspace {
+  container-type: inline-size;
+  width: 100%;
+  min-height: 0;
+  padding: clamp(16px, 3cqw, 28px);
+  overflow: hidden;
+  border: 1px solid var(--project-line);
+  border-radius: 24px;
+  background: #fff;
+  text-align: left;
+}
+.case-study.jangoing-case-study .jg-annotation-demo {
+  --annotation-pink: #ff2d55;
+  --annotation-green: #1f6b45;
+  --annotation-green-soft: #dcecdf;
+  --annotation-yellow-soft: #fff4cc;
+  --annotation-text: #17201b;
+  --annotation-secondary: #68716b;
+  --annotation-divider: #d9ded7;
+  padding: clamp(15px, 2.6cqw, 24px);
+  border-radius: 16px;
+  background: #f7f8f3;
+  color: var(--annotation-text);
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--annotation-divider);
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > div {
+  min-width: 0;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > div > span,
+.case-study.jangoing-case-study .jg-annotation-source > span,
+.case-study.jangoing-case-study .jg-annotation-utterance > span,
+.case-study.jangoing-case-study .jg-annotation-semantics span {
+  display: block;
+  color: var(--annotation-secondary);
+  font: 600 8px/1.3 'AA Roboto Mono', monospace;
+  letter-spacing: 0.11em;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > div > strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--annotation-text);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > span {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border-radius: 999px;
+  font: 700 8px/1 'AA Roboto Mono', monospace;
+  letter-spacing: 0.08em;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > span.is-draft {
+  background: rgba(255, 45, 85, 0.08);
+  color: var(--annotation-pink);
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar > span.is-reviewed {
+  background: var(--annotation-green-soft);
+  color: var(--annotation-green);
+}
+.case-study.jangoing-case-study .jg-annotation-source {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  padding: 12px 0 0;
+}
+.case-study.jangoing-case-study .jg-annotation-source > span {
+  width: 100%;
+}
+.case-study.jangoing-case-study .jg-annotation-source strong {
+  color: var(--annotation-text);
+  font-size: 10px;
+}
+.case-study.jangoing-case-study .jg-annotation-source small {
+  color: var(--annotation-pink);
+  font: 600 7px/1.2 'AA Roboto Mono', monospace;
+  letter-spacing: 0.08em;
+}
+.case-study.jangoing-case-study .jg-annotation-mode {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 14px;
+  padding: 4px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 999px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-mode button {
+  min-width: 0;
+  min-height: 34px;
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: #f2f2f7;
+  color: var(--annotation-secondary);
+  font: 600 9px/1.2 var(--font-poppins), Arial, sans-serif;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+.case-study.jangoing-case-study .jg-annotation-mode button.is-selected.is-draft {
+  background: var(--annotation-pink);
+  color: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-mode button.is-selected.is-reviewed {
+  background: var(--annotation-green);
+  color: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-mode button:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+}
+.case-study.jangoing-case-study .jg-annotation-review-content {
+  animation: annotation-review-in 200ms ease-out both;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance {
+  padding: 16px 0 0;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance > p {
+  margin: 8px 0 0;
+  padding: 16px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 10px;
+  background: #fffdf5;
+  color: var(--annotation-text);
+  font-size: clamp(14px, 3.1cqw, 20px);
+  font-weight: 600;
+  line-height: 2.15;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark {
+  position: relative;
+  display: inline;
+  padding: 2px 3px 1px;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark small {
+  position: absolute;
+  top: 100%;
+  left: 2px;
+  font: 700 6px/1.2 'AA Roboto Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-draft {
+  border-bottom: 2px solid var(--annotation-pink);
+  background: rgba(255, 45, 85, 0.1);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-draft small {
+  color: var(--annotation-pink);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-quantity {
+  border-bottom: 2px solid #c99b24;
+  background: var(--annotation-yellow-soft);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-quantity small {
+  color: #926b08;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-unit {
+  border-bottom: 2px solid #7c8d91;
+  background: #e8edee;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-unit small {
+  color: #57666a;
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-item {
+  border-bottom: 2px solid var(--annotation-green);
+  background: var(--annotation-green-soft);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance mark.is-item small {
+  color: var(--annotation-green);
+}
+.case-study.jangoing-case-study .jg-annotation-semantics {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.case-study.jangoing-case-study .jg-annotation-semantics > div {
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 8px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-semantics strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--annotation-green);
+  font: 600 9px/1.45 'AA Roboto Mono', monospace;
+  overflow-wrap: anywhere;
+}
+.case-study.jangoing-case-study .jg-annotation-entities {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 10px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-entity-header,
+.case-study.jangoing-case-study .jg-annotation-entity-row {
+  display: grid;
+  grid-template-columns: 0.78fr 1.5fr 1fr;
+  gap: 9px;
+  align-items: center;
+  padding: 9px 11px;
+}
+.case-study.jangoing-case-study .jg-annotation-entity-header {
+  border-bottom: 1px solid var(--annotation-divider);
+  color: var(--annotation-secondary);
+  font: 600 7px/1.3 'AA Roboto Mono', monospace;
+  letter-spacing: 0.07em;
+}
+.case-study.jangoing-case-study .jg-annotation-entity-row + .jg-annotation-entity-row {
+  border-top: 1px solid var(--annotation-divider);
+}
+.case-study.jangoing-case-study .jg-annotation-entity-row strong {
+  color: var(--annotation-pink);
+  font: 700 8px/1.35 'AA Roboto Mono', monospace;
+}
+.case-study.jangoing-case-study .jg-annotation-entity-row q,
+.case-study.jangoing-case-study .jg-annotation-entity-row code {
+  min-width: 0;
+  color: var(--annotation-text);
+  font: 500 8px/1.45 'AA Roboto Mono', monospace;
+  overflow-wrap: anywhere;
+}
+.case-study.jangoing-case-study .jg-annotation-entity-row code {
+  color: var(--annotation-green);
+  font-weight: 700;
+}
+.case-study.jangoing-case-study .jg-annotation-hint {
+  margin: 0;
+  padding: 8px 11px;
+  border-top: 1px solid var(--annotation-divider);
+  background: var(--annotation-yellow-soft);
+  color: #7b651f;
+  font-size: 8px;
+  line-height: 1.45;
+}
+.case-study.jangoing-case-study .jg-annotation-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 10px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-footer > div > strong,
+.case-study.jangoing-case-study .jg-annotation-footer > div > small {
+  display: block;
+}
+.case-study.jangoing-case-study .jg-annotation-footer > div > strong {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--annotation-text);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.case-study.jangoing-case-study .jg-annotation-footer > div > small {
+  margin-top: 3px;
+  color: var(--annotation-secondary);
+  font-size: 8px;
+}
+.case-study.jangoing-case-study .jg-annotation-footer > b {
+  max-width: 112px;
+  color: var(--annotation-secondary);
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: right;
+}
+.case-study.jangoing-case-study .jg-annotation-footer > span {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 26px;
+  border-radius: 50%;
+  background: var(--annotation-green);
+  color: #fff;
+  font-size: 13px;
+}
+.case-study.jangoing-case-study .jg-annotation-footer.is-reviewed {
+  border-color: rgba(31, 107, 69, 0.28);
+  background: var(--annotation-green-soft);
+}
+.case-study.jangoing-case-study .jg-annotation-title {
+  display: block;
+  margin-top: 18px;
+  color: var(--project-text);
+  font-size: 17px;
+}
+.case-study.jangoing-case-study .jangoing-annotation-workspace > p {
+  margin: 6px 0 0;
+  color: var(--project-muted);
+  font: 500 8px/1.45 'AA Roboto Mono', monospace;
+  letter-spacing: 0.06em;
+}
+
+@keyframes annotation-review-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@container (max-width: 520px) {
+  .case-study.jangoing-case-study .jg-annotation-semantics {
+    grid-template-columns: 1fr;
+  }
+  .case-study.jangoing-case-study .jg-annotation-entity-header {
+    display: none;
+  }
+  .case-study.jangoing-case-study .jg-annotation-entity-row {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .case-study.jangoing-case-study .jg-annotation-entity-row q::after {
+    content: ' →';
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study.jangoing-case-study .jg-annotation-review-content {
+    animation: none;
+  }
+}
+
 /* TagSpark case study: shared Yap/Jangoing editorial system, lexical-resource content. */
 .case-study.tagspark-case-study {
   --tagspark-blue: #2487ff;
@@ -17384,4 +17766,45 @@ html[data-transition='entering'] .aa-loader__progress i {
     grid-column: auto;
     grid-row: auto;
   }
+}
+
+/* Interactive annotation workspace overrides the earlier static prototype. */
+.case-study.jangoing-case-study .jangoing-annotation-workspace {
+  container-type: inline-size;
+  width: 100%;
+  min-height: 0;
+  display: block;
+  padding: clamp(16px, 3cqw, 28px);
+  overflow: hidden;
+  border: 1px solid var(--project-line);
+  border-radius: 24px;
+  background: #fff;
+  text-align: left;
+}
+.case-study.jangoing-case-study .jg-annotation-toolbar {
+  display: flex;
+  grid-template-columns: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0 14px;
+  border-bottom-color: var(--annotation-divider);
+}
+.case-study.jangoing-case-study .jg-annotation-utterance {
+  padding: 16px 0 0;
+}
+.case-study.jangoing-case-study .jg-annotation-footer {
+  padding: 12px;
+  border: 1px solid var(--annotation-divider);
+  border-radius: 10px;
+  background: #fff;
+}
+.case-study.jangoing-case-study .jg-annotation-footer.is-reviewed {
+  border-color: rgba(31, 107, 69, 0.28);
+  background: var(--annotation-green-soft);
+}
+.case-study.jangoing-case-study .jangoing-annotation-workspace > p {
+  margin: 6px 0 0;
+  font-size: 8px;
+  line-height: 1.45;
 }
