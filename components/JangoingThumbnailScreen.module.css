@@ -204,6 +204,8 @@
   z-index: 2;
   inset: 0;
   background: rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  animation: thumbnailScrim 7s ease-in-out infinite;
 }
 
 .sheet {
@@ -218,6 +220,33 @@
   border-radius: clamp(20px, 6.5cqw, 28px) clamp(20px, 6.5cqw, 28px) 0 0;
   background: #fff;
   box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.14);
+  transform: translateY(104%);
+  will-change: transform;
+  animation: thumbnailSheet 7s cubic-bezier(0.22, 0.72, 0.25, 1) infinite;
+}
+
+@keyframes thumbnailSheet {
+  0%, 18% {
+    transform: translateY(104%);
+  }
+  30%, 82% {
+    transform: translateY(0);
+  }
+  94%, 100% {
+    transform: translateY(104%);
+  }
+}
+
+@keyframes thumbnailScrim {
+  0%, 18% {
+    opacity: 0;
+  }
+  30%, 82% {
+    opacity: 1;
+  }
+  94%, 100% {
+    opacity: 0;
+  }
 }
 
 .grabber {
@@ -582,5 +611,13 @@
   .screen *::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  .sheet {
+    transform: none;
+  }
+
+  .scrim {
+    opacity: 1;
   }
 }

@@ -2469,64 +2469,6 @@ a {
   margin-left: auto;
 }
 
-.aa-project-visual__jangoing-thumbnail {
-  position: absolute;
-  inset: 8% 13%;
-  overflow: hidden;
-  border-radius: 22px;
-  background: #fff;
-  color: #000;
-  box-shadow: 0 22px 60px rgba(27, 70, 49, 0.18);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-.aa-jg-thumb__header {
-  height: 16%;
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  padding: 0 7% 3%;
-  border-bottom: 1px solid rgba(60, 60, 67, 0.2);
-}
-.aa-jg-thumb__header strong { font-size: clamp(12px, 2vw, 25px); }
-.aa-jg-thumb__header span { color: #ff2d55; font-size: clamp(7px, 1vw, 13px); }
-.aa-jg-thumb__shelf {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4%;
-  padding: 7%;
-}
-.aa-jg-thumb__shelf i { aspect-ratio: 1; border-radius: 8px; background: #315f59; }
-.aa-jg-thumb__shelf i:nth-child(2) { background: #e46967; }
-.aa-jg-thumb__shelf i:nth-child(3) { background: #557ea7; }
-.aa-jg-thumb__sheet {
-  position: absolute;
-  right: 5%;
-  bottom: 12%;
-  left: 5%;
-  padding: 5%;
-  border-radius: 22px 22px 10px 10px;
-  background: #fff;
-  box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.12);
-}
-.aa-jg-thumb__sheet span { color: rgba(60, 60, 67, 0.6); font-size: clamp(5px, 0.7vw, 9px); }
-.aa-jg-thumb__sheet strong { display: block; margin-top: 3%; font-size: clamp(9px, 1.4vw, 17px); }
-.aa-jg-thumb__sheet p { margin: 2% 0 5%; color: rgba(60, 60, 67, 0.6); font-size: clamp(7px, 0.9vw, 11px); }
-.aa-jg-thumb__sheet b { display: block; padding: 3%; border-radius: 9px; background: #ff2d55; color: #fff; font-size: clamp(7px, 0.9vw, 11px); text-align: center; }
-.aa-jg-thumb__tabs {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 10%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  place-items: center;
-  border-top: 1px solid rgba(60, 60, 67, 0.2);
-  background: #fafafa;
-}
-.aa-jg-thumb__tabs i { width: 24%; aspect-ratio: 1; border: 1px solid #979798; border-radius: 4px; }
-.aa-jg-thumb__tabs i:nth-child(3) { border-color: #ff2d55; background: #ff2d55; }
-
 @media (max-width: 760px) {
   .jangoing-case-study .shell,
   .jangoing-case-study .case-opening-inner,
@@ -14656,6 +14598,9 @@ html[data-transition='entering'] .aa-loader__progress i {
     radial-gradient(circle, rgba(31, 107, 69, 0.2) 0 1px, transparent 1.2px);
   background-position: 0 0, 8px 8px;
   background-size: 16px 16px;
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
 }
 .aa-project-visual__jangoing-thumbnail::after {
   background: rgba(31, 107, 69, 0.18);
