@@ -71,6 +71,9 @@ export function JangoingCrossLingual() {
       </p>
 
       <div className="jg-xling-contract">
+        <p className="jg-xling-deployment-status">
+          PLANNED EVALUATION · NOT YET DEPLOYED
+        </p>
         <div
           className="jg-xling-tabs"
           role="tablist"

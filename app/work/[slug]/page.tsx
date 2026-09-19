@@ -202,9 +202,15 @@ export default async function ProjectPage({
               <dd>{project.duration}</dd>
             </div>
             <div>
-              <dt>CLIENT</dt>
+              <dt>{isJangoing ? 'PROJECT TYPE' : 'CLIENT'}</dt>
               <dd>{project.client}</dd>
             </div>
+            {isJangoing && (
+              <div>
+                <dt>IMPLEMENTATION</dt>
+                <dd>Full-stack product and ML tooling</dd>
+              </div>
+            )}
           </dl>
           <dl>
             <div>

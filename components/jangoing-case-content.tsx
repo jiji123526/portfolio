@@ -1,5 +1,6 @@
 import { JangoingCrossLingual } from './jangoing-cross-lingual';
 import { AmbiguityLab } from './ambiguity-lab';
+import { JangoingAnnotationWorkspace } from './jangoing-annotation-workspace';
 
 const stages = [
   {
@@ -35,9 +36,9 @@ const stages = [
 ];
 
 const annotationPrinciples = [
-  'AI output is a draft, not a label.',
-  'Generated data bootstraps training, not evaluation.',
-  'Independent examples are reviewed before entering a frozen test set.',
+  'AI drafts, humans decide.',
+  'Generated candidates may bootstrap training, but never serve as evaluation ground truth.',
+  'Deduplication, phrase-family leakage checks, dataset hashes, and versioned manifests protect comparisons.',
 ];
 
 const productEnvironmentCards = [
@@ -77,30 +78,6 @@ const roadmap = [
   },
 ];
 
-function MediaPlaceholder({
-  label,
-  note,
-}: {
-  label: string;
-  note: string;
-}) {
-  return (
-    <div
-      className="jangoing-media-placeholder is-skeleton"
-      role="img"
-      aria-label={`${label} media placeholder`}
-    >
-      <div aria-hidden="true">
-        <span />
-        <i />
-        <i />
-      </div>
-      <strong>{label}</strong>
-      <p>MEDIA PLACEHOLDER · {note}</p>
-    </div>
-  );
-}
-
 export function JangoingCaseContent() {
   return (
     <>
@@ -133,24 +110,21 @@ export function JangoingCaseContent() {
             ))}
           </div>
           <p className="jangoing-environment-statement">
-            Confirmations, corrections, cancellations, and unsupported requests
-            become reviewable evidence for continuous evaluation.
+            Confirmations, edits, cancellations, and unsupported requests become
+            evidence for evaluation.
           </p>
           <aside className="language-context-note">
             <span>LANGUAGE CONTEXT NOTE</span>
             <p>
-              Household identity is part of the language problem. A request must
-              be grounded in the correct user, membership, permissions,
-              inventory state, and prior household context before it can safely
-              become an action.
+              Requests are grounded in the correct user, permissions, household
+              membership, inventory state, and prior context before they can
+              become actions.
             </p>
           </aside>
           <p className="current-future-copy">
-            The current MVP uses a deterministic English-first interpreter. Once
-            the trained model is ready, it can replace that interpreter behind
-            the same structured action contract while the existing
-            authentication, confirmation, event, and shared-state workflows
-            remain in place.
+            The MVP uses a deterministic English-first interpreter. A trained
+            model can later replace it behind the same reviewable
+            structured-action contract.
           </p>
         </div>
       </section>
@@ -219,15 +193,14 @@ export function JangoingCaseContent() {
           </div>
         </div>
         <aside className="jg-normalization-note">
-          <span>NORMALIZATION AS A FINITE-STATE CONTRACT</span>
-          <p>
-            Surface forms map to canonical, household-scoped values: “oat milk”
-            → <code>oat_milk</code>, “a couple” → <code>2</code>. Today this is
-            a deterministic rule-based contract—the same class of transformation
-            that finite-state transducers formalize—so a trained model can later
-            replace the interpreter without changing the structured-action
-            interface.
-          </p>
+          <span>DETERMINISTIC CANONICALIZATION CONTRACT</span>
+          <div className="jg-normalization-table">
+            <div><b>SURFACE FORM</b><b>CANONICAL VALUE</b></div>
+            <div><q>oat milk</q><code>oat_milk</code></div>
+            <div><q>a couple</q><code>2</code></div>
+            <div><q>in the fridge</q><code>fridge</code></div>
+          </div>
+          <p>Deterministic canonicalization keeps the structured-action contract stable while the interpreter evolves.</p>
         </aside>
       </section>
 
@@ -238,9 +211,9 @@ export function JangoingCaseContent() {
             Annotation queues route evidence by what it can teach the model.
           </h2>
           <p className="annotation-intro">
-            Nine overlapping queues use active-learning-style data routing to
-            prioritize production feedback, linguistic edge cases, generated
-            coverage, relevance boundaries, and evaluation candidates.
+            Nine overlapping review queues route production feedback,
+            linguistic edge cases, generated coverage, relevance boundaries,
+            and evaluation candidates.
           </p>
           <div className="language-flow">
             raw utterance <i>→</i> deterministic or AI-assisted draft <i>→</i>{' '}
@@ -272,29 +245,11 @@ export function JangoingCaseContent() {
             These 1,400 records are bootstrap candidates, not reviewed ground
             truth and not a valid final evaluation set.
           </p>
-          <aside className="jg-governance-highlight">
-            <span>QUALITY + GOVERNANCE BY DESIGN</span>
-            <h3>Reviewed first. Reproducible by default.</h3>
-            <p>
-              AI drafts, humans decide. Phrase-family leakage checks,
-              deduplication, versioned split manifests, and dataset hashes keep
-              comparisons reproducible. Generated data bootstraps training only;
-              the frozen evaluation set is human-reviewed and never used for
-              training. Production exports are pseudonymized and exclude secrets
-              and unrelated personal content.
-            </p>
-          </aside>
           <div className="principle-list">
             {annotationPrinciples.map((item) => (
               <p key={item}>{item}</p>
             ))}
           </div>
-          <p className="section-compact-copy">
-            Dataset hashes, split manifests, duplicate removal, and
-            phrase-family leakage checks keep model comparisons reproducible.
-            Production exports use pseudonymous identifiers and exclude
-            unrelated personal content and secrets.
-          </p>
           <div className="jangoing-feature-row">
             <div className="jangoing-feature-copy">
               <span>02</span>
@@ -314,10 +269,7 @@ export function JangoingCaseContent() {
                 </div>
               </dl>
             </div>
-            <MediaPlaceholder
-              label="Annotation Workspace"
-              note="FUTURE REVIEW WORKFLOW"
-            />
+            <JangoingAnnotationWorkspace />
           </div>
         </div>
       </section>
@@ -328,14 +280,20 @@ export function JangoingCaseContent() {
           A simple baseline tests the data system before model complexity
           increases.
         </h2>
+        <div className="jg-evaluation-status">
+          <span>CURRENT STATUS</span>
+          <p>Baseline pipeline implemented</p>
+          <p>Reviewed benchmark not yet frozen</p>
+          <p>Metrics not yet reported</p>
+        </div>
         <div className="two-column-copy">
           <div>
             <h3>Reproducible baseline before model complexity</h3>
             <p>
-              A CPU-friendly TF-IDF and logistic-regression baseline provides
-              reproducible single-intent classification; multi-action examples
-              are excluded rather than collapsed. OpenAI API assists draft
-              annotation only—it is not ground truth or the runtime model.
+              A CPU-friendly TF-IDF and logistic-regression pipeline is
+              implemented as the first reproducible baseline. Results will be
+              reported only after the reviewed benchmark and frozen evaluation
+              split are ready.
             </p>
           </div>
           <div>
@@ -347,14 +305,26 @@ export function JangoingCaseContent() {
               contextual dependency, so an aggregate score cannot hide
               systematic language failures.
             </p>
-            <p>
-              <strong>Pilot target:</strong> 300 reviewed training / 100
-              independent evaluation examples.
-              <br />
-              <strong>Baseline target:</strong> 1,000 reviewed training / 200
-              independent evaluation examples.
-            </p>
           </div>
+        </div>
+        <div className="jg-evaluation-targets">
+          <article>
+            <span>PILOT TARGET</span>
+            <strong>300 reviewed training</strong>
+            <p>100 independent evaluation</p>
+          </article>
+          <article>
+            <span>BASELINE TARGET</span>
+            <strong>1,000 reviewed training</strong>
+            <p>200 independent evaluation</p>
+          </article>
+        </div>
+        <div className="jg-artifact-links">
+          <span>VIEW ARTIFACTS</span>
+          <a href="https://github.com/jiji123526/jangoing/blob/main/docs/ENG/annotation/ANNOTATION_CONVENTIONS.md" target="_blank" rel="noreferrer">Annotation conventions ↗</a>
+          <a href="https://github.com/jiji123526/jangoing/blob/main/docs/ENG/ml/TEXT_DATASET_DESIGN_V1.md" target="_blank" rel="noreferrer">Dataset design ↗</a>
+          <a href="https://github.com/jiji123526/jangoing/blob/main/docs/ENG/ml/MODEL_EVALUATION.md" target="_blank" rel="noreferrer">Model evaluation ↗</a>
+          <a href="https://github.com/jiji123526/jangoing/blob/main/ml/train_baseline.py" target="_blank" rel="noreferrer">Baseline training ↗</a>
         </div>
       </section>
 
@@ -368,14 +338,14 @@ export function JangoingCaseContent() {
         <div className="shell case-section">
           <p className="eyebrow">CURRENT SYSTEM + REVIEWED LEARNING LOOP</p>
           <h2>
-            One reviewed interaction updates household state and improves the
-            next model.
+            Reviewed interactions update household state and accumulate
+            evidence for the next model.
           </h2>
           <p className="review-diagram-caption">
-            The current web MVP collects typed interactions and user
-            corrections. The future Raspberry Pi changes the input surface,
-            while the same structured proposal, authorization, household-state,
-            and reviewed learning paths remain in place.
+            The web MVP collects typed requests and corrections. A future
+            Raspberry Pi changes the input surface, while the same
+            authorization, structured proposal, review, and learning paths
+            remain in place.
           </p>
           <div
             className="review-loop-diagram"
@@ -593,20 +563,15 @@ export function JangoingCaseContent() {
         className="yap-takeaways shell case-section reveal"
         id="jangoing-roadmap"
       >
-        <p className="eyebrow">TAKEAWAYS</p>
+        <p className="eyebrow">NEXT PHASES</p>
         <div className="yap-takeaways-heading yap-title-effect">
           <h2>
-            What building{' '}
-            <span className="yap-brand-highlight jangoing-brand-highlight">
-              Jangoing
-            </span>{' '}
-            is teaching me about language systems
+            What I’m validating next.
           </h2>
           <p className="yap-takeaways-intro">
-            Language engineering does not stop at model output. It extends into
-            annotation policy, reviewable product decisions, reproducible
-            evaluation, household context, and the boundaries that keep an
-            ambiguous interpretation from becoming an unsafe action.
+            The next phase freezes a trustworthy English benchmark, adds
+            household-grounded context, separates ASR from semantic evaluation,
+            and tests recommendations only after the review contract holds.
           </p>
         </div>
         <div className="yap-takeaway-list jangoing-takeaway-list">
