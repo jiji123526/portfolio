@@ -14650,7 +14650,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   height: 82%;
 }
 .aa-project-visual__jangoing-thumbnail {
-  background-color: #eef7f2;
+  background-color: transparent;
   background-image:
     radial-gradient(circle, rgba(255, 45, 85, 0.34) 0 1px, transparent 1.2px),
     radial-gradient(circle, rgba(31, 107, 69, 0.2) 0 1px, transparent 1.2px);
