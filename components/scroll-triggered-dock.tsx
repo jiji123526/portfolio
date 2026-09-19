@@ -33,7 +33,7 @@ export function ScrollTriggeredDock({ triggerId }: { triggerId: string }) {
       <PortfolioDock
         current="work"
         homeHref="/"
-        workHref="/#work"
+        workHref="/work"
         aboutHref="/about"
       />
     </div>

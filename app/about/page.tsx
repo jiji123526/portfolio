@@ -91,7 +91,7 @@ export default function AboutPage() {
         aboutHref="/about"
         current="about"
         homeHref="/#home"
-        workHref="/#work"
+        workHref="/work"
       />
     </main>
   );

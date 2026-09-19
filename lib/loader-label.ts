@@ -8,6 +8,7 @@ const projectLabels: Record<string, string> = {
 
 export function getLoaderLabel(pathname: string) {
   if (pathname === '/about') return 'ABOUT ME';
+  if (pathname === '/work') return 'WORK';
 
   const projectSlug = pathname.match(/^\/work\/([^/]+)/)?.[1];
   if (projectSlug) {

@@ -21,7 +21,7 @@ export function PortfolioDock({
   current,
   className = '',
   homeHref = '#home',
-  workHref = '#work',
+  workHref = '/work',
   aboutHref = '/about',
 }: PortfolioDockProps) {
   const hrefs: Record<DockSection, string> = {
