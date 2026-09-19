@@ -16125,7 +16125,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   min-height: 520px;
   grid-template-columns: .72fr 1.28fr;
   gap: 72px;
-  align-items: center;
+  align-items: start;
   margin-top: 0;
   padding: 94px 0;
   border-top: 1px solid var(--project-line);
