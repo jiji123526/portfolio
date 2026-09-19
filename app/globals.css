@@ -1404,7 +1404,7 @@ a {
   box-shadow: 0 22px 55px rgba(31,54,42,.07);
 }
 
-.jangoing-media-placeholder > div {
+.jangoing-media-placeholder.is-skeleton > div {
   flex: 1;
   display: grid;
   place-content: center;
@@ -1413,14 +1413,14 @@ a {
   background: linear-gradient(145deg, rgba(255,45,85,.05), rgba(31,107,69,.07));
 }
 
-.jangoing-media-placeholder > div span {
+.jangoing-media-placeholder.is-skeleton > div span {
   width: 190px;
   height: 12px;
   border-radius: 99px;
   background: rgba(255,45,85,.38);
 }
 
-.jangoing-media-placeholder > div i {
+.jangoing-media-placeholder.is-skeleton > div i {
   width: 240px;
   height: 62px;
   border: 1px solid var(--project-line);
@@ -14593,10 +14593,12 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .aa-project-visual__jangoing-thumbnail {
   background-color: transparent;
-  background-image:
-    radial-gradient(circle, rgba(255, 45, 85, 0.34) 0 1px, transparent 1.2px),
-    radial-gradient(circle, rgba(31, 107, 69, 0.2) 0 1px, transparent 1.2px);
-  background-position: 0 0, 8px 8px;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 45, 85, 0.34) 0 1px,
+    transparent 1.2px
+  );
+  background-position: 0 0;
   background-size: 16px 16px;
   overflow: visible;
   border-radius: 0;

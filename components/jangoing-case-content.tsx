@@ -1,4 +1,5 @@
 import { JangoingCrossLingual } from './jangoing-cross-lingual';
+import { AmbiguityLab } from './ambiguity-lab';
 
 const stages = [
   {
@@ -85,7 +86,7 @@ function MediaPlaceholder({
 }) {
   return (
     <div
-      className="jangoing-media-placeholder"
+      className="jangoing-media-placeholder is-skeleton"
       role="img"
       aria-label={`${label} media placeholder`}
     >
@@ -211,10 +212,11 @@ export function JangoingCaseContent() {
               </div>
             </dl>
           </div>
-          <MediaPlaceholder
-            label="Ambiguity Lab"
-            note="FUTURE INTERACTIVE BREAKDOWN"
-          />
+          <div className="jangoing-media-placeholder jangoing-ambiguity-card">
+            <AmbiguityLab />
+            <strong>Ambiguity Lab</strong>
+            <p>RELEVANCE → INTENT → SPANS → NORMALIZATION → DECISION</p>
+          </div>
         </div>
         <aside className="jg-normalization-note">
           <span>NORMALIZATION AS A FINITE-STATE CONTRACT</span>
