@@ -11,12 +11,34 @@ export const metadata: Metadata = {
 const selectedProjects = ['01', '02', '03'];
 const otherProjects = ['04', '05', '06', '07'];
 
-function CopyPlaceholder() {
+function SmallLink({ index }: { index: string }) {
+  return <a href={`#project-${index}`}><i aria-hidden="true" /><span>PROJECT {index}</span></a>;
+}
+
+function ProjectCopy({ index }: { index: string }) {
   return (
-    <div className={styles.copyPlaceholder} aria-label="Project copy placeholder">
-      <span className={styles.lineLong} />
-      <span className={styles.lineShort} />
-      <span className={styles.lineMedium} />
+    <div className={styles.projectCopy}>
+      <div className={styles.projectTitle}>
+        <span className={styles.projectMark}>{index}</span>
+        <div className={styles.placeholderTitle} aria-hidden="true" />
+      </div>
+      <div className={styles.tagRow} aria-hidden="true"><span /><span /><span /></div>
+      <div className={styles.projectDetails} aria-hidden="true">
+        <div><span /><span /><span /></div>
+        <div><span /><span /><span /></div>
+      </div>
+    </div>
+  );
+}
+
+function MediaRow({ variant = 0 }: { variant?: number }) {
+  return (
+    <div className={`${styles.mediaRow} ${styles[`mediaVariant${variant}`]}`}>
+      {[0, 1, 2].map((item) => (
+        <div className={styles.devicePlaceholder} aria-hidden="true" key={item}>
+          <i /><span /><span /><span />
+        </div>
+      ))}
     </div>
   );
 }
@@ -24,122 +46,66 @@ function CopyPlaceholder() {
 export default function WorkIndexPage() {
   return (
     <main className={styles.page}>
-      <section className={styles.hero} aria-labelledby="work-index-title">
-        <div className={styles.noise} aria-hidden="true" />
-        <header className={styles.heroHeader}>
-          <h1 id="work-index-title">WORK</h1>
-          <CopyPlaceholder />
-        </header>
+      <section className={styles.hero} aria-labelledby="work-title">
+        <div className={styles.heroGrid} aria-hidden="true" />
+        <div className={styles.heroTopline}>
+          <span className={styles.signature}>✦</span>
+          <span>[WORK]</span>
+          <div><strong>{homeContent.name}</strong><span>SELECTED PROJECTS</span></div>
+        </div>
 
-        <div className={styles.quickLinks}>
-          <div>
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <h1 id="work-title">WORK</h1>
+            <p><span className={styles.copyLine} /><span className={styles.copyLine} /><span className={styles.copyLineShort} /></p>
+            <div className={styles.linkGroup}>
+              <header><span>[SELECTED PROJECTS]</span><small>QUICK LINKS</small></header>
+              <nav aria-label="Selected projects">{selectedProjects.map((index) => <SmallLink index={index} key={index} />)}</nav>
+            </div>
+            <div className={styles.linkGroup}>
+              <header><span>[OTHER WORK]</span><small>CHOSEN PROJECTS</small></header>
+              <nav aria-label="Other projects">{otherProjects.map((index) => <SmallLink index={index} key={index} />)}</nav>
+            </div>
+            <a className={styles.scrollLink} href="#selected-projects"><span>[SCROLL]</span><i aria-hidden="true" /></a>
+          </div>
+          <div className={styles.heroVisual} aria-hidden="true"><div className={styles.ruler} /><div className={styles.phone} /></div>
+        </div>
+      </section>
+
+      <section className={styles.workCanvas} id="selected-projects">
+        <div className={styles.workColumn}>
+          <nav className={styles.sectionTabs} aria-label="Selected project placeholders">
             <span>[SELECTED PROJECTS]</span>
-            <small>QUICK LINKS</small>
-          </div>
-          <nav aria-label="Selected project placeholders">
-            {selectedProjects.map((project) => (
-              <a href={`#selected-${project}`} key={project}>
-                <i aria-hidden="true" />
-                <span>PROJECT {project}</span>
-              </a>
-            ))}
+            <div>{selectedProjects.map((index) => <a href={`#project-${index}`} key={index}>PROJECT {index}</a>)}</div>
           </nav>
-        </div>
-
-        <div className={styles.quickLinks}>
-          <div>
-            <span>[OTHER WORK]</span>
-            <small>CHOSEN PROJECTS</small>
-          </div>
-          <nav aria-label="Other project placeholders">
-            {otherProjects.map((project) => (
-              <a href={`#other-${project}`} key={project}>
-                <i aria-hidden="true" />
-                <span>PROJECT {project}</span>
-              </a>
-            ))}
+          <div className={styles.rule} />
+          {selectedProjects.map((index, projectIndex) => (
+            <article className={styles.selectedProject} id={`project-${index}`} key={index}>
+              <ProjectCopy index={index} />
+              <MediaRow variant={projectIndex % 2} />
+              <MediaRow variant={(projectIndex + 1) % 2} />
+            </article>
+          ))}
+          <nav className={`${styles.sectionTabs} ${styles.otherTabs}`} aria-label="Other project placeholders">
+            <span>[OTHER PROJECTS]</span>
+            <div>{otherProjects.map((index) => <a href={`#project-${index}`} key={index}>PROJECT {index}</a>)}</div>
           </nav>
-        </div>
-
-        <a className={styles.scrollCue} href="#selected-01">
-          <span>[SCROLL]</span>
-          <i aria-hidden="true" />
-        </a>
-      </section>
-
-      <section className={styles.selected} aria-label="Selected work placeholders">
-        {selectedProjects.map((project, index) => (
-          <article
-            className={`${styles.project} ${index % 2 ? styles.projectReverse : ''}`}
-            id={`selected-${project}`}
-            key={project}
-          >
-            <div className={styles.projectCopy}>
-              <span className={styles.projectNumber}>{project}</span>
-              <div className={styles.titlePlaceholder} aria-hidden="true" />
-              <div className={styles.metaRow} aria-hidden="true">
-                <span />
-                <span />
-              </div>
-              <CopyPlaceholder />
-              <div className={styles.rolePlaceholder} aria-hidden="true">
-                <span />
-                <span />
-              </div>
-            </div>
-            <div className={styles.mediaPlaceholder} aria-label="Project media placeholder">
-              <div className={styles.mediaFrame}>
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
-          </article>
-        ))}
-      </section>
-
-      <section className={styles.other} aria-labelledby="other-work-title">
-        <header>
-          <span>[OTHER PROJECTS]</span>
-          <h2 id="other-work-title">SELECTED ARCHIVE</h2>
-        </header>
-        <div className={styles.otherGrid}>
-          {otherProjects.map((project) => (
-            <article id={`other-${project}`} key={project}>
-              <div className={styles.otherMedia} aria-label="Project image placeholder" />
-              <div className={styles.otherCopy}>
-                <span>{project}</span>
-                <div className={styles.otherTitle} aria-hidden="true" />
-                <CopyPlaceholder />
-              </div>
+          {otherProjects.map((index, projectIndex) => (
+            <article className={styles.otherProject} id={`project-${index}`} key={index}>
+              <ProjectCopy index={index} />
+              <div className={`${styles.otherMedia} ${styles[`otherMedia${projectIndex % 2}`]}`} aria-hidden="true"><div /></div>
             </article>
           ))}
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <span>JIWOO JEONG</span>
-        <span>[WORK]</span>
-      </footer>
-
+      <footer className={styles.footer}><span>{homeContent.name}</span><span>[WORK]</span></footer>
       <div className={styles.socialLinks}>
         <a href={homeContent.links.email}>Email</a>
-        {homeContent.links.resume ? (
-          <a href={homeContent.links.resume} rel="noreferrer" target="_blank">
-            Resume
-          </a>
-        ) : null}
-        <a href={homeContent.links.linkedin} rel="noreferrer" target="_blank">
-          LinkedIn
-        </a>
+        {homeContent.links.resume ? <a href={homeContent.links.resume} rel="noreferrer" target="_blank">Resume</a> : null}
+        <a href={homeContent.links.linkedin} rel="noreferrer" target="_blank">LinkedIn</a>
       </div>
-
-      <PortfolioDock
-        aboutHref="/about"
-        current="work"
-        homeHref="/"
-        workHref="/work"
-      />
+      <PortfolioDock current="work" homeHref="/" workHref="/work" aboutHref="/about" />
     </main>
   );
 }
