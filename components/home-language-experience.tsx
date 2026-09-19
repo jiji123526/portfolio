@@ -17,6 +17,7 @@ import { GravityStars } from '@/components/gravity-stars';
 import { TransitionLink } from '@/components/transition-link';
 import { useStickyDrift } from '@/components/use-sticky-drift';
 import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
+import { JangoingAmbientThumbnail } from '@/components/jangoing-ambient-thumbnail';
 import type { HomeContent } from '@/lib/home-content';
 
 type HomeProject = {
@@ -370,15 +371,22 @@ function ProjectVisual({
         <div className="aa-project-visual__yap-thumbnail" aria-hidden="true">
           <YapAmbientThumbnail />
         </div>
-      ) : isJangoing || isTagSpark ? (
+      ) : isJangoing ? (
+        <div
+          className="aa-project-visual__yap-thumbnail aa-project-visual__jangoing-thumbnail"
+          aria-hidden="true"
+        >
+          <JangoingAmbientThumbnail />
+        </div>
+      ) : isTagSpark ? (
         <ImagePlaceholder label="Media placeholder" />
       ) : (
         <ImagePlaceholder label="Coming soon" />
       )}
-      {isAvailable && !isYap && (
+      {isAvailable && !isYap && !isJangoing && (
         <span className="aa-project-visual__number">0{index + 1}</span>
       )}
-      {isAvailable && !isYap && (
+      {isAvailable && !isYap && !isJangoing && (
         <span className="aa-project-visual__title">{project.title}</span>
       )}
       {isAvailable && (
@@ -846,7 +854,9 @@ export function HomeLanguageExperience({
       >
         <a href={content.links.email}>Email</a>
         {content.links.resume ? (
-          <a href={content.links.resume}>Resume</a>
+          <a href={content.links.resume} rel="noreferrer" target="_blank">
+            Resume
+          </a>
         ) : (
           <span>Resume</span>
         )}

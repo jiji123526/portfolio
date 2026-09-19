@@ -42,7 +42,13 @@ export function AboutSocialLinks({
       ref={linksRef}
     >
       <a href={email}>Email</a>
-      {resume ? <a href={resume}>Resume</a> : <span>Resume</span>}
+      {resume ? (
+        <a href={resume} rel="noreferrer" target="_blank">
+          Resume
+        </a>
+      ) : (
+        <span>Resume</span>
+      )}
       <a href={linkedin} rel="noreferrer" target="_blank">
         LinkedIn
       </a>

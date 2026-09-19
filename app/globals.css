@@ -14675,6 +14675,17 @@ html[data-transition='entering'] .aa-loader__progress i {
   z-index: 1;
   height: 82%;
 }
+.aa-project-visual__jangoing-thumbnail {
+  background-color: #eef7f2;
+  background-image:
+    radial-gradient(circle, rgba(255, 45, 85, 0.34) 0 1px, transparent 1.2px),
+    radial-gradient(circle, rgba(31, 107, 69, 0.2) 0 1px, transparent 1.2px);
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+}
+.aa-project-visual__jangoing-thumbnail::after {
+  background: rgba(31, 107, 69, 0.18);
+}
 .aa-project-visual__number {
   position: absolute;
   z-index: 3;

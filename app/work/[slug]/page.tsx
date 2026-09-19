@@ -578,7 +578,13 @@ export default async function ProjectPage({
       <div className="aa-social-links">
         <a href={homeContent.links.email}>Email</a>
         {homeContent.links.resume ? (
-          <a href={homeContent.links.resume}>Resume</a>
+          <a
+            href={homeContent.links.resume}
+            rel="noreferrer"
+            target="_blank"
+          >
+            Resume
+          </a>
         ) : (
           <span>Resume</span>
         )}

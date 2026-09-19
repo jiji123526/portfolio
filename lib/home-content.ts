@@ -11,6 +11,7 @@ export const homeContent: HomeContent = {
   name: 'JIWOO JEONG',
   links: {
     email: 'mailto:jiwoo315@ucla.edu',
+    resume: '/Jiwoo-Jeong-Resume.pdf',
     linkedin: 'https://www.linkedin.com/in/jiwoo-jeong-9351962b1/',
   },
 };
