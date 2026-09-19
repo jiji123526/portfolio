@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
+import { CaseProjectSwitcher } from '@/components/case-project-switcher';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
 import { JangoingLanguageActionMedia } from '@/components/jangoing-language-action-media';
 import { JangoingSectionNav } from '@/components/jangoing-section-nav';
@@ -571,6 +572,7 @@ export default async function ProjectPage({
           )}
         </>
       )}
+      <CaseProjectSwitcher currentSlug={project.slug} />
       <div className="aa-social-links">
         <a href={homeContent.links.email}>Email</a>
         {homeContent.links.resume ? (

@@ -4478,6 +4478,9 @@ a {
   transform-origin: left center;
   pointer-events: none;
 }
+body:has(.jangoing-case-study) .scroll-progress {
+  background: #ff2d55;
+}
 .reveal {
   opacity: 1;
   transform: none;
@@ -15202,6 +15205,68 @@ html[data-transition='entering'] .aa-loader__progress i {
 .aa-social-links span {
   opacity: 0.45;
 }
+.case-project-switcher {
+  position: fixed;
+  z-index: 19;
+  bottom: 34px;
+  left: clamp(24px, 5vw, 92px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.case-project-switcher__link {
+  --switcher-accent: #2487ff;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 9px;
+  border-left: 2px solid var(--switcher-accent);
+  border-radius: 0 8px 8px 0;
+  background: rgba(246, 249, 252, 0.9);
+  box-shadow: 0 9px 28px rgba(0, 42, 90, 0.06);
+  color: #0b3669;
+  text-decoration: none;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition:
+    color 180ms ease,
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms ease;
+}
+.case-project-switcher__link > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  border-radius: 7px;
+  background: var(--switcher-accent);
+  color: #fff;
+  font: 700 10px/1 'AA Roboto Mono', monospace;
+}
+.case-project-switcher__link > strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.case-project-switcher__link.is-jangoing-kitchen-intelligence {
+  --switcher-accent: #ff2d55;
+}
+.case-project-switcher__link.is-tag-spark-recommendations {
+  --switcher-accent: #6b63d9;
+}
+.case-project-switcher__link:hover,
+.case-project-switcher__link:focus-visible {
+  color: var(--switcher-accent);
+  box-shadow: 0 12px 32px rgba(0, 42, 90, 0.12);
+  transform: translateX(5px);
+}
+@media (max-width: 1050px) {
+  .case-project-switcher {
+    display: none;
+  }
+}
 .aa-dock {
   --aa-blue: #2487ff;
   position: fixed;
@@ -15210,9 +15275,11 @@ html[data-transition='entering'] .aa-loader__progress i {
   bottom: 28px;
   left: 50%;
   width: auto;
+  height: 70px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   padding: 10px;
   border-radius: 60px;
@@ -15294,7 +15361,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   width: 50px;
   height: 50px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: visible;
   border-radius: 25px;
@@ -15318,6 +15385,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   border-radius: 200px;
   background: #fff;
   color: var(--aa-blue);
+  transform-origin: center bottom;
   transition:
     width 0.38s cubic-bezier(0.2, 0.8, 0.2, 1),
     height 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -15340,7 +15408,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   .aa-dock > a:focus-visible {
     z-index: 2;
     width: 67px;
-    height: 67px;
+    height: 50px;
     border-radius: 34px;
   }
   .aa-dock > a:hover > .aa-image-placeholder,
