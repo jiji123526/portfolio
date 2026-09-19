@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalArrow } from '@/components/external-arrow';
 import { JangoingCaseContent } from '@/components/jangoing-case-content';
+import { JangoingLanguageActionMedia } from '@/components/jangoing-language-action-media';
 import { JangoingSectionNav } from '@/components/jangoing-section-nav';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TagSparkCaseContent } from '@/components/tagspark-case-content';
@@ -119,18 +120,7 @@ export default async function ProjectPage({
                   asks for review before updating shared state.
                 </p>
               </div>
-              <div
-                className="jangoing-hero-placeholder magnetic"
-                aria-label="Jangoing product media placeholder"
-              >
-                <div className="jangoing-placeholder-ui" aria-hidden="true">
-                  <span />
-                  <i />
-                  <i />
-                  <i />
-                </div>
-                <p>MEDIA PLACEHOLDER · LANGUAGE-TO-ACTION PRODUCT LOOP</p>
-              </div>
+              <JangoingLanguageActionMedia />
             </div>
           </div>
         </header>
