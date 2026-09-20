@@ -1,0 +1,328 @@
+.screen {
+  --blue: #76aaff;
+  --blue-deep: #2487ff;
+  --yellow: #d2ae2c;
+  --red: #ee6a67;
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #fff;
+  color: #050505;
+  font-family:
+    'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+.screen *,
+.screen *::before,
+.screen *::after {
+  box-sizing: border-box;
+}
+
+.selectorPage,
+.resultsPage {
+  position: absolute;
+  inset: 0;
+  padding: 8% 5.5% 5%;
+  background: #fff;
+}
+
+.selectorPage {
+  z-index: 1;
+  animation: selectorPage 8s ease-in-out infinite;
+}
+
+.resultsPage {
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(18%);
+  animation: resultsPage 8s cubic-bezier(0.22, 0.72, 0.25, 1) infinite;
+}
+
+.topbar {
+  position: relative;
+  min-height: 15%;
+  padding-top: 5%;
+}
+
+.topbar > span,
+.topbar > i {
+  position: absolute;
+  top: 2%;
+  color: var(--blue-deep);
+  font-size: clamp(10px, 4.8cqw, 18px);
+  font-style: normal;
+}
+
+.resultsPage .topbar > span,
+.resultsPage .topbar > i {
+  color: var(--yellow);
+}
+
+.topbar > span {
+  left: 0;
+}
+
+.topbar > i {
+  right: 0;
+  font-size: clamp(7px, 2.8cqw, 11px);
+  letter-spacing: -0.1em;
+}
+
+.topbar h1 {
+  margin: 8% 0 0;
+  font-size: clamp(16px, 7.6cqw, 31px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.search,
+.selectedQuery {
+  height: 7%;
+  min-height: 25px;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+  border-radius: 7px;
+  background: #f0f0f4;
+  color: #8a8a90;
+  font-size: clamp(7px, 3cqw, 12px);
+}
+
+.mode {
+  height: 6.5%;
+  min-height: 23px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 3%;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #ededf0;
+  color: #111;
+  font-size: clamp(7px, 2.8cqw, 11px);
+  text-align: center;
+}
+
+.mode span {
+  display: grid;
+  place-items: center;
+}
+
+.mode .activeMode {
+  border: 1px solid #dedee2;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.tagGroups {
+  display: grid;
+  gap: 3.4%;
+  padding-top: 5%;
+}
+
+.tagGroup h2 {
+  margin: 0 0 2.5%;
+  color: #88888e;
+  font-size: clamp(7px, 2.8cqw, 11px);
+  font-weight: 500;
+}
+
+.tagGroup > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(3px, 1.3cqw, 6px);
+}
+
+.tagGroup span {
+  min-height: 23px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4.5%;
+  border: 1px solid #e0e0e3;
+  border-radius: 999px;
+  background: #fff;
+  font-size: clamp(6.5px, 2.8cqw, 11px);
+  white-space: nowrap;
+}
+
+.tagGroup .selectedTag {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+  animation: selectTag 8s ease-in-out infinite;
+}
+
+.tagGroup .excludedTag {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+  animation: excludeTag 8s ease-in-out infinite;
+}
+
+.selectionTray {
+  position: absolute;
+  right: 5.5%;
+  bottom: 4%;
+  left: 5.5%;
+  padding-top: 4%;
+  border-top: 1px solid #ececf0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: selectionTray 8s ease-in-out infinite;
+}
+
+.selectionTray > div {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 3%;
+  overflow: hidden;
+}
+
+.selectionTray > div span {
+  padding: 3px 5px;
+  border-radius: 999px;
+  background: #eaf2ff;
+  color: var(--blue-deep);
+  font-size: clamp(5px, 2.1cqw, 8px);
+  white-space: nowrap;
+}
+
+.selectionTray > div .excludedSummary {
+  background: #fff0ef;
+  color: #d75b58;
+}
+
+.selectionTray button {
+  width: 100%;
+  min-height: 28px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--blue-deep);
+  color: #fff;
+  font-family: inherit;
+  font-size: clamp(7px, 2.8cqw, 11px);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.selectedQuery {
+  height: 7.5%;
+  justify-content: center;
+  margin-top: 2%;
+  color: #77777d;
+}
+
+.resultHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 7% 0 3%;
+  font-size: clamp(8px, 3.2cqw, 13px);
+}
+
+.resultHeading span {
+  color: #777;
+}
+
+.perfectResult,
+.relatedList {
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.045);
+}
+
+.perfectResult {
+  padding: 5%;
+}
+
+.perfectResult strong,
+.relatedList strong {
+  display: block;
+  font-size: clamp(8px, 3.5cqw, 14px);
+  line-height: 1.15;
+}
+
+.perfectResult small,
+.relatedList small {
+  display: block;
+  margin-top: 2px;
+  color: #8b8b90;
+  font-size: clamp(5px, 2.3cqw, 9px);
+}
+
+.perfectResult p,
+.relatedList p {
+  margin: 3px 0 0;
+  overflow: hidden;
+  color: #8b8b90;
+  font-size: clamp(5px, 2.2cqw, 9px);
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.relatedHeading {
+  margin: 8% 0 3%;
+  font-size: clamp(9px, 3.8cqw, 15px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.relatedList {
+  overflow: hidden;
+}
+
+.relatedList article {
+  padding: 4% 5%;
+  border-bottom: 1px solid #e7e7e9;
+}
+
+.relatedList article:last-child {
+  border-bottom: 0;
+}
+
+@keyframes selectTag {
+  0%, 8% { border-color: #e0e0e3; background: #fff; color: #111; }
+  18%, 100% { border-color: var(--blue); background: var(--blue); color: #fff; }
+}
+
+@keyframes excludeTag {
+  0%, 20% { border-color: #e0e0e3; background: #fff; color: #111; }
+  30%, 100% { border-color: var(--red); background: var(--red); color: #fff; }
+}
+
+@keyframes selectionTray {
+  0%, 25% { opacity: 0; transform: translateY(10px); }
+  34%, 48% { opacity: 1; transform: translateY(0); }
+  52%, 100% { opacity: 0; transform: translateY(0); }
+}
+
+@keyframes selectorPage {
+  0%, 45% { opacity: 1; transform: translateX(0); }
+  53%, 94% { opacity: 0; transform: translateX(-12%); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes resultsPage {
+  0%, 46% { opacity: 0; transform: translateX(18%); }
+  55%, 92% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(8%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selectorPage {
+    display: none;
+  }
+
+  .resultsPage {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

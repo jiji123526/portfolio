@@ -18,6 +18,7 @@ import { TransitionLink } from '@/components/transition-link';
 import { useStickyDrift } from '@/components/use-sticky-drift';
 import { YapAmbientThumbnail } from '@/components/yap-ambient-thumbnail';
 import { JangoingAmbientThumbnail } from '@/components/jangoing-ambient-thumbnail';
+import { TagSparkAmbientThumbnail } from '@/components/tagspark-ambient-thumbnail';
 import type { HomeContent } from '@/lib/home-content';
 
 type HomeProject = {
@@ -379,14 +380,19 @@ function ProjectVisual({
           <JangoingAmbientThumbnail />
         </div>
       ) : isTagSpark ? (
-        <ImagePlaceholder label="Media placeholder" />
+        <div
+          className="aa-project-visual__yap-thumbnail aa-project-visual__tagspark-thumbnail"
+          aria-hidden="true"
+        >
+          <TagSparkAmbientThumbnail />
+        </div>
       ) : (
         <ImagePlaceholder label="Coming soon" />
       )}
-      {isAvailable && !isYap && !isJangoing && (
+      {isAvailable && !isYap && !isJangoing && !isTagSpark && (
         <span className="aa-project-visual__number">0{index + 1}</span>
       )}
-      {isAvailable && !isYap && !isJangoing && (
+      {isAvailable && !isYap && !isJangoing && !isTagSpark && (
         <span className="aa-project-visual__title">{project.title}</span>
       )}
       {isAvailable && (
@@ -399,7 +405,9 @@ function ProjectVisual({
     <TransitionLink
       className={`aa-project-visual aa-project-visual--${index + 1}${
         isYap ? ' aa-project-visual--yap' : ''
-      }${isJangoing ? ' aa-project-visual--jangoing' : ''}`}
+      }${isJangoing ? ' aa-project-visual--jangoing' : ''}${
+        isTagSpark ? ' aa-project-visual--tagspark' : ''
+      }`}
       direction="forward"
       href={`/work/${project.slug}`}
       aria-label={`View ${project.title}`}
