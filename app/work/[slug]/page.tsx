@@ -7,6 +7,7 @@ import { JangoingLanguageActionMedia } from '@/components/jangoing-language-acti
 import { JangoingSectionNav } from '@/components/jangoing-section-nav';
 import { ScrollTriggeredDock } from '@/components/scroll-triggered-dock';
 import { TagSparkCaseContent } from '@/components/tagspark-case-content';
+import { TagSparkRankingMedia } from '@/components/tagspark-ranking-media';
 import { TagSparkSectionNav } from '@/components/tagspark-section-nav';
 import { TransitionLink } from '@/components/transition-link';
 import { YapCaseContent } from '@/components/yap-case-content';
@@ -138,19 +139,7 @@ export default async function ProjectPage({
                   policy.
                 </p>
               </div>
-              <div
-                aria-label="TagSpark preference-to-ranking media placeholder"
-                className="tagspark-hero-placeholder magnetic"
-                role="img"
-              >
-                <div aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <i />
-                </div>
-                <p>MEDIA PLACEHOLDER · PREFERENCE-TO-RANKING LOOP</p>
-              </div>
+              <TagSparkRankingMedia />
             </div>
           </div>
         </header>
