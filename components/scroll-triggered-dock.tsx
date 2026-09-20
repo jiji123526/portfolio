@@ -31,9 +31,7 @@ export function ScrollTriggeredDock({ triggerId }: { triggerId: string }) {
   return (
     <div className="aa-scroll-dock">
       <PortfolioDock
-        current="work"
         homeHref="/"
-        workHref="/work"
         aboutHref="/about"
       />
     </div>

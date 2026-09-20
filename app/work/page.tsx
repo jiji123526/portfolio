@@ -105,7 +105,7 @@ export default function WorkIndexPage() {
         {homeContent.links.resume ? <a href={homeContent.links.resume} rel="noreferrer" target="_blank">Resume</a> : null}
         <a href={homeContent.links.linkedin} rel="noreferrer" target="_blank">LinkedIn</a>
       </div>
-      <PortfolioDock current="work" homeHref="/" workHref="/work" aboutHref="/about" />
+      <PortfolioDock homeHref="/" aboutHref="/about" />
     </main>
   );
 }

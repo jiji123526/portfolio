@@ -469,42 +469,56 @@ export function JangoingCaseContent() {
               className="review-input-stage"
               aria-label="Input surfaces and language layer"
             >
-              <div className="jg-input-convergence">
-                <div className="jg-input-paths">
-                  <div className="jg-current-input-path">
-                    <article className="review-node">
-                      <span>CURRENT</span>
-                      <strong>Web MVP</strong>
-                      <small>Typed user input</small>
-                    </article>
-                    <i className="jg-static-connector is-current" aria-hidden="true" />
+              <div className="jg-interpretation-inputs">
+                <div className="jg-utterance-column">
+                  <div className="jg-input-paths">
+                    <div className="jg-current-input-path">
+                      <article className="review-node">
+                        <span>CURRENT</span>
+                        <strong>Web MVP</strong>
+                        <small>Typed user input</small>
+                      </article>
+                    </div>
+                    <div className="jg-future-input-path">
+                      <article className="review-node future">
+                        <span>FUTURE</span>
+                        <strong>Raspberry Pi</strong>
+                        <small>Spoken user input</small>
+                      </article>
+                      <i className="jg-static-connector is-future" aria-hidden="true" />
+                      <article className="review-node future">
+                        <span>FUTURE</span>
+                        <strong>ASR</strong>
+                        <small>Speech to text</small>
+                      </article>
+                    </div>
                   </div>
-                  <div className="jg-future-input-path">
-                    <article className="review-node future">
-                      <span>FUTURE</span>
-                      <strong>Raspberry Pi</strong>
-                      <small>Spoken user input</small>
-                    </article>
-                    <i className="jg-static-connector is-future" aria-hidden="true" />
-                    <article className="review-node future">
-                      <span>FUTURE</span>
-                      <strong>ASR</strong>
-                      <small>Speech to text</small>
-                    </article>
-                    <i className="jg-static-connector is-future" aria-hidden="true" />
+                  <div className="jg-source-convergence" aria-hidden="true">
+                    <i />
+                    <i className="is-future" />
                   </div>
+                  <article className="review-node jg-normalized-utterance">
+                    <span>NORMALIZED UTTERANCE</span>
+                    <strong>Text ready for interpretation</strong>
+                  </article>
                 </div>
-                <article className="review-node language-layer">
-                  <span>LANGUAGE INTERPRETATION</span>
-                  <strong>Shared language layer</strong>
-                  <small>English-first rules now · contextual model later</small>
+                <article className="review-node jg-grounded-context">
+                  <span>AUTHORIZED CONTEXT RETRIEVAL</span>
+                  <strong>Readable household context</strong>
+                  <small>
+                    User · household membership · read permissions · inventory ·
+                    shopping state
+                  </small>
                 </article>
               </div>
-              <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-              <article className="review-node jg-grounded-context">
-                <span>HOUSEHOLD CONTEXT GROUNDING</span>
-                <strong>Authorized household context</strong>
-                <small>User · membership · permissions · inventory · shopping state</small>
+              <div className="jg-interpretation-convergence" aria-hidden="true">
+                <i />
+                <i />
+              </div>
+              <article className="review-node language-layer jg-grounded-interpretation">
+                <span>GROUNDED LANGUAGE INTERPRETATION</span>
+                <strong>Utterance + authorized household context</strong>
+                <small>English-first rules now · contextual model later</small>
               </article>
             </section>
 
@@ -533,7 +547,8 @@ export function JangoingCaseContent() {
                 <span className="branch-origin">CONFIRMED ACTION</span>
                 <div className="vertical-review-flow">
                   <article className="review-node">
-                    <strong>Authorization + Worker API</strong>
+                    <strong>Mutation authorization + Worker API</strong>
+                    <small>Validate permission before writing</small>
                   </article>
                   <i aria-hidden="true">↓</i>
                   <article className="review-node">
@@ -560,22 +575,31 @@ export function JangoingCaseContent() {
                     <section className="jg-evidence-lane is-training">
                       <p>PRIMARY IN-HOUSE EVIDENCE</p>
                       <div className="jg-compact-flow is-training-flow">
-                        <article className="review-node">
-                          <strong>Production + generated candidates</strong>
-                          <small>
-                            Confirmations · corrections · cancellations ·
-                            synthetic-v1 · relevance candidates
-                          </small>
-                        </article>
+                        <div className="jg-training-sources">
+                          <article className="review-node">
+                            <span>PRODUCTION INTERACTIONS</span>
+                            <strong>Reviewed product outcomes</strong>
+                            <small>Confirmations · corrections · cancellations</small>
+                          </article>
+                          <article className="review-node">
+                            <span>IN-HOUSE GENERATED CANDIDATES</span>
+                            <strong>Bootstrap coverage</strong>
+                            <small>synthetic-v1 · relevance candidates</small>
+                          </article>
+                        </div>
                         <i aria-hidden="true">→</i>
                         <article className="review-node jg-source-routing">
                           <strong>Source-aware routing</strong>
-                          <small>9 overlapping annotation queues</small>
+                          <small>Provenance retained</small>
+                        </article>
+                        <i aria-hidden="true">→</i>
+                        <article className="review-node jg-annotation-queues">
+                          <strong>9 overlapping annotation queues</strong>
                         </article>
                         <i aria-hidden="true">→</i>
                         <article className="review-node">
                           <strong>Human review</strong>
-                          <small>Actions · spans · normalization</small>
+                          <small>Actions · spans · normalization · decisions</small>
                         </article>
                         <i aria-hidden="true">→</i>
                         <article className="review-node reviewed-corpus">
@@ -588,13 +612,13 @@ export function JangoingCaseContent() {
                       <p>EVALUATION EVIDENCE · TRAINING-ISOLATED</p>
                       <div className="jg-compact-flow is-evaluation-flow">
                         <article className="review-node">
-                          <strong>Independent candidates</strong>
+                          <strong>Independent evaluation candidates</strong>
                           <small>Human-authored · training-isolated</small>
                         </article>
                         <i aria-hidden="true">→</i>
                         <article className="review-node">
                           <strong>Human review</strong>
-                          <small>Normalization review</small>
+                          <small>Normalization and label review</small>
                         </article>
                         <i className="is-future" aria-hidden="true">→</i>
                         <article className="review-node future">
@@ -604,49 +628,71 @@ export function JangoingCaseContent() {
                         </article>
                         <i className="is-future" aria-hidden="true">→</i>
                         <article className="review-node future jg-frozen-evaluation">
-                          <span>HELD OUT</span>
+                          <span>PLANNED · HELD OUT</span>
                           <strong>Frozen evaluation split</strong>
                         </article>
                       </div>
                     </section>
                   </div>
 
-                  <article className="review-node jg-split-manifest">
-                    <span>NO TRAIN / EVALUATION MIXING</span>
+                  <div className="jg-manifest-registration" aria-label="Manifest inputs">
+                    <span>Reviewed training pool</span>
+                    <i aria-hidden="true">→</i>
+                    <span>Frozen evaluation split</span>
+                  </div>
+                  <article className="review-node future jg-split-manifest">
+                    <span>PLANNED</span>
                     <strong>VERSIONED DATASET MANIFEST</strong>
-                    <small>Records provenance and pre-assigned split</small>
+                    <small>
+                      Records provenance and pre-assigned purpose · no train /
+                      evaluation mixing · review status · split membership ·
+                      dataset version · deduplication · leakage-check status
+                    </small>
                   </article>
 
+                  <p className="jg-model-phase-label">
+                    PLANNED MODEL EVALUATION + DEPLOYMENT
+                  </p>
                   <div className="jg-model-validation-row">
-                    <div className="jg-model-inputs">
+                    <div className="jg-model-inputs is-training-input">
                       <article className="review-node future">
                         <span>PLANNED · TRAINING ONLY</span>
-                        <strong>Training split → candidate model</strong>
+                        <strong>Training split</strong>
+                        <small>From reviewed training pool</small>
                       </article>
-                      <b aria-hidden="true">+</b>
-                      <article className="review-node future jg-held-out-input">
-                        <span>PLANNED · HELD OUT</span>
-                        <strong>Frozen evaluation split</strong>
+                      <i aria-hidden="true">→</i>
+                      <article className="review-node future">
+                        <span>PLANNED</span>
+                        <strong>Candidate model</strong>
                       </article>
                     </div>
-                    <i aria-hidden="true">→</i>
+                    <div className="jg-heldout-gate-feed">
+                      <span>HELD-OUT INPUT FROM ABOVE</span>
+                      <i aria-hidden="true">↓</i>
+                    </div>
                     <article className="review-node future evaluation-gate">
                       <span>PLANNED</span>
                       <strong>Evaluation gate</strong>
+                      <small>Candidate model × frozen evaluation</small>
                     </article>
-                    <i aria-hidden="true">→</i>
+                    <i aria-hidden="true">↓</i>
                     <article className="review-node future approved-model">
-                      <span>PASSED REVIEWED EVALUATION</span>
+                      <span>PLANNED · PASSED REVIEWED EVALUATION</span>
                       <strong>Approved model</strong>
                     </article>
-                    <i aria-hidden="true">→</i>
+                    <i aria-hidden="true">↓</i>
                     <article className="review-node future jg-deployment-node">
                       <strong>Deployment</strong>
+                      <small>
+                        Deploy approved model into the grounded language layer
+                      </small>
                     </article>
                   </div>
                   <div className="jg-planned-feedback">
-                    <i aria-hidden="true" />
-                    <span>Shared language layer</span>
+                    <span>
+                      Approved behavior produces new product interactions and
+                      reviewed evidence.
+                    </span>
                   </div>
                 </section>
 
@@ -679,7 +725,7 @@ export function JangoingCaseContent() {
                       <small>Catalog and alias grounding</small>
                       <div className="jg-external-connector">
                         <i aria-hidden="true" />
-                        <b>Household context</b>
+                        <b>Authorized context retrieval</b>
                       </div>
                     </article>
                     <article className="is-future">

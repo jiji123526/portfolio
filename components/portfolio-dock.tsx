@@ -1,22 +1,22 @@
 import { TransitionLink } from '@/components/transition-link';
 
-type DockSection = 'home' | 'work' | 'about';
+type DockSection = 'home' | 'about';
+type DockItem = DockSection | 'ask';
 
 type PortfolioDockProps = {
-  current: DockSection;
+  current?: DockSection;
   className?: string;
   homeHref?: string;
-  workHref?: string;
   aboutHref?: string;
 };
 
-const items: Array<{ id: DockSection; label: string }> = [
+const items: Array<{ id: DockItem; label: string }> = [
   { id: 'home', label: 'Home' },
-  { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
+  { id: 'ask', label: 'Ask' },
 ];
 
-function DockIcon({ id }: { id: DockSection }) {
+function DockIcon({ id }: { id: DockItem }) {
   if (id === 'home') {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -25,10 +25,11 @@ function DockIcon({ id }: { id: DockSection }) {
     );
   }
 
-  if (id === 'work') {
+  if (id === 'ask') {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3.5 7.5h17v12h-17zM8 7.5V5h8v2.5M3.5 12h17" />
+        <path d="M5 5.5h14v10H9l-4 3v-13Z" />
+        <path d="m12 7.5.65 1.55 1.6.65-1.6.65L12 12l-.65-1.65-1.6-.65 1.6-.65Z" />
       </svg>
     );
   }
@@ -45,12 +46,10 @@ export function PortfolioDock({
   current,
   className = '',
   homeHref = '#home',
-  workHref = '/work',
   aboutHref = '/about',
 }: PortfolioDockProps) {
   const hrefs: Record<DockSection, string> = {
     home: homeHref,
-    work: workHref,
     about: aboutHref,
   };
 
@@ -60,7 +59,6 @@ export function PortfolioDock({
       aria-label="Primary navigation"
     >
       {items.map((item) => {
-        const href = hrefs[item.id];
         const isCurrent = current === item.id;
         const content = (
           <>
@@ -71,6 +69,21 @@ export function PortfolioDock({
           </>
         );
         const itemClassName = isCurrent ? 'is-current' : undefined;
+
+        if (item.id === 'ask') {
+          return (
+            <span
+              aria-disabled="true"
+              aria-label="Ask, coming soon"
+              className="aa-dock-disabled"
+              key={item.id}
+            >
+              {content}
+            </span>
+          );
+        }
+
+        const href = hrefs[item.id];
 
         return href.startsWith('#') ? (
           <a className={itemClassName} href={href} key={item.id}>

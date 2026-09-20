@@ -16018,7 +16018,7 @@ html[data-transition='entering'] .aa-loader__progress i {
   color: #fff;
   transform: translateY(var(--aa-dock-scroll-drift, 0px)) scale(1.06);
 }
-.aa-dock > a {
+.aa-dock > :where(a, .aa-dock-disabled) {
   position: relative;
   width: 50px;
   height: 50px;
@@ -16035,10 +16035,10 @@ html[data-transition='entering'] .aa-loader__progress i {
     border-radius 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: width, height;
 }
-.aa-dock > a > span:first-child {
+.aa-dock > :where(a, .aa-dock-disabled) > span:first-child {
   display: none;
 }
-.aa-dock > a > .aa-image-placeholder {
+.aa-dock > :where(a, .aa-dock-disabled) > .aa-image-placeholder {
   width: 50px;
   height: 50px;
   display: grid;
@@ -16077,6 +16077,11 @@ html[data-transition='entering'] .aa-loader__progress i {
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+.aa-dock > .aa-dock-disabled {
+  cursor: default;
+  opacity: 0.5;
+  user-select: none;
 }
 @media (min-width: 810px) and (hover: hover) and (pointer: fine) {
   .aa-dock > a:hover,
@@ -16650,8 +16655,8 @@ html[data-transition='entering'] .aa-loader__progress i {
     );
     animation-name: aa-dock-in-mobile;
   }
-  .aa-dock > a,
-  .aa-dock > a > .aa-image-placeholder {
+  .aa-dock > :where(a, .aa-dock-disabled),
+  .aa-dock > :where(a, .aa-dock-disabled) > .aa-image-placeholder {
     width: 42px;
     height: 42px;
   }
@@ -16989,12 +16994,12 @@ html[data-transition='entering'] .aa-loader__progress i {
     0 0 0 1px rgba(255, 45, 85, 0.09),
     0 12px 36px rgba(31, 107, 69, 0.08);
 }
-.jangoing-case-study .aa-dock > a,
-.jangoing-case-study .aa-dock > a > .aa-image-placeholder,
+.jangoing-case-study .aa-dock > :where(a, .aa-dock-disabled),
+.jangoing-case-study .aa-dock > :where(a, .aa-dock-disabled) > .aa-image-placeholder,
 .jangoing-case-study .aa-dock .aa-image-placeholder > span {
   color: var(--project-accent);
 }
-.jangoing-case-study .aa-dock > a > .aa-image-placeholder {
+.jangoing-case-study .aa-dock > :where(a, .aa-dock-disabled) > .aa-image-placeholder {
   background: rgba(255, 255, 255, 0.94);
 }
 .jangoing-case-study .aa-dock > a.is-current > .aa-image-placeholder {
@@ -17041,6 +17046,110 @@ html[data-transition='entering'] .aa-loader__progress i {
   flex-wrap: wrap;
   gap: 10px 20px;
 }
+.case-study.jangoing-case-study .review-input-stage {
+  width: min(100%, 820px);
+}
+.case-study.jangoing-case-study .jg-interpretation-inputs {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(190px, 0.75fr);
+  gap: 16px;
+  align-items: end;
+}
+.case-study.jangoing-case-study .jg-utterance-column {
+  min-width: 0;
+}
+.case-study.jangoing-case-study .jg-input-paths {
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: 12px;
+  align-items: center;
+}
+.case-study.jangoing-case-study .jg-current-input-path {
+  grid-template-columns: minmax(0, 1fr);
+}
+.case-study.jangoing-case-study .jg-future-input-path {
+  grid-template-columns: minmax(0, 1fr) 22px minmax(82px, 0.72fr);
+}
+.case-study.jangoing-case-study .jg-source-convergence,
+.case-study.jangoing-case-study .jg-interpretation-convergence {
+  position: relative;
+  height: 34px;
+}
+.case-study.jangoing-case-study .jg-source-convergence::before,
+.case-study.jangoing-case-study .jg-interpretation-convergence::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 24%;
+  right: 24%;
+  border-top: 1px solid #6f6f73;
+}
+.case-study.jangoing-case-study .jg-source-convergence::after,
+.case-study.jangoing-case-study .jg-interpretation-convergence::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  height: 18px;
+  border-left: 1px solid #6f6f73;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i,
+.case-study.jangoing-case-study .jg-interpretation-convergence > i {
+  position: absolute;
+  top: 0;
+  height: 17px;
+  border-left: 1px solid #6f6f73;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i:first-child,
+.case-study.jangoing-case-study .jg-interpretation-convergence > i:first-child {
+  left: 24%;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i:last-child,
+.case-study.jangoing-case-study .jg-interpretation-convergence > i:last-child {
+  left: 76%;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i.is-future {
+  border-left-style: dashed;
+  border-color: #8e8e93;
+}
+.case-study.jangoing-case-study .jg-source-convergence::before {
+  content: none;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i:first-child {
+  left: 24%;
+  width: 26%;
+  border-bottom: 1px solid #6f6f73;
+}
+.case-study.jangoing-case-study .jg-source-convergence > i:last-child {
+  left: 50%;
+  width: 26%;
+  border-right: 1px dashed #8e8e93;
+  border-bottom: 1px dashed #8e8e93;
+  border-left: 0;
+}
+.case-study.jangoing-case-study .jg-normalized-utterance {
+  width: min(100%, 390px);
+  min-height: 78px;
+  margin-inline: auto;
+  text-align: center;
+}
+.case-study.jangoing-case-study .jg-interpretation-inputs > .jg-grounded-context {
+  min-height: 112px;
+  border-color: rgba(31, 107, 69, 0.45);
+  background: var(--project-secondary-soft);
+  text-align: center;
+}
+.case-study.jangoing-case-study .jg-interpretation-convergence {
+  width: min(100%, 660px);
+  margin-inline: auto;
+}
+.case-study.jangoing-case-study .jg-grounded-interpretation {
+  width: min(100%, 560px);
+  min-height: 104px;
+  margin-inline: auto;
+  border-width: 2px;
+  border-color: var(--project-accent);
+  text-align: center;
+}
 .case-study.jangoing-case-study .review-node,
 .case-study.jangoing-case-study .review-node strong,
 .case-study.jangoing-case-study .review-node small,
@@ -17083,11 +17192,26 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .case-study.jangoing-case-study .jg-compact-flow {
   display: grid;
-  grid-template-columns:
-    minmax(0, 1.35fr) 14px minmax(0, 1fr) 14px
-    minmax(0, 0.9fr) 14px minmax(0, 0.9fr);
   gap: 5px;
   align-items: stretch;
+}
+.case-study.jangoing-case-study .jg-compact-flow.is-training-flow {
+  grid-template-columns:
+    minmax(0, 1.45fr) 14px minmax(0, 0.9fr) 14px
+    minmax(0, 0.9fr) 14px minmax(0, 0.9fr) 14px
+    minmax(0, 0.9fr);
+}
+.case-study.jangoing-case-study .jg-compact-flow.is-evaluation-flow {
+  grid-template-columns:
+    minmax(0, 1.15fr) 14px minmax(0, 0.9fr) 14px
+    minmax(0, 1fr) 14px minmax(0, 0.95fr);
+}
+.case-study.jangoing-case-study .jg-training-sources {
+  display: grid;
+  gap: 6px;
+}
+.case-study.jangoing-case-study .jg-training-sources .review-node {
+  min-height: 62px;
 }
 .case-study.jangoing-case-study .jg-compact-flow > i,
 .case-study.jangoing-case-study .jg-model-validation-row > i,
@@ -17118,31 +17242,79 @@ html[data-transition='entering'] .aa-loader__progress i {
   font-size: 9px;
   line-height: 1.4;
 }
+.case-study.jangoing-case-study .jg-manifest-registration {
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+  color: var(--project-muted);
+  font: 600 7px/1.35 'AA Roboto Mono', monospace;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+.case-study.jangoing-case-study .jg-manifest-registration::before,
+.case-study.jangoing-case-study .jg-manifest-registration::after {
+  content: none;
+}
+.case-study.jangoing-case-study .jg-manifest-registration > i {
+  font-style: normal;
+}
 .case-study.jangoing-case-study .jg-split-manifest {
   min-height: 68px;
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 10px 14px;
 }
 .case-study.jangoing-case-study .jg-model-validation-row {
   display: grid;
-  grid-template-columns:
-    minmax(0, 1.65fr) 14px minmax(0, 0.8fr) 14px
-    minmax(0, 0.8fr) 14px minmax(0, 0.65fr);
-  gap: 5px;
-  align-items: stretch;
-  margin-top: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  width: min(100%, 520px);
+  margin: 14px auto 0;
+}
+.case-study.jangoing-case-study .jg-model-phase-label {
+  margin: 16px 0 0;
+  color: var(--project-accent);
+  font: 700 8px/1.35 'AA Roboto Mono', monospace;
+  letter-spacing: 0.08em;
+  text-align: center;
 }
 .case-study.jangoing-case-study .jg-model-inputs {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+  gap: 6px;
+}
+.case-study.jangoing-case-study .jg-model-inputs > i,
+.case-study.jangoing-case-study .jg-model-validation-row > i,
+.case-study.jangoing-case-study .jg-heldout-gate-feed > i {
+  display: grid;
+  place-items: center;
+  color: #8e8e93;
+  font-style: normal;
+}
+.case-study.jangoing-case-study .jg-heldout-gate-feed {
+  display: grid;
+  place-items: center;
   gap: 4px;
+  min-height: 42px;
+  color: #8e8e93;
+  font: 600 7px/1.35 'AA Roboto Mono', monospace;
+  letter-spacing: 0.06em;
+  text-align: center;
 }
 .case-study.jangoing-case-study .jg-model-validation-row .review-node {
   min-height: 82px;
   padding: 9px;
 }
 .case-study.jangoing-case-study .jg-planned-feedback {
+  display: block;
   margin-top: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(31, 107, 69, 0.25);
+  border-radius: 8px;
+  background: rgba(220, 236, 223, 0.35);
+  text-align: center;
 }
 .case-study.jangoing-case-study .external-evidence-track {
   margin-top: 0;
@@ -17185,6 +17357,10 @@ html[data-transition='entering'] .aa-loader__progress i {
     gap: 12px;
     align-items: end;
   }
+  .case-study.jangoing-case-study .jg-interpretation-inputs {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
   .case-study.jangoing-case-study .jg-current-input-path,
   .case-study.jangoing-case-study .jg-future-input-path {
     grid-template-columns: minmax(0, 1fr);
@@ -17215,12 +17391,14 @@ html[data-transition='entering'] .aa-loader__progress i {
   }
   .case-study.jangoing-case-study .jg-compact-flow,
   .case-study.jangoing-case-study .jg-model-validation-row,
-  .case-study.jangoing-case-study .jg-model-inputs {
+  .case-study.jangoing-case-study .jg-model-inputs,
+  .case-study.jangoing-case-study .jg-manifest-registration {
     grid-template-columns: minmax(0, 1fr);
   }
   .case-study.jangoing-case-study .jg-compact-flow > i,
   .case-study.jangoing-case-study .jg-model-validation-row > i,
-  .case-study.jangoing-case-study .jg-model-inputs > b {
+  .case-study.jangoing-case-study .jg-model-inputs > i,
+  .case-study.jangoing-case-study .jg-manifest-registration > i {
     height: 18px;
     transform: rotate(90deg);
   }
