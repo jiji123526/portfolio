@@ -1,3 +1,5 @@
+import { TagSparkPreferenceMedia } from '@/components/tagspark-preference-media';
+
 const constraints = [
   {
     number: '01',
@@ -135,10 +137,7 @@ export function TagSparkCaseContent() {
             <strong>controllable query</strong>
           </div>
         </div>
-        <TagSparkPlaceholder
-          label="Include / exclude selection"
-          note="TAG SEARCH · REVERSIBLE PREFERENCE CHIPS"
-        />
+        <TagSparkPreferenceMedia />
       </section>
 
       <section
