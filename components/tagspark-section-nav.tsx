@@ -22,6 +22,7 @@ export function TagSparkSectionNav() {
 
   useEffect(() => {
     let frame = 0;
+    let settleTimer = 0;
 
     const update = () => {
       frame = 0;
@@ -46,14 +47,36 @@ export function TagSparkSectionNav() {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
 
-    update();
+    const alignHashTarget = () => {
+      const hash = window.location.hash.slice(1) as SectionId;
+      if (!sections.some(({ id }) => id === hash)) {
+        update();
+        return;
+      }
+
+      const target = document.getElementById(hash);
+      if (!target) return;
+      window.scrollTo({
+        behavior: 'auto',
+        top: window.scrollY + target.getBoundingClientRect().top - 82,
+      });
+      setActiveId(hash);
+      update();
+    };
+
+    alignHashTarget();
+    frame = window.requestAnimationFrame(alignHashTarget);
+    settleTimer = window.setTimeout(alignHashTarget, 450);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    window.addEventListener('hashchange', alignHashTarget);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
+      window.removeEventListener('hashchange', alignHashTarget);
       if (frame) window.cancelAnimationFrame(frame);
+      if (settleTimer) window.clearTimeout(settleTimer);
     };
   }, []);
 

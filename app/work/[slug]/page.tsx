@@ -134,8 +134,8 @@ export default async function ProjectPage({
                 <h2>Turn noisy tags into a usable recommendation signal.</h2>
                 <p>
                   TagSpark normalizes aliases, models curated semantic
-                  neighbors, and ranks results through an explicit evidence
-                  hierarchy.
+                  neighbors, and ranks results through an explicit scoring
+                  policy.
                 </p>
               </div>
               <div
@@ -203,7 +203,7 @@ export default async function ProjectPage({
               <dd>{project.duration}</dd>
             </div>
             <div>
-              <dt>{isJangoing ? 'PROJECT TYPE' : 'CLIENT'}</dt>
+              <dt>{isJangoing || isTagSpark ? 'PROJECT TYPE' : 'CLIENT'}</dt>
               <dd>{project.client}</dd>
             </div>
             {isJangoing && (

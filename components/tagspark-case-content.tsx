@@ -44,20 +44,16 @@ const nextSteps = [
     body: 'Store rename-safe tag relationships as weighted edges with provenance, preserving the current 0.6 baseline while allowing the resource to grow without a redeploy.',
   },
   {
-    title: 'Connect semantic exclusion to production',
-    body: 'The current product filters selected exclusion IDs directly. Connect the existing alias- and cluster-expansion helper only after its behavior is covered by focused tests.',
+    title: 'Make exclusion and ordering consistent',
+    body: 'Connect the existing alias- and cluster-expansion helper behind focused tests, then replace shuffled perfect matches with a stable, documented ordering rule.',
   },
   {
-    title: 'Make alias matching more precise',
-    body: 'Prefer exact normalized-token intersection and gate substring containment behind minimum-length or boundary-aware checks.',
+    title: 'Expose why a result was recommended',
+    body: 'Translate exact, alias, category, cluster, and core-tag contributions into a compact explanation that users can inspect without exposing raw implementation detail.',
   },
   {
-    title: 'Create one source of truth for categories',
-    body: 'Share a typed category definition between ranking, selection, and result views so weights and display ordering cannot drift.',
-  },
-  {
-    title: 'Pin the scoring contract with tests',
-    body: 'Cover short-circuit behavior, additive category and cluster evidence, core bonuses, normalization, exclusions, and stable result ordering.',
+    title: 'Pin the lexical and scoring contract with tests',
+    body: 'Cover normalized-token boundaries, shared category definitions, short-circuit behavior, additive evidence, core bonuses, exclusions, and stable result ordering.',
   },
 ] as const;
 
@@ -98,7 +94,7 @@ export function TagSparkCaseContent() {
           <mark>explicit taste.</mark>
         </h2>
         <p className="yap-problem-intro">
-          TagSpark is a mobile recommendation product for exploring Korean web
+          TagSpark is a mobile-first web recommender for exploring Korean web
           fiction through tags. People state what they want to include or avoid,
           then browse perfect matches separately from related recommendations.
         </p>
@@ -231,23 +227,14 @@ export function TagSparkCaseContent() {
           ))}
         </div>
         <div className="tagspark-category-weights">
-          <span>CATEGORY WEIGHTS</span>
+          <span>CATEGORY + CORE WEIGHTS</span>
           <p>
             Worldview / setting <strong>1.0</strong> · relationship / genre{' '}
             <strong>0.9</strong> · mood <strong>0.8</strong> · fixed pairing{' '}
             <strong>0.7</strong> · length <strong>0.5</strong> · completion{' '}
-            <strong>0.4</strong>
+            <strong>0.4</strong> · core work tag bonus <strong>+0.25</strong>,
+            scaled for weaker match layers
           </p>
-        </div>
-        <div className="tagspark-placeholder-grid">
-          <TagSparkPlaceholder
-            label="Tag-select → live results"
-            note="PERFECT MATCH + SIMILARITY-RANKED RESULTS"
-          />
-          <TagSparkPlaceholder
-            label="Why this result?"
-            note="PLANNED · SCORE CONTRIBUTION VIEW"
-          />
         </div>
       </section>
 
@@ -259,8 +246,8 @@ export function TagSparkCaseContent() {
           </div>
           <div>
             <p>
-              Perfect matches contain every included tag and are currently
-              shuffled in the interface. Similar results are grouped by exact
+              Perfect matches satisfy every included tag and stay separate from
+              related recommendations. Similar results are grouped by exact
               overlap count, then ordered by the weighted similarity score.
             </p>
             <dl>
@@ -274,22 +261,15 @@ export function TagSparkCaseContent() {
               </div>
               <div>
                 <dt>CURRENT LIMIT</dt>
-                <dd>No user-facing score explanation yet</dd>
+                <dd>Perfect-match order is shuffled; rationale is not exposed</dd>
               </div>
             </dl>
           </div>
         </div>
-      </section>
-
-      <section className="tagspark-feature shell case-section">
-        <div className="tagspark-placeholder-grid">
+        <div className="shell tagspark-result-media">
           <TagSparkPlaceholder
             label="Exact vs similar result groups"
             note="CURRENT PRODUCT UI"
-          />
-          <TagSparkPlaceholder
-            label="Result rationale"
-            note="PLANNED · SCORE CONTRIBUTION VIEW"
           />
         </div>
       </section>
@@ -339,10 +319,11 @@ export function TagSparkCaseContent() {
             baseline makes clear
           </h2>
           <p className="yap-takeaways-intro">
-            The shipped baseline makes its tradeoffs visible: exact results are
-            shuffled, semantic exclusion is not wired into production, and rank
-            rationale is not yet exposed. Those constraints define concrete next
-            steps rather than being presented as finished capabilities.
+            The shipped baseline makes its tradeoffs visible: exact-result order
+            is not deterministic, semantic exclusion is not wired into
+            production, and rank rationale is not yet exposed. Those constraints
+            define concrete next steps rather than being presented as finished
+            capabilities.
           </p>
         </div>
         <div className="yap-takeaway-list">

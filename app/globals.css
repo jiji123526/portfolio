@@ -3870,6 +3870,13 @@ a {
 .tagspark-placeholder-grid .tagspark-media-placeholder {
   min-height: 390px;
 }
+.tagspark-result-media {
+  width: min(calc(100% - 48px), 1000px);
+  padding-bottom: 112px;
+}
+.tagspark-result-media .tagspark-media-placeholder {
+  min-height: 320px;
+}
 .tagspark-filtering {
   border-top: 1px solid var(--tagspark-line);
   border-bottom: 1px solid var(--tagspark-line);
@@ -3958,6 +3965,10 @@ a {
   .tagspark-score-grid,
   .tagspark-placeholder-grid {
     grid-template-columns: 1fr;
+  }
+  .tagspark-result-media {
+    width: min(100% - 32px, 1000px);
+    padding-bottom: 76px;
   }
   .tagspark-score-grid article {
     min-height: 210px;
@@ -16083,6 +16094,31 @@ html[data-transition='entering'] .aa-loader__progress i {
   opacity: 0.5;
   user-select: none;
 }
+.aa-dock > .aa-dock-disabled::after {
+  content: 'COMING SOON!';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  padding: 6px 8px;
+  border: 1px solid color-mix(in srgb, var(--aa-blue) 18%, transparent);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 22px rgba(0, 32, 84, 0.1);
+  color: var(--aa-blue);
+  font: 600 7px/1 'AA Roboto Mono', monospace;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 5px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s ease;
+}
+.aa-dock > .aa-dock-disabled:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 @media (min-width: 810px) and (hover: hover) and (pointer: fine) {
   .aa-dock > a:hover,
   .aa-dock > a:focus-visible {
@@ -17321,6 +17357,23 @@ html[data-transition='entering'] .aa-loader__progress i {
 }
 .case-study.jangoing-case-study .external-evidence-track > .jg-external-paths {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.case-study.jangoing-case-study .jg-external-paths article {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.case-study.jangoing-case-study .jg-external-connector {
+  grid-template-columns: minmax(22px, 56px) minmax(0, 1fr);
+  margin-top: auto;
+}
+.case-study.jangoing-case-study .jg-external-connector b {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.case-study.jangoing-case-study .jg-external-paths article > b {
+  margin-top: auto;
 }
 .case-study.jangoing-case-study .review-loop-label {
   width: min(100%, 760px);
