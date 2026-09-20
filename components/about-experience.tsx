@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { homeContent } from '@/lib/home-content';
+import { TransitionLink } from '@/components/transition-link';
 import { useStickyDrift } from '@/components/use-sticky-drift';
 
 const expertise = [
@@ -44,6 +45,7 @@ const experiences = [
   {
     mark: 'J',
     company: 'Jangoing',
+    projectSlug: 'jangoing-kitchen-intelligence',
     role: 'Language Engineer & NLP Systems Designer',
     period: '2026 - Present',
     description:
@@ -59,6 +61,7 @@ const experiences = [
   {
     mark: 'Y',
     company: 'yap.',
+    projectSlug: 'yap-anonymous-chat',
     role: 'Full-Stack Product Engineer',
     period: '2026 - Present',
     description:
@@ -110,14 +113,22 @@ const experiences = [
   {
     mark: 'T',
     company: 'TagSpark',
-    role: 'Full-Stack Developer',
+    projectSlug: 'tag-spark-recommendations',
+    role: 'Language Systems & Full-Stack Developer',
     period: '2025 - Present',
     description:
-      'Built a full-stack platform that classifies and normalizes noisy web-novel metadata across eight dimensions.',
+      'Building a mobile-first Korean web-fiction recommender that turns manually curated catalog tags into explicit, inspectable preference queries and ranking evidence.',
     bullets: [
-      'Implemented exact-match, include/exclude, and similarity-based recommendations using SQL data processing and a React/TypeScript interface.',
+      'Structured noisy Korean tags across eight preference dimensions and normalized aliases so multiple surface forms resolve to stable catalog tag IDs before ranking.',
+      'Implemented reversible include/exclude controls, separated perfect matches from related recommendations, and made ranking behavior explicit through exact, alias, category, curated-cluster, and core-tag contributions.',
+      'Maintained the PostgreSQL catalog with scheduled Postype metadata refreshes and an unavailable-work marker so stale works are removed from recommendation paths without erasing their records.',
     ],
-    tags: ['Classification', 'SQL', 'React'],
+    tags: [
+      'Korean Lexical Resources',
+      'Recommendation Systems',
+      'TypeScript',
+      'PostgreSQL',
+    ],
   },
   {
     mark: 'C',
@@ -259,7 +270,18 @@ export function AboutExperience() {
                     <span aria-hidden="true" className="aa-about-path__mark">
                       {experience.mark}
                     </span>
-                    <h2>{experience.company}</h2>
+                    {experience.projectSlug ? (
+                      <TransitionLink
+                        className="aa-about-path__project-link"
+                        direction="forward"
+                        href={`/work/${experience.projectSlug}`}
+                      >
+                        <h2>{experience.company}</h2>
+                        <span aria-hidden="true">↗</span>
+                      </TransitionLink>
+                    ) : (
+                      <h2>{experience.company}</h2>
+                    )}
                   </div>
                   <span className="aa-about-path__experience-kind">
                     {experience.company === 'Amazon AGI-DS' ||
