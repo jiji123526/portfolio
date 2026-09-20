@@ -16253,13 +16253,13 @@ html[data-transition='entering'] .aa-loader__progress i {
   bottom: 28px;
   left: 50%;
   width: auto;
-  height: 70px;
+  height: 72px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  gap: 6px;
-  padding: 10px;
+  gap: 12px;
+  padding: 11px 13px;
   border-radius: 60px;
   background: rgba(158, 158, 158, 0.09);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -16426,15 +16426,33 @@ html[data-transition='entering'] .aa-loader__progress i {
   transform: translate(-50%, 0);
 }
 @media (min-width: 810px) and (hover: hover) and (pointer: fine) {
+  .aa-dock > a > span:first-child {
+    position: absolute;
+    right: 50%;
+    bottom: calc(100% + 16px);
+    display: block;
+    padding: 2px 3px;
+    border: 1px solid color-mix(in srgb, var(--aa-blue) 25%, transparent);
+    background: color-mix(in srgb, var(--aa-blue) 8%, transparent);
+    color: var(--aa-blue);
+    font: 500 11px/1 'AA Roboto Mono', monospace;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translate(50%, 5px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+    pointer-events: none;
+  }
   .aa-dock > a::after {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: -12px;
+    bottom: -7px;
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #2487ff;
+    background: var(--aa-blue);
     opacity: 0;
     transform: translate(-50%, 4px) scale(0.6);
     transition:
@@ -16444,15 +16462,20 @@ html[data-transition='entering'] .aa-loader__progress i {
   .aa-dock > a:hover,
   .aa-dock > a:focus-visible {
     z-index: 2;
-    width: 53px;
+    width: 60px;
     height: 50px;
-    border-radius: 27px;
-    transform: translateY(-5px);
+    border-radius: 30px;
+    transform: translateY(-8px);
   }
   .aa-dock > a:hover > .aa-image-placeholder,
   .aa-dock > a:focus-visible > .aa-image-placeholder {
-    width: 53px;
-    height: 53px;
+    width: 60px;
+    height: 60px;
+  }
+  .aa-dock > a:hover > span:first-child,
+  .aa-dock > a:focus-visible > span:first-child {
+    opacity: 1;
+    transform: translate(50%, 0);
   }
   .aa-dock > a:hover::after,
   .aa-dock > a:focus-visible::after {
