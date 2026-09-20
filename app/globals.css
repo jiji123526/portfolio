@@ -17030,6 +17030,211 @@ html[data-transition='entering'] .aa-loader__progress i {
   color: #b76f7d;
 }
 
+/* Keep the static Jangoing system diagram aligned at every breakpoint. */
+.case-study.jangoing-case-study .review-loop-diagram {
+  box-sizing: border-box;
+  padding: 32px;
+  overflow: clip;
+}
+.case-study.jangoing-case-study .review-diagram-legend {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+.case-study.jangoing-case-study .review-node,
+.case-study.jangoing-case-study .review-node strong,
+.case-study.jangoing-case-study .review-node small,
+.case-study.jangoing-case-study .external-evidence-track strong,
+.case-study.jangoing-case-study .external-evidence-track small {
+  overflow-wrap: anywhere;
+}
+.case-study.jangoing-case-study .review-branch-fork {
+  width: 100%;
+}
+.case-study.jangoing-case-study .review-branch-fork i:nth-child(2) {
+  left: 14%;
+  right: 35%;
+}
+.case-study.jangoing-case-study .review-branch-fork i:last-child {
+  left: 14%;
+  width: 51%;
+}
+.case-study.jangoing-case-study .jg-system-branches {
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1.58fr);
+  align-items: start;
+}
+.case-study.jangoing-case-study .jg-learning-with-external {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.case-study.jangoing-case-study .learning-evidence-branch {
+  padding: 18px;
+}
+.case-study.jangoing-case-study .jg-evidence-lanes {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+.case-study.jangoing-case-study .jg-evidence-lane {
+  padding: 12px;
+}
+.case-study.jangoing-case-study .jg-evidence-lane > p {
+  min-height: 0;
+  margin-bottom: 8px;
+}
+.case-study.jangoing-case-study .jg-compact-flow {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.35fr) 14px minmax(0, 1fr) 14px
+    minmax(0, 0.9fr) 14px minmax(0, 0.9fr);
+  gap: 5px;
+  align-items: stretch;
+}
+.case-study.jangoing-case-study .jg-compact-flow > i,
+.case-study.jangoing-case-study .jg-model-validation-row > i,
+.case-study.jangoing-case-study .jg-model-inputs > b {
+  display: grid;
+  place-items: center;
+  color: #858580;
+  font-family: 'AA Roboto Mono', monospace;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+}
+.case-study.jangoing-case-study .jg-compact-flow > i.is-future,
+.case-study.jangoing-case-study .jg-model-validation-row > i {
+  color: #8e8e93;
+}
+.case-study.jangoing-case-study .jg-compact-flow .review-node {
+  min-height: 92px;
+  padding: 10px;
+}
+.case-study.jangoing-case-study .jg-compact-flow .review-node strong,
+.case-study.jangoing-case-study .jg-model-validation-row .review-node strong {
+  font-size: 11px;
+  line-height: 1.35;
+}
+.case-study.jangoing-case-study .jg-compact-flow .review-node small,
+.case-study.jangoing-case-study .jg-model-validation-row .review-node small {
+  font-size: 9px;
+  line-height: 1.4;
+}
+.case-study.jangoing-case-study .jg-split-manifest {
+  min-height: 68px;
+  margin-top: 10px;
+  padding: 10px 14px;
+}
+.case-study.jangoing-case-study .jg-model-validation-row {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.65fr) 14px minmax(0, 0.8fr) 14px
+    minmax(0, 0.8fr) 14px minmax(0, 0.65fr);
+  gap: 5px;
+  align-items: stretch;
+  margin-top: 10px;
+}
+.case-study.jangoing-case-study .jg-model-inputs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr);
+  gap: 4px;
+}
+.case-study.jangoing-case-study .jg-model-validation-row .review-node {
+  min-height: 82px;
+  padding: 9px;
+}
+.case-study.jangoing-case-study .jg-planned-feedback {
+  margin-top: 8px;
+}
+.case-study.jangoing-case-study .external-evidence-track {
+  margin-top: 0;
+}
+.case-study.jangoing-case-study .external-evidence-track > .jg-external-paths {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.case-study.jangoing-case-study .review-loop-label {
+  width: min(100%, 760px);
+  border-radius: 12px;
+}
+
+@media (max-width: 920px) {
+  .case-study.jangoing-case-study .review-loop-diagram {
+    padding: 26px;
+  }
+  .case-study.jangoing-case-study .product-state-branch {
+    margin-bottom: 22px;
+  }
+  .case-study.jangoing-case-study .product-state-branch::after {
+    content: '↓';
+    position: absolute;
+    left: 50%;
+    bottom: -22px;
+    color: #858580;
+    font-size: 0.9rem;
+    transform: translateX(-50%);
+  }
+  .case-study.jangoing-case-study .external-evidence-track > .jg-external-paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .case-study.jangoing-case-study .review-loop-diagram {
+    padding: 18px;
+  }
+  .case-study.jangoing-case-study .jg-input-paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: end;
+  }
+  .case-study.jangoing-case-study .jg-current-input-path,
+  .case-study.jangoing-case-study .jg-future-input-path {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .case-study.jangoing-case-study .jg-static-connector {
+    width: 0;
+    height: 22px;
+    justify-self: center;
+    border-top: 0;
+    border-left: 2px solid #3c3c43;
+  }
+  .case-study.jangoing-case-study .jg-static-connector.is-future {
+    border-top: 0;
+    border-left: 1px dashed #8e8e93;
+  }
+  .case-study.jangoing-case-study .jg-static-connector::after {
+    top: auto;
+    right: -3px;
+    bottom: 0;
+    transform: rotate(135deg);
+  }
+  .case-study.jangoing-case-study .jg-input-convergence::after {
+    display: none;
+  }
+  .case-study.jangoing-case-study .external-evidence-track > .jg-external-paths {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-study.jangoing-case-study .jg-compact-flow,
+  .case-study.jangoing-case-study .jg-model-validation-row,
+  .case-study.jangoing-case-study .jg-model-inputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-study.jangoing-case-study .jg-compact-flow > i,
+  .case-study.jangoing-case-study .jg-model-validation-row > i,
+  .case-study.jangoing-case-study .jg-model-inputs > b {
+    height: 18px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 440px) {
+  .case-study.jangoing-case-study .jg-input-paths {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-study.jangoing-case-study .review-diagram-legend span {
+    white-space: normal;
+  }
+}
+
 @media (max-width: 809px) {
   .jangoing-case-study .aa-social-links a,
   .jangoing-case-study .aa-social-links span {
@@ -18543,4 +18748,19 @@ html[data-transition='entering'] .aa-loader__progress i {
   margin: 6px 0 0;
   font-size: 8px;
   line-height: 1.45;
+}
+
+/* Final cascade guard for the compact static system diagram. */
+.case-study.jangoing-case-study .review-loop-diagram {
+  padding: 32px;
+}
+@media (max-width: 920px) {
+  .case-study.jangoing-case-study .review-loop-diagram {
+    padding: 26px;
+  }
+}
+@media (max-width: 620px) {
+  .case-study.jangoing-case-study .review-loop-diagram {
+    padding: 18px;
+  }
 }

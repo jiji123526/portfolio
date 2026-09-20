@@ -559,108 +559,91 @@ export function JangoingCaseContent() {
                   <div className="jg-evidence-lanes">
                     <section className="jg-evidence-lane is-training">
                       <p>PRIMARY IN-HOUSE EVIDENCE</p>
-                      <article className="review-node">
-                        <strong>Production interactions</strong>
-                        <small>Confirmations · corrections · cancellations</small>
-                      </article>
-                      <article className="review-node">
-                        <strong>In-house generated candidates</strong>
-                        <small>synthetic-v1 · relevance candidates</small>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node jg-source-routing">
-                        <strong>Source-aware routing</strong>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node jg-annotation-queues">
-                        <strong>9 overlapping annotation queues</strong>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node">
-                        <strong>Human review</strong>
-                        <small>Actions · spans · normalization</small>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node reviewed-corpus">
-                        <strong>Reviewed training pool</strong>
-                      </article>
+                      <div className="jg-compact-flow is-training-flow">
+                        <article className="review-node">
+                          <strong>Production + generated candidates</strong>
+                          <small>
+                            Confirmations · corrections · cancellations ·
+                            synthetic-v1 · relevance candidates
+                          </small>
+                        </article>
+                        <i aria-hidden="true">→</i>
+                        <article className="review-node jg-source-routing">
+                          <strong>Source-aware routing</strong>
+                          <small>9 overlapping annotation queues</small>
+                        </article>
+                        <i aria-hidden="true">→</i>
+                        <article className="review-node">
+                          <strong>Human review</strong>
+                          <small>Actions · spans · normalization</small>
+                        </article>
+                        <i aria-hidden="true">→</i>
+                        <article className="review-node reviewed-corpus">
+                          <strong>Reviewed training pool</strong>
+                        </article>
+                      </div>
                     </section>
 
                     <section className="jg-evidence-lane is-evaluation">
                       <p>EVALUATION EVIDENCE · TRAINING-ISOLATED</p>
-                      <article className="review-node">
-                        <strong>Independent evaluation candidates</strong>
-                        <small>Human-authored · training-isolated</small>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node">
-                        <strong>Human review</strong>
-                        <small>Normalization review</small>
-                      </article>
-                      <i className="review-flow-arrow downward" aria-hidden="true">↓</i>
-                      <article className="review-node future">
-                        <span>PLANNED</span>
-                        <strong>Deduplication + leakage checks</strong>
-                        <small>Phrase-family isolation</small>
-                      </article>
-                      <i className="review-flow-arrow downward is-future" aria-hidden="true">↓</i>
-                      <article className="review-node future jg-frozen-evaluation">
-                        <span>PLANNED · HELD OUT</span>
-                        <strong>Frozen evaluation split</strong>
-                      </article>
+                      <div className="jg-compact-flow is-evaluation-flow">
+                        <article className="review-node">
+                          <strong>Independent candidates</strong>
+                          <small>Human-authored · training-isolated</small>
+                        </article>
+                        <i aria-hidden="true">→</i>
+                        <article className="review-node">
+                          <strong>Human review</strong>
+                          <small>Normalization review</small>
+                        </article>
+                        <i className="is-future" aria-hidden="true">→</i>
+                        <article className="review-node future">
+                          <span>PLANNED</span>
+                          <strong>Deduplication + leakage checks</strong>
+                          <small>Phrase-family isolation</small>
+                        </article>
+                        <i className="is-future" aria-hidden="true">→</i>
+                        <article className="review-node future jg-frozen-evaluation">
+                          <span>HELD OUT</span>
+                          <strong>Frozen evaluation split</strong>
+                        </article>
+                      </div>
                     </section>
                   </div>
 
-                  <div className="jg-manifest-registration" aria-hidden="true">
-                    <i />
-                    <i />
-                  </div>
                   <article className="review-node jg-split-manifest">
                     <span>NO TRAIN / EVALUATION MIXING</span>
                     <strong>VERSIONED DATASET MANIFEST</strong>
                     <small>Records provenance and pre-assigned split</small>
                   </article>
 
-                  <div className="dataset-splits jg-planned-model-inputs">
-                    <div>
+                  <div className="jg-model-validation-row">
+                    <div className="jg-model-inputs">
                       <article className="review-node future">
                         <span>PLANNED · TRAINING ONLY</span>
-                        <strong>Training split</strong>
-                        <small>From reviewed training pool</small>
+                        <strong>Training split → candidate model</strong>
                       </article>
-                      <i className="is-future" aria-hidden="true">↓</i>
-                      <article className="review-node future">
-                        <span>PLANNED</span>
-                        <strong>Candidate model</strong>
-                      </article>
-                    </div>
-                    <div>
+                      <b aria-hidden="true">+</b>
                       <article className="review-node future jg-held-out-input">
                         <span>PLANNED · HELD OUT</span>
                         <strong>Frozen evaluation split</strong>
-                        <small>No candidate-model fitting</small>
                       </article>
                     </div>
+                    <i aria-hidden="true">→</i>
+                    <article className="review-node future evaluation-gate">
+                      <span>PLANNED</span>
+                      <strong>Evaluation gate</strong>
+                    </article>
+                    <i aria-hidden="true">→</i>
+                    <article className="review-node future approved-model">
+                      <span>PASSED REVIEWED EVALUATION</span>
+                      <strong>Approved model</strong>
+                    </article>
+                    <i aria-hidden="true">→</i>
+                    <article className="review-node future jg-deployment-node">
+                      <strong>Deployment</strong>
+                    </article>
                   </div>
-                  <div className="evaluation-convergence" aria-hidden="true">
-                    <i />
-                    <i />
-                  </div>
-                  <article className="review-node future evaluation-gate">
-                    <span>PLANNED</span>
-                    <strong>Evaluation gate</strong>
-                    <small>Candidate model × frozen evaluation</small>
-                  </article>
-                  <i className="review-flow-arrow downward is-future" aria-hidden="true">↓</i>
-                  <article className="review-node future approved-model">
-                    <span>PLANNED · PASSED REVIEWED EVALUATION</span>
-                    <strong>Approved model</strong>
-                  </article>
-                  <i className="review-flow-arrow downward is-future" aria-hidden="true">↓</i>
-                  <article className="review-node future jg-deployment-node">
-                    <span>PLANNED</span>
-                    <strong>Deployment</strong>
-                  </article>
                   <div className="jg-planned-feedback">
                     <i aria-hidden="true" />
                     <span>Shared language layer</span>
