@@ -15689,6 +15689,10 @@ html[data-transition='entering'] .aa-loader__progress i {
     width 0.38s cubic-bezier(0.2, 0.8, 0.2, 1),
     height 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.aa-dock .aa-image-placeholder::before,
+.aa-dock .aa-image-placeholder::after {
+  display: none;
+}
 .aa-dock > a.is-current > .aa-image-placeholder {
   background: #0073ff;
   color: #fff;
@@ -15701,6 +15705,15 @@ html[data-transition='entering'] .aa-loader__progress i {
   background: none;
   color: var(--aa-blue);
   font-size: 7px;
+}
+.aa-dock .aa-image-placeholder > svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 @media (min-width: 810px) and (hover: hover) and (pointer: fine) {
   .aa-dock > a:hover,
