@@ -3911,20 +3911,27 @@ a {
 }
 .tagspark-tagging-heading {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: 1.16fr 0.84fr;
   gap: clamp(44px, 7vw, 86px);
+  align-items: start;
 }
 .tagspark-tagging-heading h2 {
-  max-width: 650px;
+  max-width: 760px;
   margin: 0;
   color: var(--tagspark-ink);
-  font-size: clamp(2.2rem, 4.8vw, 4.7rem);
+  font-size: clamp(2.2rem, 3.6vw, 4.1rem);
   font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -0.055em;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+}
+.tagspark-tagging-heading h2 span {
+  display: block;
+}
+.tagspark-tagging-heading h2 span + span {
+  margin-top: 0.12em;
 }
 .tagspark-tagging-heading > p {
-  margin: 4px 0 0;
+  margin: 76px 0 0;
   color: var(--tagspark-muted);
   font-size: 0.88rem;
   line-height: 1.8;
@@ -4009,6 +4016,9 @@ a {
   .tagspark-filtering-inner,
   .tagspark-tagging-heading {
     grid-template-columns: 1fr;
+  }
+  .tagspark-tagging-heading > p {
+    margin-top: 22px;
   }
   .tagspark-score-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

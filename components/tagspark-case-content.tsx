@@ -315,7 +315,10 @@ export function TagSparkCaseContent() {
         <div className="tagspark-tagging-heading">
           <div>
             <p className="eyebrow">PLANNED EXPERIMENT · REVIEWED TAGGING</p>
-            <h2>Let the model propose tags. Keep catalog truth reviewed.</h2>
+            <h2>
+              <span>Let the model propose tags.</span>
+              <span>Keep catalog truth reviewed.</span>
+            </h2>
           </div>
           <p>
             Today, each work is read and tagged manually. A future JEV-assisted
