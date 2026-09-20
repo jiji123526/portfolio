@@ -1,21 +1,21 @@
 const constraints = [
   {
     number: '01',
-    category: 'Identity',
-    title: 'One concept, many surface forms',
-    body: 'Names, aliases, separators, casing, and punctuation fragment equivalent preference signals before ranking begins.',
+    category: 'Preference',
+    title: 'Taste needs an explicit input',
+    body: 'People choose the themes, relationships, moods, and story conditions they want instead of waiting for a hidden profile to infer them.',
   },
   {
     number: '02',
-    category: 'Similarity',
-    title: 'Related is not identical',
-    body: 'Near-synonyms and neighboring concepts need partial credit without being collapsed into the same canonical tag.',
+    category: 'Language',
+    title: 'Human tags are inconsistent',
+    body: 'Names, aliases, separators, and neighboring concepts fragment equivalent or related preference signals before ranking begins.',
   },
   {
     number: '03',
-    category: 'Control',
-    title: 'Ranking needs visible rules',
-    body: 'Users should be able to inspect and revise their inputs while the system keeps its evidence hierarchy explainable.',
+    category: 'Catalog',
+    title: 'Recommendations depend on maintained data',
+    body: 'Works, tag relationships, publication dates, and engagement metadata must stay consistent enough for ranking and browsing to remain useful.',
   },
 ] as const;
 
@@ -27,14 +27,14 @@ const scoringLayers = [
     body: 'Normalized alias overlap inside the same category.',
   },
   {
-    label: 'CLUSTER',
-    score: '0.6',
-    body: 'A hand-curated semantic neighbor.',
-  },
-  {
     label: 'SAME CATEGORY',
     score: '0.35',
-    body: 'Different tags that still share a preference dimension.',
+    body: 'A different tag in the same preference dimension.',
+  },
+  {
+    label: 'CLUSTER CONTRIBUTION',
+    score: '0.6',
+    body: 'Each matching hand-curated semantic relationship adds evidence.',
   },
 ] as const;
 
@@ -44,20 +44,20 @@ const nextSteps = [
     body: 'Store rename-safe tag relationships as weighted edges with provenance, preserving the current 0.6 baseline while allowing the resource to grow without a redeploy.',
   },
   {
+    title: 'Connect semantic exclusion to production',
+    body: 'The current product filters selected exclusion IDs directly. Connect the existing alias- and cluster-expansion helper only after its behavior is covered by focused tests.',
+  },
+  {
     title: 'Make alias matching more precise',
-    body: 'Prefer exact normalized-token intersection and gate substring containment behind word-boundary or minimum-length checks.',
+    body: 'Prefer exact normalized-token intersection and gate substring containment behind minimum-length or boundary-aware checks.',
   },
   {
     title: 'Create one source of truth for categories',
-    body: 'Share a typed category definition between the ranking logic and interface so ordering and weights cannot drift.',
+    body: 'Share a typed category definition between ranking, selection, and result views so weights and display ordering cannot drift.',
   },
   {
     title: 'Pin the scoring contract with tests',
-    body: 'Verify that exact beats alias, alias beats broader similarity, core bonuses apply, and length normalization preserves the intended ordering.',
-  },
-  {
-    title: 'Return stable, meaningful result order',
-    body: 'Replace per-render shuffling with a stable sort or seeded shuffle so returning users can understand why ordering changed.',
+    body: 'Cover short-circuit behavior, additive category and cluster evidence, core bonuses, normalization, exclusions, and stable result ordering.',
   },
 ] as const;
 
@@ -92,15 +92,15 @@ export function TagSparkCaseContent() {
         className="yap-problem shell case-section"
         id="tagspark-problem"
       >
-        <p className="eyebrow">PROBLEM</p>
+        <p className="eyebrow">PRODUCT CONTEXT</p>
         <h2 className="yap-title-effect">
-          A recommender is only as useful as the{' '}
-          <mark>metadata beneath it.</mark>
+          Korean web-fiction discovery, shaped by{' '}
+          <mark>explicit taste.</mark>
         </h2>
         <p className="yap-problem-intro">
-          User-generated tags are inconsistent by nature. Exact string matching
-          misses aliases, near-synonyms, and category context, so subjective
-          preference must become a canonical, comparable signal before ranking.
+          TagSpark is a mobile recommendation product for exploring Korean web
+          fiction through tags. People state what they want to include or avoid,
+          then browse perfect matches separately from related recommendations.
         </p>
         <div className="yap-constraint-grid">
           {constraints.map((constraint) => (
@@ -120,9 +120,36 @@ export function TagSparkCaseContent() {
           ))}
         </div>
         <p className="yap-problem-statement">
-          How might we turn noisy, subjective tags into recommendation signals
-          that remain controllable and explainable?
+          How might we turn subjective Korean-language tags into a recommendation
+          signal people can directly control?
         </p>
+      </section>
+
+      <section
+        className="tagspark-feature shell case-section"
+        id="tagspark-control"
+      >
+        <div className="tagspark-feature-copy">
+          <p className="eyebrow">01 · EXPLICIT PREFERENCE CONTROL</p>
+          <h2>Include and exclude choices keep taste inspectable.</h2>
+          <p>
+            Instead of inferring a hidden profile, TagSpark lets people search,
+            add, remove, and reverse preference tags. Included tags define the
+            desired result; excluded tag IDs filter out unwanted works before the
+            remaining catalog is ranked.
+          </p>
+          <div className="tagspark-language-flow" aria-label="Preference flow">
+            <span>include</span>
+            <i>+</i>
+            <span>exclude</span>
+            <i>→</i>
+            <strong>controllable query</strong>
+          </div>
+        </div>
+        <TagSparkPlaceholder
+          label="Include / exclude selection"
+          note="TAG SEARCH · REVERSIBLE PREFERENCE CHIPS"
+        />
       </section>
 
       <section
@@ -130,7 +157,7 @@ export function TagSparkCaseContent() {
         id="tagspark-normalization"
       >
         <div className="tagspark-feature-copy">
-          <p className="eyebrow">01 · ALIAS NORMALIZATION</p>
+          <p className="eyebrow">02 · ALIAS NORMALIZATION</p>
           <h2>Surface variants collapse before comparison.</h2>
           <p>
             Each tag expands into its name and known aliases. Tokens split on
@@ -154,7 +181,7 @@ export function TagSparkCaseContent() {
 
       <section className="tagspark-thesaurus" id="tagspark-thesaurus">
         <div className="shell case-section">
-          <p className="eyebrow">02 · HAND-BUILT SIMILARITY THESAURUS</p>
+          <p className="eyebrow">03 · CURATED SIMILARITY GRAPH</p>
           <div className="tagspark-thesaurus-heading">
             <h2>Meaning extends beyond string identity.</h2>
             <p>
@@ -183,15 +210,15 @@ export function TagSparkCaseContent() {
         className="tagspark-scoring shell case-section"
         id="tagspark-scoring"
       >
-        <p className="eyebrow">03 · HIERARCHICAL WEIGHTED SCORING</p>
+        <p className="eyebrow">04 · LAYERED ADDITIVE SCORING</p>
         <h2>
-          Ranking follows an explicit hierarchy of <mark>stronger and weaker evidence.</mark>
+          Ranking combines stronger matches with <mark>additive context.</mark>
         </h2>
         <p className="tagspark-section-intro">
-          Every work tag uses the strongest matching layer, multiplied by its
-          category weight and adjusted for core-tag bonuses. The final score is
-          divided by the square root of tag count so tag-heavy works do not
-          dominate by volume alone.
+          Exact and alias matches short-circuit weaker lexical checks. Otherwise,
+          same-category evidence and each curated cluster relationship can add to
+          the score. Category weights and core-tag bonuses are applied before the
+          total is divided by the square root of tag count.
         </p>
         <div className="tagspark-score-grid">
           {scoringLayers.map((layer, index) => (
@@ -219,71 +246,84 @@ export function TagSparkCaseContent() {
           />
           <TagSparkPlaceholder
             label="Why this result?"
-            note="LAYER, CATEGORY WEIGHT, BONUS + NORMALIZATION"
+            note="PLANNED · SCORE CONTRIBUTION VIEW"
           />
         </div>
       </section>
 
-      <section className="tagspark-filtering" id="tagspark-filtering">
+      <section className="tagspark-filtering" id="tagspark-results">
         <div className="shell case-section tagspark-filtering-inner">
           <div>
-            <p className="eyebrow">04 · SEMANTIC INCLUDE / EXCLUDE</p>
-            <h2>Exclusion follows meaning, not only the clicked string.</h2>
+            <p className="eyebrow">05 · RESULT MODEL</p>
+            <h2>Perfect matches and related results stay visibly separate.</h2>
           </div>
           <div>
             <p>
-              Excluded concepts expand through alias sets and cluster neighbors,
-              removing their variants and near-synonyms rather than only one tag
-              ID. The same lexical resource supports both retrieval and control.
+              Perfect matches contain every included tag and are currently
+              shuffled in the interface. Similar results are grouped by exact
+              overlap count, then ordered by the weighted similarity score.
             </p>
             <dl>
               <div>
-                <dt>INPUT</dt>
-                <dd>Selected exclusion</dd>
+                <dt>PERFECT MATCH</dt>
+                <dd>Contains every included tag ID</dd>
               </div>
               <div>
-                <dt>EXPANSION</dt>
-                <dd>Aliases + cluster neighbors</dd>
+                <dt>SIMILAR</dt>
+                <dd>Overlap buckets, then weighted score</dd>
               </div>
               <div>
-                <dt>RESULT</dt>
-                <dd>Semantically filtered works</dd>
+                <dt>CURRENT LIMIT</dt>
+                <dd>No user-facing score explanation yet</dd>
               </div>
             </dl>
           </div>
         </div>
       </section>
 
+      <section className="tagspark-feature shell case-section">
+        <div className="tagspark-placeholder-grid">
+          <TagSparkPlaceholder
+            label="Exact vs similar result groups"
+            note="CURRENT PRODUCT UI"
+          />
+          <TagSparkPlaceholder
+            label="Result rationale"
+            note="PLANNED · SCORE CONTRIBUTION VIEW"
+          />
+        </div>
+      </section>
+
       <section
         className="tagspark-system shell case-section"
-        id="tagspark-system"
+        id="tagspark-operations"
       >
         <div className="tagspark-feature-copy">
-          <p className="eyebrow">SYSTEM DESIGN</p>
-          <h2>The lexical resource can become shared, inspectable data.</h2>
+          <p className="eyebrow">06 · CATALOG + OPERATIONS</p>
+          <h2>Recommendation quality depends on a maintained catalog.</h2>
           <p>
-            Today the curated graph lives in application code. A behavior-
-            preserving migration would store rename-safe tag pairs, per-edge
-            weights, and provenance in Postgres, then rebuild the same lookup
-            shape for scoring.
+            Works, tags, and their relationships live in Neon Postgres behind
+            Vercel APIs. A scheduled Postype refresh updates engagement and
+            publication metadata, while unavailable works are marked so stale
+            catalog entries do not silently enter recommendations.
           </p>
           <dl className="tagspark-system-facts">
             <div>
-              <dt>CURRENT</dt>
-              <dd>Hardcoded named clusters · fixed 0.6</dd>
+              <dt>DATA</dt>
+              <dd>Works · tags · work-tag relations in Neon</dd>
             </div>
             <div>
-              <dt>NEXT</dt>
-              <dd>ID-based weighted edges · source provenance</dd>
+              <dt>MAINTENANCE</dt>
+              <dd>Scheduled Postype metadata refresh</dd>
             </div>
             <div>
-              <dt>GUARDRAIL</dt>
-              <dd>Regression parity before removing the fallback</dd>
+              <dt>SAFETY</dt>
+              <dd>Validation, deduplication, unavailable-work marker</dd>
             </div>
           </dl>
         </div>
         <TagSparkPlaceholder
-          label="Catalog + thesaurus architecture"
+          label="Catalog operations architecture"
           note="REACT → VERCEL API → NEON + SCHEDULED REFRESH"
         />
       </section>
@@ -292,17 +332,17 @@ export function TagSparkCaseContent() {
         className="yap-takeaways shell case-section tagspark-takeaways"
         id="tagspark-takeaways"
       >
-        <p className="eyebrow">TAKEAWAYS</p>
+        <p className="eyebrow">LIMITATIONS + NEXT STEPS</p>
         <div className="yap-takeaways-heading yap-title-effect">
           <h2>
-            What building <span className="yap-brand-highlight">TagSpark</span>{' '}
-            clarified about recommendation systems
+            What the current <span className="yap-brand-highlight">TagSpark</span>{' '}
+            baseline makes clear
           </h2>
           <p className="yap-takeaways-intro">
-            Metadata quality determines recommendation quality. A normalization
-            layer, curated similarity resource, and explicit scoring policy can
-            already produce useful, controllable rankings before model
-            complexity—and provide a clear baseline for what comes next.
+            The shipped baseline makes its tradeoffs visible: exact results are
+            shuffled, semantic exclusion is not wired into production, and rank
+            rationale is not yet exposed. Those constraints define concrete next
+            steps rather than being presented as finished capabilities.
           </p>
         </div>
         <div className="yap-takeaway-list">

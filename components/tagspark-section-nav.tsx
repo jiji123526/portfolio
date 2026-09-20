@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import type { MouseEvent } from 'react';
 
 const sections = [
-  { id: 'tagspark-problem', label: 'PROBLEM' },
+  { id: 'tagspark-problem', label: 'PRODUCT' },
+  { id: 'tagspark-control', label: 'CONTROL' },
   { id: 'tagspark-normalization', label: 'NORMALIZATION' },
   { id: 'tagspark-thesaurus', label: 'THESAURUS' },
   { id: 'tagspark-scoring', label: 'SCORING' },
-  { id: 'tagspark-filtering', label: 'FILTERING' },
-  { id: 'tagspark-system', label: 'SYSTEM DESIGN' },
-  { id: 'tagspark-takeaways', label: 'TAKEAWAYS' },
+  { id: 'tagspark-results', label: 'RESULTS' },
+  { id: 'tagspark-operations', label: 'OPERATIONS' },
+  { id: 'tagspark-takeaways', label: 'NEXT' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];
