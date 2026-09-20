@@ -36,10 +36,45 @@ const stages = [
 ];
 
 const annotationPrinciples = [
-  'AI drafts, humans decide.',
-  'Generated candidates may bootstrap training, but never serve as evaluation ground truth.',
-  'Deduplication, phrase-family leakage checks, dataset hashes, and versioned manifests protect comparisons.',
+  'AI drafts and external mappings are candidates, not labels.',
+  'Generated and external data never enter the frozen evaluation set by default.',
+  'Provenance, deduplication, phrase-family leakage checks, manifests, and hashes remain versioned.',
 ];
+
+const externalDatasetRoles = [
+  {
+    index: '01 · DOMAIN GROUNDING',
+    title: 'Grocery NER · GroceryList · Open Food Facts',
+    role: 'Entity vocabulary, taxonomy candidates, product aliases, category relations, and catalog-linking candidates.',
+    mapping: 'Grocery labels → ITEM / CATEGORY candidates. Item and category records → canonical-value candidates. Product and brand records → catalog and alias candidates.',
+    guardrail: 'Not direct intent ground truth. Taxonomy remapping and human review are required.',
+    note: 'Open Food Facts supports the product catalog and entity linker—not utterance-intent training.',
+  },
+  {
+    index: '02 · PIPELINE VALIDATION',
+    title: 'MASSIVE · SNIPS',
+    role: 'Intent and slot architecture smoke tests, BIO tagging, evaluation-code validation, OOD experiments, and future multilingual pipeline checks.',
+    mapping: 'External intent and slot schemas → separate modeling benchmarks.',
+    guardrail: 'Kept as separate corpora. External intents are not forced into Jangoing action labels.',
+    note: 'Performance on MASSIVE or SNIPS does not represent grocery-domain performance.',
+  },
+  {
+    index: '03 · FUTURE SYSTEMS',
+    title: 'MultiWOZ · Instacart-style data',
+    role: 'Multi-turn dialogue design, slot carryover, clarification flows, co-purchase patterns, reorder priors, and future recommendation experiments.',
+    mapping: 'Multi-turn dialogue → future context design. Basket and reorder patterns → recommendation priors.',
+    guardrail: 'Not part of the current single-utterance NLU training corpus.',
+    note: 'Instacart-style data contains no utterance, intent, or entity-span supervision.',
+  },
+] as const;
+
+const externalAdoptionFlow = [
+  ['RAW SOURCE', 'Original external records remain unchanged.'],
+  ['VERSIONED SNAPSHOT', 'Record source, revision, license, date, and hash.'],
+  ['TASK-SPECIFIC MAPPING', 'Map only fields supported by the Jangoing schema.'],
+  ['HUMAN REVIEW', 'Review taxonomy, spans, canonical values, and mapping conflicts.'],
+  ['APPROVED CANDIDATES', 'Approved records may enter a task-specific candidate pool.'],
+] as const;
 
 const productEnvironmentCards = [
   {
@@ -242,12 +277,70 @@ export function JangoingCaseContent() {
             </article>
           </div>
           <p className="dataset-warning">
-            These 1,400 records are bootstrap candidates, not reviewed ground
-            truth and not a valid final evaluation set.
+            These 1,400 records are bootstrap candidates—not reviewed ground
+            truth, not a final training corpus, and not a valid evaluation set.
           </p>
+          <p className="jg-current-source">
+            <span>CURRENT SOURCE</span>
+            <strong>IN-HOUSE GENERATED CANDIDATES</strong>
+          </p>
+
+          <section className="jg-external-data" aria-labelledby="external-data-title">
+            <p className="eyebrow">EXTERNAL DATA, CONSTRAINED BY ROLE</p>
+            <h3 id="external-data-title">
+              Public datasets support different parts of the system—but none
+              become Jangoing ground truth by default.
+            </h3>
+            <p className="jg-external-data__intro">
+              Each source remains separate, versioned, and limited to the task
+              it can legitimately support. Incompatible labels are mapped or
+              evaluated separately rather than merged into the Jangoing schema.
+            </p>
+            <div className="jg-external-data__grid">
+              {externalDatasetRoles.map((dataset) => (
+                <article key={dataset.index}>
+                  <span>{dataset.index}</span>
+                  <h4>{dataset.title}</h4>
+                  <dl>
+                    <div><dt>Intended role</dt><dd>{dataset.role}</dd></div>
+                    <div><dt>Mapping</dt><dd>{dataset.mapping}</dd></div>
+                    <div className="is-guardrail"><dt>Guardrail</dt><dd>{dataset.guardrail}</dd></div>
+                  </dl>
+                  <p>{dataset.note}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="jg-external-flow" aria-label="External data adoption flow">
+              {externalAdoptionFlow.map(([label, body], index) => (
+                <div key={label}>
+                  <article><strong>{label}</strong><p>{body}</p></article>
+                  {index < externalAdoptionFlow.length - 1 && <i aria-hidden="true">→</i>}
+                </div>
+              ))}
+            </div>
+            <footer className="jg-external-provenance">
+              <div>
+                <span>PROVENANCE REQUIRED</span>
+                <p>Source · revision · license · snapshot date · mapping version · dataset hash</p>
+              </div>
+              <strong>Candidate ≠ ground truth</strong>
+              <p>Mapped external records remain source-separated from production annotations and the frozen evaluation set.</p>
+            </footer>
+          </section>
+
+          <aside className="jg-governance-compact">
+            <span>REVIEWED FIRST. REPRODUCIBLE BY DEFAULT.</span>
+            <p>
+              AI drafts, generated candidates, production evidence, and mapped
+              external records remain source-separated until review. Only
+              versioned, deduplicated, leakage-checked records can enter an
+              approved split.
+            </p>
+          </aside>
           <div className="principle-list">
-            {annotationPrinciples.map((item) => (
-              <p key={item}>{item}</p>
+            {annotationPrinciples.map((item, index) => (
+              <p key={item}><span>0{index + 1}</span>{item}</p>
             ))}
           </div>
           <div className="jangoing-feature-row">
@@ -363,6 +456,10 @@ export function JangoingCaseContent() {
               <span>
                 <i className="feedback" />
                 Reviewed learning feedback
+              </span>
+              <span>
+                <i className="external" />
+                External evidence
               </span>
             </div>
 
@@ -522,6 +619,32 @@ export function JangoingCaseContent() {
                 </article>
               </section>
             </div>
+
+            <aside className="external-evidence-track">
+              <p>EXTERNAL SOURCES · SOURCE-SEPARATED</p>
+              <div>
+                <article>
+                  <span>DOMAIN CORPORA</span>
+                  <strong>Grocery NER / GroceryList</strong>
+                  <small>mapping → annotation review → approved candidates</small>
+                </article>
+                <article>
+                  <span>PIPELINE BENCHMARK</span>
+                  <strong>MASSIVE / SNIPS</strong>
+                  <small>separate benchmark track</small>
+                </article>
+                <article>
+                  <span>PRODUCT CATALOG</span>
+                  <strong>Open Food Facts</strong>
+                  <small>filtered snapshot → alias review → entity linker/catalog</small>
+                </article>
+                <article className="is-future">
+                  <span>FUTURE</span>
+                  <strong>MultiWOZ / Instacart-style data</strong>
+                  <small>dialogue design / recommendation experiments</small>
+                </article>
+              </div>
+            </aside>
 
             <svg
               className="review-feedback-svg"
