@@ -16431,9 +16431,9 @@ html[data-transition='entering'] .aa-loader__progress i {
     right: 50%;
     bottom: calc(100% + 16px);
     display: block;
-    padding: 2px 3px;
-    border: 1px solid color-mix(in srgb, var(--aa-blue) 25%, transparent);
-    background: color-mix(in srgb, var(--aa-blue) 8%, transparent);
+    padding: 0 0 2px;
+    border-bottom: 1px solid currentColor;
+    background: transparent;
     color: var(--aa-blue);
     font: 500 11px/1 'AA Roboto Mono', monospace;
     text-transform: uppercase;
