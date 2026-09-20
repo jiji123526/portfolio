@@ -3705,24 +3705,6 @@ a {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.tagspark-constraint-signal {
-  min-height: 78px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 28px;
-}
-.tagspark-constraint-signal i {
-  height: 8px;
-  flex: 1;
-  border-radius: 999px;
-  background: #d3e2ee;
-}
-.tagspark-constraint-signal i:nth-child(2) {
-  flex: 1.5;
-  background: var(--tagspark-blue);
-}
 .tagspark-thesaurus {
   background: #10243a;
   color: #f7fbff;
@@ -3923,6 +3905,99 @@ a {
 .tagspark-system-facts {
   margin-top: 36px;
 }
+.tagspark-tagging {
+  width: min(calc(100% - 48px), 1000px);
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-tagging-heading {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(44px, 7vw, 86px);
+}
+.tagspark-tagging-heading h2 {
+  max-width: 650px;
+  margin: 0;
+  color: var(--tagspark-ink);
+  font-size: clamp(2.2rem, 4.8vw, 4.7rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+.tagspark-tagging-heading > p {
+  margin: 4px 0 0;
+  color: var(--tagspark-muted);
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+.tagspark-tagging-flow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 64px;
+  border: 1px solid var(--tagspark-line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.tagspark-tagging-flow > div {
+  position: relative;
+  min-width: 0;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+.tagspark-tagging-flow > div + div {
+  border-left: 1px solid var(--tagspark-line);
+}
+.tagspark-tagging-flow span,
+.tagspark-tagging-flow strong,
+.tagspark-tagging-facts dt {
+  font-family: 'AA Roboto Mono', monospace;
+  letter-spacing: 0.08em;
+}
+.tagspark-tagging-flow span {
+  color: #66819a;
+  font-size: 9px;
+}
+.tagspark-tagging-flow strong {
+  color: var(--tagspark-blue-deep);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.tagspark-tagging-flow i {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -8px;
+  width: 16px;
+  background: var(--yap-page-bg);
+  color: var(--tagspark-blue);
+  font-size: 11px;
+  font-style: normal;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.tagspark-tagging-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 18px 0 0;
+}
+.tagspark-tagging-facts > div {
+  padding: 18px 0;
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-tagging-facts dt {
+  color: var(--tagspark-blue-deep);
+  font-size: 9px;
+  font-weight: 600;
+}
+.tagspark-tagging-facts dd {
+  margin: 10px 0 0;
+  color: var(--tagspark-muted);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
 .tagspark-takeaways .yap-brand-highlight {
   color: var(--tagspark-blue);
 }
@@ -3931,7 +4006,8 @@ a {
   .tagspark-feature,
   .tagspark-system,
   .tagspark-thesaurus-heading,
-  .tagspark-filtering-inner {
+  .tagspark-filtering-inner,
+  .tagspark-tagging-heading {
     grid-template-columns: 1fr;
   }
   .tagspark-score-grid {
@@ -3963,8 +4039,26 @@ a {
     gap: 12px;
   }
   .tagspark-score-grid,
-  .tagspark-placeholder-grid {
+  .tagspark-placeholder-grid,
+  .tagspark-tagging-flow,
+  .tagspark-tagging-facts {
     grid-template-columns: 1fr;
+  }
+  .tagspark-tagging {
+    width: min(100% - 32px, 1000px);
+  }
+  .tagspark-tagging-flow > div {
+    min-height: 86px;
+  }
+  .tagspark-tagging-flow > div + div {
+    border-top: 1px solid var(--tagspark-line);
+    border-left: 0;
+  }
+  .tagspark-tagging-flow i {
+    top: auto;
+    right: 50%;
+    bottom: -8px;
+    transform: translateX(50%) rotate(90deg);
   }
   .tagspark-result-media {
     width: min(100% - 32px, 1000px);

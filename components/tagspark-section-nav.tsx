@@ -11,6 +11,7 @@ const sections = [
   { id: 'tagspark-scoring', label: 'SCORING' },
   { id: 'tagspark-results', label: 'RESULTS' },
   { id: 'tagspark-operations', label: 'OPERATIONS' },
+  { id: 'tagspark-tagging', label: 'TAGGING' },
   { id: 'tagspark-takeaways', label: 'NEXT' },
 ] as const;
 

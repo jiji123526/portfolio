@@ -66,9 +66,7 @@ function TagSparkPlaceholder({
 }) {
   return (
     <div
-      aria-label={`${label} placeholder`}
       className="tagspark-media-placeholder magnetic"
-      role="img"
     >
       <div aria-hidden="true">
         <span />
@@ -107,11 +105,6 @@ export function TagSparkCaseContent() {
               </div>
               <h3>{constraint.title}</h3>
               <p>{constraint.body}</p>
-              <div className="tagspark-constraint-signal" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
             </article>
           ))}
         </div>
@@ -263,6 +256,13 @@ export function TagSparkCaseContent() {
                 <dt>CURRENT LIMIT</dt>
                 <dd>Perfect-match order is shuffled; rationale is not exposed</dd>
               </div>
+              <div>
+                <dt>PLANNED EVALUATION</dt>
+                <dd>
+                  Frozen preference queries with human relevance judgments;
+                  Precision@K, nDCG@K, and exclusion-violation rate
+                </dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -306,6 +306,58 @@ export function TagSparkCaseContent() {
           label="Catalog operations architecture"
           note="REACT → VERCEL API → NEON + SCHEDULED REFRESH"
         />
+      </section>
+
+      <section
+        className="tagspark-tagging shell case-section"
+        id="tagspark-tagging"
+      >
+        <div className="tagspark-tagging-heading">
+          <div>
+            <p className="eyebrow">PLANNED EXPERIMENT · REVIEWED TAGGING</p>
+            <h2>Let the model propose tags. Keep catalog truth reviewed.</h2>
+          </div>
+          <p>
+            Today, each work is read and tagged manually. A future JEV-assisted
+            workflow would read available source text in chunks and score only
+            the existing TagSpark taxonomy. Suggestions would enter a review
+            queue; no model output would write directly to the catalog.
+          </p>
+        </div>
+
+        <div
+          aria-label="Planned reviewed tagging workflow"
+          className="tagspark-tagging-flow"
+        >
+          {[
+            ['01', 'SOURCE TEXT'],
+            ['02', 'TAG PROBABILITIES'],
+            ['03', 'CONFIDENCE POLICY'],
+            ['04', 'HUMAN REVIEW'],
+            ['05', 'CANONICAL CATALOG'],
+          ].map(([number, label], index) => (
+            <div key={label}>
+              <span>{number}</span>
+              <strong>{label}</strong>
+              {index < 4 && <i aria-hidden="true">→</i>}
+            </div>
+          ))}
+        </div>
+
+        <dl className="tagspark-tagging-facts">
+          <div>
+            <dt>MODEL BOUNDARY</dt>
+            <dd>Choose among existing tags; do not invent taxonomy or mutate data.</dd>
+          </div>
+          <div>
+            <dt>REVIEW POLICY</dt>
+            <dd>High-confidence candidates are preselected; ambiguous tags stay manual.</dd>
+          </div>
+          <div>
+            <dt>EVALUATION GATE</dt>
+            <dd>Measure per-tag precision and recall on a frozen human-tagged set.</dd>
+          </div>
+        </dl>
       </section>
 
       <section
