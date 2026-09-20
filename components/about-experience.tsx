@@ -75,42 +75,6 @@ const experiences = [
     tags: ['Next.js', 'Cloudflare Workers', 'D1', 'Durable Objects', 'R2'],
   },
   {
-    mark: 'G',
-    company: 'GOLA.IO',
-    role: 'NLP Project Lead',
-    period: '2024 - 2025',
-    description:
-      'Developed Python NLP pipelines and annotation categories for syntactic, semantic, and discourse analysis of literary texts.',
-    bullets: [
-      'Established three stable model-training labels while separating fine-grained linguistic distinctions into feature fields, improving consistency without losing analytical depth.',
-    ],
-    tags: ['NLP', 'Annotation Design', 'Python'],
-  },
-  {
-    mark: 'Q',
-    company: 'Q-Bank',
-    role: 'NLP Developer / Linguist',
-    period: '2024 - 2025',
-    description:
-      'Built a Python NLP pipeline that generates personalized SAT and TOEFL practice content across configurable topics and difficulty levels.',
-    bullets: [
-      'Evaluated generated content for grammaticality, semantic coherence, answerability, and ambiguity, then used recurring errors to refine prompts and quality criteria.',
-    ],
-    tags: ['Content Generation', 'Evaluation', 'Python'],
-  },
-  {
-    mark: 'A',
-    company: 'Accio Chat',
-    role: 'ML Developer / Linguist',
-    period: 'Summer 2025',
-    description:
-      'Built a character-based conversational chatbot using LoRA fine-tuning, few-shot learning, prompt engineering, PyTorch, and curated dialogue data.',
-    bullets: [
-      'Evaluated coherence, contextual relevance, instruction adherence, and character consistency before deploying with AWS Lambda and EC2.',
-    ],
-    tags: ['LoRA', 'PyTorch', 'LLM Evaluation'],
-  },
-  {
     mark: 'T',
     company: 'TagSpark',
     projectSlug: 'tag-spark-recommendations',
@@ -129,6 +93,46 @@ const experiences = [
       'TypeScript',
       'PostgreSQL',
     ],
+  },
+  {
+    mark: 'G',
+    company: 'GOLA.IO',
+    role: 'NLP Project Lead',
+    period: '2024 - 2025',
+    description:
+      'Built a Python and spaCy corpus-analysis pipeline that turns structurally noisy literary texts into reproducible lexical and syntactic datasets.',
+    bullets: [
+      'Cleaned and reconstructed sentence data from Shakespeare plays and Sherlock Holmes texts, handling broken boundaries, repeated tokens, punctuation, and source-specific CSV formats before analysis.',
+      'Extracted part-of-speech distributions, adjacent POS patterns, clause-level signals, word frequencies, common word pairs, and word-length statistics into analysis-ready CSV outputs.',
+      'Prototyped structure-constrained sentence generation from POS-grouped vocabulary to examine how corpus-derived lexical choices behave across English clause patterns.',
+    ],
+    tags: ['Corpus Linguistics', 'spaCy', 'Python', 'Data Processing'],
+  },
+  {
+    mark: 'Q',
+    company: 'Q-Bank',
+    role: 'NLP Developer / Linguist',
+    period: '2024 - 2025',
+    description:
+      'Built a personalized SAT Math practice product that assembles question sets from explicit domain, skill, and per-skill difficulty selections.',
+    bullets: [
+      'Structured an 800-question bank across three math domains, 13 skills, and three difficulty levels, then implemented exact skill-and-difficulty filtering for configurable practice sessions.',
+      'Designed the full learning loop from domain selection and answer checking to retry hints, incorrect-question capture, weak-skill summaries, and targeted feedback.',
+      'Prototyped GPT-assisted follow-up questions constrained to the missed item’s domain, skill, and difficulty, alongside Firebase email and Google authentication.',
+    ],
+    tags: ['React', 'TypeScript', 'Adaptive Practice', 'LLM Evaluation'],
+  },
+  {
+    mark: 'A',
+    company: 'Accio Chat',
+    role: 'ML Developer / Linguist',
+    period: 'Summer 2025',
+    description:
+      'Built a character-based conversational chatbot using LoRA fine-tuning, few-shot learning, prompt engineering, PyTorch, and curated dialogue data.',
+    bullets: [
+      'Evaluated coherence, contextual relevance, instruction adherence, and character consistency before deploying with AWS Lambda and EC2.',
+    ],
+    tags: ['LoRA', 'PyTorch', 'LLM Evaluation'],
   },
   {
     mark: 'C',
