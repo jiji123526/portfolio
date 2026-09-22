@@ -5,14 +5,16 @@ import type { MouseEvent } from 'react';
 
 const sections = [
   { id: 'tagspark-problem', label: 'PRODUCT' },
-  { id: 'tagspark-control', label: 'CONTROL' },
-  { id: 'tagspark-normalization', label: 'NORMALIZATION' },
-  { id: 'tagspark-thesaurus', label: 'THESAURUS' },
-  { id: 'tagspark-scoring', label: 'SCORING' },
-  { id: 'tagspark-results', label: 'RESULTS' },
-  { id: 'tagspark-operations', label: 'OPERATIONS' },
+  { id: 'tagspark-control', label: 'INPUT' },
+  { id: 'tagspark-baseline', label: 'BASELINE' },
+  { id: 'tagspark-operations', label: 'DATA' },
+  { id: 'tagspark-phase-two', label: 'PHASE 2' },
+  { id: 'tagspark-model', label: 'MODEL' },
+  { id: 'tagspark-axes', label: 'AXES' },
+  { id: 'tagspark-experience', label: 'EXPERIENCE' },
+  { id: 'tagspark-validation', label: 'VALIDATION' },
   { id: 'tagspark-tagging', label: 'TAGGING' },
-  { id: 'tagspark-takeaways', label: 'NEXT' },
+  { id: 'tagspark-roadmap', label: 'ROADMAP' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];
