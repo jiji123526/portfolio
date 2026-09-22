@@ -4459,6 +4459,33 @@ a {
 }
 
 /* TagSpark phase-based case study */
+.tagspark-problem-compact .yap-problem-intro {
+  margin-bottom: 42px;
+}
+.tagspark-problem-compact .yap-constraint-grid {
+  gap: 0;
+  border-top: 1px solid var(--tagspark-line);
+  border-bottom: 1px solid var(--tagspark-line);
+}
+.tagspark-problem-compact .yap-constraint-grid article {
+  min-height: 0;
+  padding: 22px 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.tagspark-problem-compact .yap-constraint-grid article + article {
+  border-left: 1px solid var(--tagspark-line);
+}
+.tagspark-problem-compact .yap-constraint-grid h3 {
+  min-height: 0;
+  margin: 28px 0 10px;
+  font-size: 1rem;
+}
+.tagspark-problem-compact .yap-constraint-grid article > p {
+  font-size: 0.74rem;
+  line-height: 1.65;
+}
 .tagspark-phase-intro {
   width: min(calc(100% - 48px), 1000px);
   display: grid;
@@ -4756,8 +4783,14 @@ a {
   width: min(calc(100% - 48px), 1000px);
 }
 .tagspark-measurement-table {
-  margin-top: 52px;
+  margin-top: 16px;
   border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-mini-label {
+  margin: 52px 0 0;
+  color: var(--tagspark-blue-deep);
+  font: 600 9px/1.4 'AA Roboto Mono', monospace;
+  letter-spacing: 0.1em;
 }
 .tagspark-measurement-table article {
   display: grid;
@@ -4795,7 +4828,7 @@ a {
   font-weight: 500;
 }
 .tagspark-snapshot {
-  margin-top: 64px;
+  margin-top: 16px;
   border: 1px solid var(--tagspark-line);
   border-radius: 18px;
   overflow: hidden;
@@ -4947,6 +4980,12 @@ a {
 .tagspark-axis-grid article > div {
   margin: 42px 0 14px;
 }
+.tagspark-axis-grid footer.is-pending {
+  justify-content: center;
+}
+.tagspark-axis-grid footer.is-pending span {
+  color: #91abc1;
+}
 .tagspark-axis-grid b {
   color: #cfe0ed;
   font-size: 8px;
@@ -4975,6 +5014,56 @@ a {
 }
 .tagspark-embedding-placeholder {
   min-height: 520px;
+}
+.tagspark-embedding-placeholder > div {
+  width: min(74%, 340px);
+  gap: 32px;
+}
+.tagspark-embedding-placeholder > div span {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: #d7e6f3;
+}
+.tagspark-embedding-placeholder > div span::after {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--tagspark-blue);
+  box-shadow: 0 3px 12px rgba(36, 135, 255, 0.2);
+  content: '';
+  transform: translate(-50%, -50%);
+}
+.tagspark-embedding-placeholder > div span:first-child::after {
+  left: 64%;
+}
+.tagspark-embedding-placeholder > div span:nth-child(2) {
+  width: 100%;
+  border: 0;
+  background: #d7e6f3;
+}
+.tagspark-embedding-placeholder > div span:nth-child(2)::after {
+  left: 38%;
+}
+.tagspark-embedding-placeholder > div span:nth-child(3) {
+  width: 100%;
+  height: 108px;
+  border: 1px solid #c4d9e9;
+  border-radius: 14px;
+  background:
+    linear-gradient(#d8e6f1 0 0) 18px 20px / 38% 8px no-repeat,
+    linear-gradient(#e6eef5 0 0) 18px 40px / 62% 6px no-repeat,
+    linear-gradient(#d8e6f1 0 0) 18px 69px / 46% 8px no-repeat,
+    linear-gradient(#e6eef5 0 0) 18px 89px / 68% 6px no-repeat,
+    #fff;
+}
+.tagspark-embedding-placeholder > div span:nth-child(3)::after {
+  display: none;
 }
 .tagspark-validation-heading {
   align-items: end;
@@ -5215,6 +5304,16 @@ a {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+  }
+  .tagspark-problem-compact .yap-constraint-grid {
+    grid-template-columns: 1fr;
+  }
+  .tagspark-problem-compact .yap-constraint-grid article {
+    padding-inline: 0;
+  }
+  .tagspark-problem-compact .yap-constraint-grid article + article {
+    border-top: 1px solid var(--tagspark-line);
+    border-left: 0;
   }
 }
 
@@ -19653,6 +19752,16 @@ html[data-transition='entering'] .aa-loader__progress i {
 @media (max-width: 599px) {
   .case-study.tagspark-case-study .tagspark-case-opening .yap-demo-wrap {
     padding-top: 154px;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 761px) {
+  .case-study.tagspark-case-study .case-section {
+    padding-block: 76px;
+  }
+  .case-study.tagspark-case-study .tagspark-phase-transition .case-section,
+  .case-study.tagspark-case-study .tagspark-axes .case-section {
+    padding-block: 72px 112px;
   }
 }
 

@@ -13,7 +13,6 @@ const sections = [
   { id: 'tagspark-axes', label: 'AXES' },
   { id: 'tagspark-experience', label: 'EXPERIENCE' },
   { id: 'tagspark-validation', label: 'VALIDATION' },
-  { id: 'tagspark-tagging', label: 'TAGGING' },
   { id: 'tagspark-roadmap', label: 'ROADMAP' },
 ] as const;
 

@@ -47,7 +47,7 @@ function TagSparkPlaceholder({ label, note, className = '' }: { label: string; n
 export function TagSparkCaseContent() {
   return (
     <div className="yap-case-content tagspark-case-content">
-      <section className="yap-problem shell case-section" id="tagspark-problem">
+      <section className="yap-problem tagspark-problem-compact shell case-section" id="tagspark-problem">
         <p className="eyebrow">PRODUCT CONTEXT</p>
         <h2 className="yap-title-effect">Korean web-fiction discovery, shaped by <mark>explicit taste.</mark></h2>
         <p className="yap-problem-intro">TagSpark is a mobile-first web recommender for exploring Korean web fiction through tags. People state what they want to include or avoid, then browse perfect matches separately from related recommendations.</p>
@@ -59,13 +59,12 @@ export function TagSparkCaseContent() {
             </article>
           ))}
         </div>
-        <p className="yap-problem-statement">How might we turn subjective Korean-language tags into a recommendation signal people can directly control?</p>
       </section>
 
       <section className="tagspark-phase-intro shell" aria-label="TagSpark phases">
         <div><span>PHASE 1 · SHIPPED</span><strong>Explicit control and an interpretable baseline</strong></div>
         <i aria-hidden="true">→</i>
-        <div><span>PHASE 2 · PLANNED</span><strong>Validated semantic axes for continuous exploration</strong></div>
+        <div><span>PHASE 2 · PLANNED</span><strong>Semantic axes gated by human validation</strong></div>
       </section>
 
       <section className="tagspark-feature shell case-section" id="tagspark-control">
@@ -132,11 +131,13 @@ export function TagSparkCaseContent() {
           <div><p className="eyebrow">PHASE 2 · PLANNED · MODELING DECISION</p><h2>Not every tag belongs on an axis.</h2></div>
           <p>Phase 2 keeps explicit constraints and adds distance only where a quality can meaningfully vary by degree. It does not force all tags into one opaque latent map.</p>
         </div>
+        <p className="tagspark-mini-label">MEASUREMENT POLICY</p>
         <div className="tagspark-measurement-table">
           {measurementTypes.map((item, index) => <article key={item.type}><span>0{index + 1}</span><div><strong>{item.type}</strong><p>{item.examples}</p></div><b>{item.treatment}</b></article>)}
         </div>
-        <div className="tagspark-snapshot" aria-label="Prototype catalog snapshot">
-          <header><span>PROTOTYPE DATASET SNAPSHOT</span><p>Reviewed catalog data used to frame the exploration—not a performance result.</p></header>
+        <p className="tagspark-mini-label">EXPLORATORY EVIDENCE</p>
+        <div className="tagspark-snapshot" aria-label="Current catalog snapshot">
+          <header><span>CURRENT CATALOG SNAPSHOT</span><p>Reviewed catalog data used to frame the exploration—not a performance result.</p></header>
           <div>{catalogSnapshot.map(([value, label]) => <section key={label}><strong>{value}</strong><span>{label}</span></section>)}</div>
         </div>
         <div className="tagspark-research-flow" aria-label="Phase 2 concept-building process">
@@ -154,7 +155,7 @@ export function TagSparkCaseContent() {
           <div className="tagspark-axes-heading"><h2>Start with two directions people can judge.</h2><p>Candidate coordinates are hypotheses, not permanent labels. Each axis must agree with independent human comparisons before it can influence recommendations.</p></div>
           <div className="tagspark-axis-grid">
             <article><header><span>DARKNESS</span><small>EXPLORATORY RANGE · −3.2 TO +2.8</small></header><div><b>DARKER</b><i aria-hidden="true"><span /></i><b>LIGHTER</b></div><footer><span>낮은 밤</span><span>시고르자브종</span></footer></article>
-            <article><header><span>RELATIONAL TENSION</span><small>CANDIDATE AXIS</small></header><div><b>LOWER</b><i aria-hidden="true"><span /></i><b>HIGHER</b></div><footer><span>Requires pairwise review</span><span>Requires pairwise review</span></footer></article>
+            <article><header><span>RELATIONAL TENSION</span><small>CANDIDATE AXIS</small></header><div><b>LOWER</b><i aria-hidden="true"><span /></i><b>HIGHER</b></div><footer className="is-pending"><span>PAIRWISE LABELING PENDING</span></footer></article>
           </div>
         </div>
       </section>
