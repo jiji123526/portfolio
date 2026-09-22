@@ -146,7 +146,7 @@ tagspark-roadmap        ROADMAP      (Phase 2) 11
 | 2-4 Cold start | `tagspark-experience` 내 | (동일) | 12장 |
 | 2-5 Personalization | `tagspark-model` | 09 · PERSONALIZATION | 12장 |
 | 2-6 Validation | `tagspark-validation` | 10 · VALIDATION | 5·6장, FicSim |
-| 2-7 Learned similarity | `tagspark-model` 내 | (동일) | 14장, 부록 B |
+| 2-7 Learned similarity (도메인 확장 시에만) | `tagspark-model` 내 | (동일) | 14장 용어정의(B 부적합), 부록 B |
 
 ---
 
@@ -339,7 +339,7 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
 
 근거: embedding_page_plan.md 11·12·13·14장.
 
-### 4-D. MODEL 섹션 (2-5 개인화 + 2-7 learned similarity)
+### 4-D. MODEL 섹션 (2-5 개인화 + 2-7 learned similarity = 도메인 확장 시에만)
 
 ```tsx
 <section className="tagspark-feature shell case-section" id="tagspark-model">
@@ -350,10 +350,11 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
       Taste is learned from explicit signals — "more like this" and "not for
       me" — preferred over reading history ("read ≠ liked"). A mood slider lets
       users steer darkness/tension directly. Taste persists via a signed
-      anonymous token, not IP or fingerprint. Later, tag co-occurrence and
-      embedding cosine are computed offline and written as
-      <code>source='embedding'</code> edges, with curated edges kept as an
-      interpretable backbone.
+      anonymous token, not IP or fingerprint. Learned embeddings are a poor fit
+      at this scale (single K-pop group, small fixed catalog), so the curated
+      tags plus pairwise-learned axis weights stay the backbone; learned
+      <code>source='embedding'</code> edges are revisited only if the domain
+      later expands to multiple groups.
     </p>
   </div>
   <TagSparkPlaceholder
@@ -458,6 +459,7 @@ score = w1·exact + w2·alias + w3·same_cat + w4·cluster + w5·embedding
 - **more like this:** 작품 벡터 코사인 top-K → 리스트. "관심 없음"은 그 방향 downweight (쿼리 벡터에서 빼거나 제외 집합).
 - **명시적 > 암묵적:** more like this / not for me 우선, 열람 기록("읽음≠좋음") 후순위.
 - **익명 토큰:** IP/fingerprint 아닌 서명 토큰(yap. 재사용)에 취향 축적.
+- **B(학습된 임베딩) 주의:** 단일 K-pop 그룹·소규모 고정 카탈로그라 학습 임베딩은 부적합. 여러 그룹 확장 시에만 재검토 (§14 용어정의). 카피에 "learned = 지금 아님"을 명시.
 
 VALIDATION 섹션에 담을 구현
 
