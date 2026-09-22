@@ -141,7 +141,7 @@ tagspark-roadmap        ROADMAP      (Phase 2) 11
 | README | 신규 섹션 id | eyebrow 후보 | 근거 (embedding_page_plan.md) |
 | --- | --- | --- | --- |
 | 2-1 Thesaurus→data | `tagspark-phase-two` (헤더) | PHASE 2 | 부록 B / 1장 |
-| 2-2 Multi-axis mood | `tagspark-axes` | 07 · MOOD AXES | 2·3·9·10장 |
+| 2-2 Multi-axis mood (확정: forward 어두움×긴장 시작) | `tagspark-axes` | 07 · MOOD AXES | 2·3·9.1·10장, 탐색로그 |
 | 2-3 Desktop map / mobile | `tagspark-experience` | 08 · PLATFORM | 11·13장 |
 | 2-4 Cold start | `tagspark-experience` 내 | (동일) | 12장 |
 | 2-5 Personalization | `tagspark-model` | 09 · PERSONALIZATION | 12장 |
@@ -284,11 +284,13 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
     <h2>Continuous mood becomes a navigable space.</h2>
     <p>
       Tags are treated by measurement type. Continuous moods become spatial
-      axes: <strong>darkness</strong> (healing/sweet to bleak/sad/bittersweet,
-      validated on real data) and <strong>relational tension</strong> (sweet to
-      antagonistic). The two are only weakly correlated (about −0.31), so they
-      are effectively independent. Binary tags (school setting, completion)
-      become filters; nominal tags (genre, worldview) become color.
+      axes. I started, via a forward approach, with <strong>darkness</strong>
+      (healing/sweet to bleak/sad/bittersweet, validated on real data) and
+      <strong>relational tension</strong> (sweet to antagonistic), fixing tag
+      weights through pairwise comparison. Binary tags (school setting,
+      completion) become filters; nominal tags (genre, worldview) become color.
+      Independent relationship axes (intimacy, power gap) exist too, and the
+      final axis choice is deliberately kept open.
     </p>
     <div className="tagspark-language-flow" aria-label="Dimension split">
       <span>continuous → axes</span>
@@ -306,7 +308,7 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
 
 ```
 
-근거·수치: 어두움 축 검증 범위 −3.6~+2.0, 축 상관 −0.31 (embedding_page_plan.md 3·9장). VAD / Power–Danger / FicSim 근거는 부록 B.
+근거·수치: 어두움 축 검증 범위 −3.6~+2.0 (embedding_page_plan.md 3·9장). **확정: forward 어두움×긴장 시작 + 2단계 하이브리드**(태그 쌍 비교→pre-map→작품 비교, 9.1). 두 축 상관 −0.39라 4분면은 대각선 쏠림 — 시각화 목적이면 권력차 축(−0.11) 교체 검토 (미결). 결정 과정 전체는 `axis_design_exploration_log.md`. VAD / Power–Danger / FicSim 근거는 부록 B.
 
 ### 4-C. EXPERIENCE 섹션 (2-3 플랫폼 소비 + 2-4 콜드스타트)
 
