@@ -142,11 +142,11 @@ tagspark-roadmap        ROADMAP      (Phase 2) 11
 | --- | --- | --- | --- |
 | 2-1 Thesaurus→data | `tagspark-phase-two` (헤더) | PHASE 2 | 부록 B / 1장 |
 | 2-2 Multi-axis mood | `tagspark-axes` | 07 · MOOD AXES | 2·3·9·10장 |
-| 2-3 Desktop map / mobile | `tagspark-experience` | 08 · PLATFORM | 12·14장 |
-| 2-4 Cold start | `tagspark-experience` 내 | (동일) | 13장 |
-| 2-5 Personalization | `tagspark-model` | 09 · PERSONALIZATION | 13장 |
+| 2-3 Desktop map / mobile | `tagspark-experience` | 08 · PLATFORM | 11·13장 |
+| 2-4 Cold start | `tagspark-experience` 내 | (동일) | 12장 |
+| 2-5 Personalization | `tagspark-model` | 09 · PERSONALIZATION | 12장 |
 | 2-6 Validation | `tagspark-validation` | 10 · VALIDATION | 5·6장, FicSim |
-| 2-7 Learned similarity | `tagspark-model` 내 | (동일) | 11장, 부록 B |
+| 2-7 Learned similarity | `tagspark-model` 내 | (동일) | 14장, 부록 B |
 
 ---
 
@@ -337,7 +337,7 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
 
 ```
 
-근거: embedding_page_plan.md 12·13·14장.
+근거: embedding_page_plan.md 11·12·13·14장.
 
 ### 4-D. MODEL 섹션 (2-5 개인화 + 2-7 learned similarity)
 
@@ -364,7 +364,7 @@ Phase 1이 6개라 길면 NORMALIZE+THESAURUS+SCORING을 "ENGINE" 한 섹션으�
 
 ```
 
-근거: embedding_page_plan.md 11·13장.
+근거: embedding_page_plan.md 12·14장.
 
 ### 4-E. VALIDATION 섹션 (2-6)
 
@@ -422,7 +422,7 @@ const sections = [
 
 ### 4-I. 구현 상세 (섹션 본문·데모에 담을 메커니즘)
 
-각 Phase 2 섹션이 "무엇을·왜"만 말하지 않고 **"어떻게"**까지 보여주도록, 설계 문서(`embedding_page_plan.md` §15)의 구현 내용을 섹션별로 매핑한다. 카피나 데모 캡션에 아래 메커니즘을 녹인다.
+각 Phase 2 섹션이 "무엇을·왜"만 말하지 않고 **"어떻게"**까지 보여주도록, 설계 문서(`embedding_page_plan.md` §14)의 구현 내용을 섹션별로 매핑한다. 카피나 데모 캡션에 아래 메커니즘을 녹인다.
 
 AXES 섹션에 담을 구현
 
@@ -442,7 +442,7 @@ EXPERIENCE 섹션에 담을 구현 (콜드스타트 흐름)
 ```
 
 - 취향 시드 **이원화 근거:** 태그 집계는 다봉 취향("어두움+밝음 둘 다") 보존 → 추천 정확 / 좌표 평균은 지도에 "당신은 여기" 한 점. (시연: 두 방식 추천이 전혀 안 겹침, 좌표 평균은 중간으로 뭉갬.)
-- "지도=데스크톱 / 신호=전 플랫폼" 분리(§14)를 캡션에 명시.
+- "지도=데스크톱 / 신호=전 플랫폼" 분리(§13)를 캡션에 명시.
 
 MODEL 섹션에 담을 구현 (reco.ts 통합 + 개인화)
 
@@ -495,9 +495,9 @@ VALIDATION 섹션에 담을 구현
 
 - `artifacts/embedding_page_plan.md` — 14장+부록. 각 섹션 근거:- 2장 차원 아키텍처 → AXES
 - 3·9·10장 축 설계/확정 → AXES
-- 11장 텍스트 전략 → MODEL
-- 12·14장 모바일/데스크톱 → EXPERIENCE
-- 13장 개인화 로드맵 → MODEL/EXPERIENCE
+- 2.3 문학축 커버리지(요약 불필요, Style=author) → MODEL/DATASET
+- 11·13장 모바일/데스크톱 → EXPERIENCE
+- 12장 개인화 로드맵 → MODEL/EXPERIENCE
 - 5·6장 + 부록 B → VALIDATION
 - `artifacts/tag-spark_README.md` — Phase 1/2 영문 문구 (섹션 카피 재사용).
 - `artifacts/tagspark_portfolio_case_study.md` — 영문 pitch (카피 초안).
