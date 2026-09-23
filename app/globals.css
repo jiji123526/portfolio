@@ -4462,6 +4462,11 @@ a {
 .tagspark-problem-compact .yap-problem-intro {
   margin-bottom: 42px;
 }
+.tagspark-problem-compact .yap-problem-statement {
+  max-width: 840px;
+  margin-top: 42px;
+  font-size: clamp(1.35rem, 2.5vw, 2.35rem);
+}
 .tagspark-problem-compact .yap-constraint-grid {
   gap: 0;
   border-top: 1px solid var(--tagspark-line);
@@ -4523,6 +4528,103 @@ a {
 .tagspark-phase-intro > i {
   color: var(--tagspark-blue);
   font-style: normal;
+}
+.tagspark-dataset,
+.tagspark-model-section {
+  width: min(calc(100% - 48px), 1000px);
+}
+.tagspark-dataset-heading {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(40px, 7vw, 82px);
+  align-items: start;
+}
+.tagspark-dataset-heading h2,
+.tagspark-model-section h2 {
+  margin: 0;
+  color: var(--tagspark-ink);
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+.tagspark-dataset-heading > p {
+  margin: 4px 0 0;
+  color: var(--tagspark-muted);
+  font-size: 0.86rem;
+  line-height: 1.8;
+}
+.tagspark-dataset-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-top: 52px;
+}
+.tagspark-dataset-flow > div {
+  min-height: 138px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--tagspark-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.48);
+}
+.tagspark-dataset-flow > div > span,
+.tagspark-dataset-flow > div > strong,
+.tagspark-dataset-stats span,
+.tagspark-model-facts dt {
+  font-family: 'AA Roboto Mono', monospace;
+  letter-spacing: 0.08em;
+}
+.tagspark-dataset-flow > div > span {
+  color: #7b94a8;
+  font-size: 8px;
+}
+.tagspark-dataset-flow > div > strong {
+  margin-top: 22px;
+  color: var(--tagspark-blue-deep);
+  font-size: 9px;
+  line-height: 1.45;
+}
+.tagspark-dataset-flow > div > p {
+  margin: 9px 0 0;
+  color: var(--tagspark-muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+.tagspark-dataset-flow > i {
+  color: var(--tagspark-blue);
+  font-style: normal;
+}
+.tagspark-dataset-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+  border-top: 1px solid var(--tagspark-line);
+  border-bottom: 1px solid var(--tagspark-line);
+}
+.tagspark-dataset-stats > div {
+  min-height: 92px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px;
+}
+.tagspark-dataset-stats > div + div {
+  border-left: 1px solid var(--tagspark-line);
+}
+.tagspark-dataset-stats strong {
+  color: var(--tagspark-blue);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 300;
+}
+.tagspark-dataset-stats span {
+  color: #66819a;
+  font-size: 7px;
+  line-height: 1.4;
+  text-align: right;
 }
 .tagspark-baseline {
   background: #10243a;
@@ -5012,6 +5114,38 @@ a {
   gap: clamp(44px, 7vw, 86px);
   align-items: center;
 }
+.tagspark-model-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(44px, 7vw, 86px);
+  align-items: center;
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-model-section .tagspark-media-placeholder {
+  min-height: 430px;
+}
+.tagspark-model-facts {
+  margin: 32px 0 0;
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-model-facts > div {
+  display: grid;
+  grid-template-columns: 94px minmax(0, 1fr);
+  gap: 18px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--tagspark-line);
+}
+.tagspark-model-facts dt {
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+  font-weight: 600;
+}
+.tagspark-model-facts dd {
+  margin: 0;
+  color: var(--tagspark-muted);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
 .tagspark-embedding-placeholder {
   min-height: 520px;
 }
@@ -5153,6 +5287,8 @@ a {
   .tagspark-phase-two-heading,
   .tagspark-validation-heading,
   .tagspark-phase-two-product,
+  .tagspark-dataset-heading,
+  .tagspark-model-section,
   .tagspark-tagging-compact,
   .tagspark-operations > div:first-child {
     grid-template-columns: 1fr;
@@ -5304,6 +5440,25 @@ a {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+  }
+  .tagspark-dataset,
+  .tagspark-model-section {
+    width: min(100% - 32px, 1000px);
+  }
+  .tagspark-dataset-flow,
+  .tagspark-dataset-stats {
+    grid-template-columns: 1fr;
+  }
+  .tagspark-dataset-flow > i {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+  .tagspark-dataset-flow > div {
+    min-height: 116px;
+  }
+  .tagspark-dataset-stats > div + div {
+    border-top: 1px solid var(--tagspark-line);
+    border-left: 0;
   }
   .tagspark-problem-compact .yap-constraint-grid {
     grid-template-columns: 1fr;

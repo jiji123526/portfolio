@@ -1,10 +1,10 @@
 # TagSpark — Portfolio Case Study (Language Engineer lens)
 
 > Repo: https://github.com/jiji123526/tag-spark  (recommendation logic: src/lib/reco.ts)
-> Framing insight: TagSpark is not "a tag-based recommender." Grounded in the actual reco.ts code,
-> it is a lexical-resource project: normalizing noisy, user-generated tags via alias sets, a
-> hand-built similarity thesaurus, and hierarchical weighted scoring — the same normalization/
-> ontology discipline as jangoing. This maps directly to the Language Engineer (AGI Data Services) role.
+> Framing insight: TagSpark began where the source platform had no usable tagging at all. The primary
+> contribution is a from-scratch language dataset: all 229 works were read, a 9-category / 76-tag
+> taxonomy was induced from recurring patterns, and every work was hand-annotated. Alias
+> normalization, the curated thesaurus, and weighted ranking sit on top of that dataset.
 >
 > Honesty note: clusters are hand-curated and similarity weights are fixed constants (not learned
 > embeddings). Frame as a strong rule-based baseline before model complexity (same philosophy as
@@ -14,20 +14,25 @@
 
 ## Hero
 
-**Turning noisy, user-generated tags into a usable signal**
+**Building the language data a controllable recommender needs**
 
-User-generated tags are messy: the same concept shows up under different surface forms, as aliases,
-and as semantically related but distinct labels. TagSpark treats this as a lexical-resource problem,
-building the normalization and similarity structure a recommender needs before it can rank anything.
+The source platform offered no usable tags, so curated discovery was impossible. I read all 229
+works, derived the schema inductively, and annotated the complete catalog before building the
+normalization and recommendation layers.
 
 *Role: Full-stack Developer · Stack: React 18, TypeScript, Vite, Tailwind, Neon (Postgres), Vercel*
 
 ## PROBLEM
 
-A recommender is only as good as the metadata under it. Because tags are authored freely by people,
-identical meaning fragments across variants, aliases, and near-synonyms. Matching on raw string
-identity would miss most of the real overlap. The design problem was structuring messy human
-metadata into canonical, comparable signals.
+A recommender is only as good as the metadata under it, and this source platform had none. The first
+problem was therefore dataset construction: turn a fully read corpus into an inductive taxonomy,
+annotation schema, alias resource, and full-coverage catalog that could support controllable search.
+
+## 00 · Dataset from scratch
+
+I read all 229 works, induced 9 categories and 76 tags from recurring patterns, defined alias sets,
+and manually tagged every work. The resulting 1,630 work–tag assignments are not a sample; they are
+the reviewed language-data foundation for the full catalog.
 
 ## 01 · Alias normalization
 
@@ -70,11 +75,22 @@ variants and near-synonyms, not just the exact tag the user clicked.
 
 ## TAKEAWAYS
 
-Metadata quality determines recommendation quality. Before any model, a normalization layer (alias
-sets), a curated similarity resource (clusters), and an explicit weighted-scoring policy already
-produce meaningful, controllable recommendations. A natural next step is to grow the hand-curated
-clusters into embedding-based similarity, keeping the rule-based structure as an interpretable
-baseline.
+Language-data quality determines recommendation quality. Before any model, the full-coverage
+taxonomy and annotation layer make normalization, curated similarity, and explicit weighted scoring
+possible. Phase 2 adds validated mood axes and personalization without replacing that reviewed
+foundation or presenting learned similarity as the current system.
+
+## PHASE 2 · PRODUCT DIRECTION
+
+Phase 2 separates tags by measurement type: continuous moods become candidate axes, binary
+properties stay filters, and nominal properties remain categories. Desktop may expose a 2D map;
+mobile translates the same distance signal into sliders, ranked results, and similar works.
+
+Cold start remains content-based. A visitor selects 3–5 favorites, their tags form a recommendation
+vector, and their coordinates form a map point. Explicit “more like this” / “not for me” feedback is
+preferred over reading history. Pair and triplet judgments, reviewer agreement, and Bradley–Terry or
+logistic regression gate axis weights. Learned similarity is reconsidered only if the small,
+single-domain catalog expands enough to support it.
 
 ## WHAT I'D IMPROVE NEXT
 
@@ -112,10 +128,10 @@ isn't just what shipped, it's knowing precisely where the seams are and in what 
 
 | Role requirement | TagSpark evidence |
 |---|---|
-| Language annotation / data markup | Tag alias sets and category taxonomy = structured markup over metadata |
+| Language annotation / data markup | Full annotation of 229 works; 9-category / 76-tag inductive taxonomy and alias sets |
 | Analyze/extract language insights from data | Cluster design and category weighting come from analyzing tag co-occurrence and meaning |
 | Build tools in Python/scripting | (TagSpark is TS; pair with Python NLP work from jangoing/GOLA.IO for the scripting requirement) |
-| Dataset construction, dialog/semantic schemas | 8-dimension tag schema, alias sets, similarity graph |
+| Dataset construction, dialog/semantic schemas | From-scratch full-corpus dataset; 9-category tag schema, alias sets, similarity graph |
 | Grammars / FSTs (preferred) | Normalization discipline is adjacent; the literal FST claim belongs to jangoing Stage D |
 | Version control + agile (preferred) | Git/GitHub, Vercel CI/CD, daily scrape cron |
 | Database queries / data analysis (preferred) | Neon Postgres, work/tag/work_tag relational model |

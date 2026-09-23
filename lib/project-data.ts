@@ -124,11 +124,11 @@ const projectCatalog: Project[] = [
     ],
   },
   {
-    slug: 'tag-spark-recommendations', metric: 'LEXICAL RESOURCES · RANKING', category: 'Recommendation Systems', title: 'TagSpark',
-    summary: 'Normalizing noisy human tags into canonical, explainable recommendation signals',
-    headline: 'Turning noisy, user-generated tags into a usable signal', role: 'Language Systems & Full-stack Developer',
-    duration: '2026', client: 'Independent Product', responsibilities: 'Text normalization, alias sets, category taxonomy, hand-curated similarity thesaurus, weighted ranking, product design, APIs, database, and deployment',
-    tools: 'React 18, TypeScript, Vite, Tailwind CSS, Neon Postgres, Vercel', brief: 'How might we make Korean web-fiction recommendations controllable without hiding the rules beneath them?',
+    slug: 'tag-spark-recommendations', metric: 'TAXONOMY · ANNOTATION · RANKING', category: 'Recommendation Systems', title: 'TagSpark',
+    summary: 'Building a full-coverage Korean web-fiction taxonomy and turning it into a controllable recommendation signal',
+    headline: 'Building the language data a recommender needs', role: 'Language Systems & Full-stack Developer',
+    duration: '2026', client: 'Independent Product', responsibilities: 'Full-corpus review and annotation, inductive taxonomy design, alias sets, hand-curated similarity thesaurus, weighted ranking, product design, APIs, database, and deployment',
+    tools: 'React 18, TypeScript, Vite, Tailwind CSS, Neon Postgres, Vercel', brief: 'How do you build a controllable recommendation signal when the source platform provides no usable metadata?',
     liveUrl: 'https://kwkrecom.vercel.app', repoUrl: 'https://github.com/jiji123526/tag-spark',
     coverNote: 'Product demo: onboarding → tag selection → ranked recommendation results',
     process: [

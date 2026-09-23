@@ -131,12 +131,11 @@ export default async function ProjectPage({
           <div className="yap-hero-stage">
             <div className="yap-demo-wrap">
               <div className="yap-hero-stage-copy">
-                <span>LEXICAL SIGNALS BEFORE RANKING</span>
-                <h2>Turn noisy tags into a usable recommendation signal.</h2>
+                <span>LANGUAGE DATA BEFORE RANKING</span>
+                <h2>No tags existed. So I built the taxonomy first.</h2>
                 <p>
-                  TagSpark normalizes aliases, models curated semantic
-                  neighbors, and ranks results through an explicit scoring
-                  policy.
+                  I read and annotated all 229 works, induced a 76-tag schema,
+                  then built normalization and recommendation on top of it.
                 </p>
               </div>
               <TagSparkRankingMedia />
