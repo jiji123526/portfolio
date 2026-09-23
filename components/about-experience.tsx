@@ -79,7 +79,7 @@ const experiences = [
     company: 'TagSpark',
     projectSlug: 'tag-spark-recommendations',
     role: 'Language Systems & Full-Stack Developer',
-    period: '2025 - Present',
+    period: 'Ongoing',
     description:
       'Building a mobile-first Korean web-fiction recommender that turns manually curated catalog tags into explicit, inspectable preference queries and ranking evidence.',
     bullets: [
