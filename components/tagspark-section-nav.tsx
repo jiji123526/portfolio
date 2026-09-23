@@ -12,6 +12,7 @@ const sections = [
   { id: 'tagspark-phase-two', label: 'GOAL' },
   { id: 'tagspark-calibration', label: 'CALIBRATE' },
   { id: 'tagspark-axes', label: 'AXES' },
+  { id: 'tagspark-personalization', label: 'PERSONALIZE' },
   { id: 'tagspark-experience', label: 'PRODUCT' },
   { id: 'tagspark-validation', label: 'RELEASE' },
   { id: 'tagspark-takeaways', label: 'TAKEAWAY' },

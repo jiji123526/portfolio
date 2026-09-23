@@ -115,14 +115,14 @@ export function TagSparkCaseContent() {
 
       <section className="tagspark-phase-transition" id="tagspark-phase-two">
         <div className="shell case-section">
-          <p className="eyebrow">PHASE 2 · THE PRODUCT GOAL</p>
-          <h2>Move from matching tags to <mark>navigating taste.</mark></h2>
+          <p className="eyebrow">PHASE 2 · THE RECOMMENDATION GOAL</p>
+          <h2>Make the ranking respond to <mark>the reader—not only the query.</mark></h2>
           <div className="tagspark-transition-grid">
-            <p>Phase 1 answers “which works match these tags?” Phase 2 asks “which direction should I move from here?” It adds validated distance for qualities such as darkness and relational tension without replacing explicit filters or reviewed catalog truth.</p>
-            <ul><li>Keep exact preferences and exclusions as hard constraints.</li><li>Learn only a few named, interpretable axes.</li><li>Turn validated distance into sliders, similar works, and a more useful reading queue.</li></ul>
+            <p>Phase 1 is query-based: the same include and exclude choices produce the same ranking for everyone. Phase 2 adds a persistent, explicit taste profile so eligible works can be re-ranked for each reader.</p>
+            <ul><li>Start from 3–5 favorites and explicit include/exclude choices.</li><li>Combine reviewed tag affinity, validated axis distance, and direct feedback.</li><li>Keep exclusions hard and keep every personalized movement explainable.</li></ul>
           </div>
           <div className="tagspark-phase-two-roadmap" aria-label="Phase 2 execution roadmap">
-            {['FREEZE BASELINE', 'MOVE RELATIONS TO DB', 'COMPARE TAGS', 'GENERATE PRE-MAP', 'COMPARE UNCERTAIN WORKS', 'RELEASE CONTROLS'].map((label, index) => (
+            {['FREEZE BASELINE', 'MOVE RELATIONS TO DB', 'CALIBRATE AXES', 'BUILD TASTE PROFILE', 'PERSONALIZED RE-RANK', 'VALIDATE + RELEASE'].map((label, index) => (
               <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 5 && <i aria-hidden="true">→</i>}</div>
             ))}
           </div>
@@ -163,20 +163,47 @@ export function TagSparkCaseContent() {
         </div>
       </section>
 
+      <section className="tagspark-personalization shell case-section" id="tagspark-personalization">
+        <div className="tagspark-validation-heading">
+          <div><p className="eyebrow">PHASE 2 · 03 · PERSONALIZED RE-RANKING · PLANNED</p><h2>A user model changes the order—not the catalog truth.</h2></div>
+          <p>Personalization sits after candidate eligibility. Availability, explicit exclusions, and required tags are resolved first; only then does the user profile change the order of the remaining works.</p>
+        </div>
+        <div className="tagspark-personalization-loop" aria-label="Planned personalized recommendation loop">
+          <article><span>01 · COLD START</span><strong>3–5 favorites</strong><p>Aggregate reviewed tags and validated axis positions into an initial taste profile.</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span>02 · HARD RULES</span><strong>Eligible works</strong><p>Apply availability, include requirements, and excluded tag IDs before personalization.</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span>03 · RE-RANK</span><strong>Personalized queue</strong><p>Combine the Phase 1 score with user tag affinity, validated axis proximity, and direct feedback.</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span>04 · UPDATE</span><strong>Explicit feedback</strong><p>“More like this” and “not for me” update the user profile without rewriting work annotations.</p></article>
+        </div>
+        <div className="tagspark-personal-score" aria-label="Planned personalized score composition">
+          <span>PERSONALIZED SCORE</span>
+          <div><strong>PHASE 1 MATCH</strong><i>+</i><strong>USER TAG AFFINITY</strong><i>+</i><strong>VALIDATED AXIS PROXIMITY</strong><i>+</i><strong>EXPLICIT FEEDBACK</strong></div>
+          <p>Axis proximity and feedback contributions begin at zero and enter ranking only after offline evaluation. Explicit exclusions always override the score.</p>
+        </div>
+        <dl className="tagspark-personalization-rules">
+          <div><dt>PROFILE</dt><dd>Persist a signed anonymous taste profile that the reader can inspect, reset, or revise.</dd></div>
+          <div><dt>STRONG SIGNAL</dt><dd>Favorite, more-like-this, and not-for-me actions—not passive reading history.</dd></div>
+          <div><dt>BOUNDARY</dt><dd>Personal feedback updates user preference weights; reviewed catalog annotations remain shared truth.</dd></div>
+          <div><dt>EXPLANATION</dt><dd>Show the tags, axis direction, or feedback connection that moved each recommendation.</dd></div>
+        </dl>
+      </section>
+
       <section className="tagspark-phase-two-product shell case-section" id="tagspark-experience">
         <div className="tagspark-feature-copy">
-          <p className="eyebrow">PHASE 2 · 03 · PRODUCT VALUE</p><h2>Turn validated distance into a better reading queue.</h2>
-          <p>Readers keep the explicit include and exclude controls from Phase 1. Validated axes add direction: make the results darker, reduce relational tension, or find nearby works without losing hard constraints.</p>
-          <p>Mobile remains the primary surface with sliders, ranked works, and “similar works.” A desktop map may expose the same distances for exploration, but the map is a view—not the model or the product goal.</p>
-          <div className="tagspark-language-flow" aria-label="Planned Phase 2 product flow"><span>explicit constraints</span><i>+</i><span>validated axis</span><i>→</i><span>adjust direction</span><i>→</i><strong>ranked reading queue</strong></div>
+          <p className="eyebrow">PHASE 2 · 04 · PRODUCT EXPERIENCE</p><h2>Personalization should feel like a reading queue, not a settings panel.</h2>
+          <p>Readers can begin with favorites, adjust their current mood, and refine results with “more like this” or “not for me.” The system returns a personalized queue while preserving visible include and exclude controls.</p>
+          <p>Mobile remains the primary surface. A desktop map may expose the same validated distances for exploration, but the map is a view—the personalized ranking loop is the product.</p>
+          <div className="tagspark-language-flow" aria-label="Planned Phase 2 product flow"><span>favorites</span><i>+</i><span>current mood</span><i>+</i><span>direct feedback</span><i>→</i><strong>personalized reading queue</strong></div>
         </div>
         <TagSparkPlaceholder className="tagspark-embedding-placeholder" label="Mood direction → constrained results" note="VALIDATED AXES · NOT A GENERIC EMBEDDING MAP" />
       </section>
 
       <section className="tagspark-validation shell case-section" id="tagspark-validation">
         <div className="tagspark-validation-heading">
-          <div><p className="eyebrow">PHASE 2 · 04 · RELEASE CONTRACT</p><h2>No axis reaches ranking just because the map looks plausible.</h2></div>
-          <p>Each axis must reproduce trusted comparisons, improve retrieval, preserve Phase 1 exclusions, and make sense as a product control. Until then, axis-distance remains disabled and the interpretable baseline stays in production.</p>
+          <div><p className="eyebrow">PHASE 2 · 05 · RELEASE CONTRACT</p><h2>No personal signal reaches ranking just because it sounds useful.</h2></div>
+          <p>Each new contribution must improve personalized retrieval, preserve Phase 1 constraints, and remain explainable. Until then, its weight stays at zero and the interpretable baseline remains the fallback.</p>
         </div>
         <div className="tagspark-validation-flow" aria-label="Embedding validation pipeline">
           {['INDEPENDENT PAIRS', 'AGREEMENT GATE', 'FIT AXIS WEIGHTS', 'RETRIEVAL TEST', 'WEIGHT 0 → CONTROLLED RELEASE'].map((label, index) => <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 4 && <i aria-hidden="true">→</i>}</div>)}

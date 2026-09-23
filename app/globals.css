@@ -5230,6 +5230,115 @@ a {
   background: #80bfff;
   transform: translate(-50%, -50%);
 }
+.tagspark-personalization {
+  width: min(calc(100% - 48px), 1000px);
+}
+.tagspark-personalization-loop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr);
+  align-items: stretch;
+  margin-top: 44px;
+}
+.tagspark-personalization-loop article {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--tagspark-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.48);
+}
+.tagspark-personalization-loop > i {
+  align-self: center;
+  color: var(--tagspark-blue);
+  font-style: normal;
+  text-align: center;
+}
+.tagspark-personalization-loop span,
+.tagspark-personal-score > span,
+.tagspark-personal-score strong,
+.tagspark-personalization-rules dt {
+  font-family: 'AA Roboto Mono', monospace;
+  letter-spacing: 0.07em;
+}
+.tagspark-personalization-loop span {
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+}
+.tagspark-personalization-loop strong {
+  margin-top: 32px;
+  color: var(--tagspark-ink);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.tagspark-personalization-loop p {
+  margin: auto 0 0;
+  padding-top: 24px;
+  color: var(--tagspark-muted);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+.tagspark-personal-score {
+  margin-top: 22px;
+  padding: 22px;
+  border: 1px solid var(--tagspark-line);
+  border-radius: 16px;
+  background: rgba(36, 135, 255, 0.055);
+}
+.tagspark-personal-score > span {
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+  font-weight: 600;
+}
+.tagspark-personal-score > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.tagspark-personal-score strong {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+}
+.tagspark-personal-score i {
+  color: var(--tagspark-blue);
+  font-style: normal;
+}
+.tagspark-personal-score p {
+  margin: 16px 0 0;
+  color: var(--tagspark-muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+.tagspark-personalization-rules {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+  margin: 28px 0 0;
+}
+.tagspark-personalization-rules > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-personalization-rules dt {
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+  font-weight: 600;
+}
+.tagspark-personalization-rules dd {
+  margin: 0;
+  color: var(--tagspark-muted);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
 .tagspark-phase-two-product {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
@@ -5540,6 +5649,22 @@ a {
   }
   .tagspark-phase-two-roadmap,
   .tagspark-signal-roles {
+    grid-template-columns: 1fr;
+  }
+  .tagspark-personalization {
+    width: min(100% - 32px, 1000px);
+  }
+  .tagspark-personalization-loop {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .tagspark-personalization-loop article {
+    min-height: 170px;
+  }
+  .tagspark-personalization-loop > i {
+    transform: rotate(90deg);
+  }
+  .tagspark-personalization-rules {
     grid-template-columns: 1fr;
   }
   .tagspark-phase-two-roadmap > div + div,
