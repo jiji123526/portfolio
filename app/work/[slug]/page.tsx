@@ -131,11 +131,15 @@ export default async function ProjectPage({
           <div className="yap-hero-stage">
             <div className="yap-demo-wrap">
               <div className="yap-hero-stage-copy">
-                <span>LANGUAGE DATA BEFORE RANKING</span>
-                <h2>No tags existed. So I built the taxonomy first.</h2>
+                <span>STRUCTURED LANGUAGE · EFFORTLESS DISCOVERY</span>
+                <h2>Make finding your next read as easy as pressing play.</h2>
                 <p>
-                  I read and annotated all 229 works, induced a 76-tag schema,
-                  then built normalization and recommendation on top of it.
+                  TagSpark is a Korean web-fiction discovery system built from a
+                  manually reviewed corpus of 229 works and 76 tags. Readers
+                  control what to include or avoid, transparent scoring ranks
+                  exact and related matches, and the next phase explores
+                  embedding-assisted similarity without replacing reviewed
+                  catalog truth.
                 </p>
               </div>
               <TagSparkRankingMedia />
