@@ -4878,11 +4878,133 @@ a {
 .tagspark-transition-grid li + li {
   margin-top: 8px;
 }
+.tagspark-phase-two-roadmap {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: 46px;
+  overflow: hidden;
+  border: 1px solid rgba(36, 135, 255, 0.28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.44);
+}
+.tagspark-phase-two-roadmap > div {
+  position: relative;
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px;
+}
+.tagspark-phase-two-roadmap > div + div {
+  border-left: 1px solid rgba(36, 135, 255, 0.2);
+}
+.tagspark-phase-two-roadmap span,
+.tagspark-phase-two-roadmap strong {
+  font-family: 'AA Roboto Mono', monospace;
+  letter-spacing: 0.07em;
+}
+.tagspark-phase-two-roadmap span {
+  color: #7393ad;
+  font-size: 8px;
+}
+.tagspark-phase-two-roadmap strong {
+  color: var(--tagspark-blue-deep);
+  font-size: 9px;
+  line-height: 1.45;
+}
+.tagspark-phase-two-roadmap i {
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #dbeaff;
+  color: var(--tagspark-blue);
+  font-size: 10px;
+  font-style: normal;
+  transform: translateY(-50%);
+}
 .tagspark-phase-two-model,
 .tagspark-validation,
 .tagspark-phase-two-product,
 .tagspark-tagging-compact {
   width: min(calc(100% - 48px), 1000px);
+}
+.tagspark-calibration-grid,
+.tagspark-signal-roles {
+  display: grid;
+  gap: 18px;
+  margin-top: 34px;
+}
+.tagspark-calibration-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.tagspark-calibration-grid article {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border: 1px solid var(--tagspark-line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.48);
+}
+.tagspark-calibration-grid span,
+.tagspark-calibration-grid b,
+.tagspark-signal-roles strong,
+.tagspark-signal-roles span {
+  font-family: 'AA Roboto Mono', monospace;
+  letter-spacing: 0.07em;
+}
+.tagspark-calibration-grid span,
+.tagspark-calibration-grid b {
+  color: var(--tagspark-blue-deep);
+  font-size: 8px;
+}
+.tagspark-calibration-grid strong {
+  margin-top: 34px;
+  color: var(--tagspark-ink);
+  font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+  font-weight: 400;
+  line-height: 1.12;
+}
+.tagspark-calibration-grid p {
+  margin: 16px 0 28px;
+  color: var(--tagspark-muted);
+  font-size: 0.74rem;
+  line-height: 1.65;
+}
+.tagspark-calibration-grid b {
+  margin-top: auto;
+  font-weight: 600;
+}
+.tagspark-signal-roles {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 16px;
+}
+.tagspark-signal-roles article {
+  padding-top: 18px;
+  border-top: 1px solid var(--tagspark-line);
+}
+.tagspark-signal-roles strong {
+  color: var(--tagspark-blue-deep);
+  font-size: 9px;
+}
+.tagspark-signal-roles p {
+  min-height: 68px;
+  margin: 12px 0 18px;
+  color: var(--tagspark-muted);
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+.tagspark-signal-roles span {
+  color: #718ba1;
+  font-size: 7px;
+  line-height: 1.5;
 }
 .tagspark-measurement-table {
   margin-top: 16px;
@@ -5293,6 +5415,24 @@ a {
   .tagspark-operations > div:first-child {
     grid-template-columns: 1fr;
   }
+  .tagspark-phase-two-roadmap {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .tagspark-phase-two-roadmap > div:nth-child(4) {
+    border-left: 0;
+  }
+  .tagspark-phase-two-roadmap > div:nth-child(n + 4) {
+    border-top: 1px solid rgba(36, 135, 255, 0.2);
+  }
+  .tagspark-calibration-grid {
+    grid-template-columns: 1fr;
+  }
+  .tagspark-calibration-grid article {
+    min-height: 0;
+  }
+  .tagspark-signal-roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .tagspark-baseline-grid {
     grid-template-columns: 1fr;
   }
@@ -5397,6 +5537,24 @@ a {
   .tagspark-evaluation-groups,
   .tagspark-operations-facts {
     grid-template-columns: 1fr;
+  }
+  .tagspark-phase-two-roadmap,
+  .tagspark-signal-roles {
+    grid-template-columns: 1fr;
+  }
+  .tagspark-phase-two-roadmap > div + div,
+  .tagspark-phase-two-roadmap > div:nth-child(4) {
+    border-top: 1px solid rgba(36, 135, 255, 0.2);
+    border-left: 0;
+  }
+  .tagspark-phase-two-roadmap i {
+    top: auto;
+    right: 50%;
+    bottom: -8px;
+    transform: translateX(50%) rotate(90deg);
+  }
+  .tagspark-signal-roles p {
+    min-height: 0;
   }
   .tagspark-baseline-flow > div,
   .tagspark-research-flow > div,

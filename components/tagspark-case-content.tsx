@@ -5,12 +5,6 @@ const baselineSignals = [
   ['CURATED NEIGHBOR', '0.6'], ['CORE TAG', '+0.25'],
 ] as const;
 
-const measurementTypes = [
-  { type: 'CONTINUOUS', examples: 'Darkness · relational tension', treatment: 'Axis or slider' },
-  { type: 'BINARY', examples: 'Completed · adult · school setting', treatment: 'Filter' },
-  { type: 'NOMINAL', examples: 'Genre · worldview', treatment: 'Category or grouping' },
-] as const;
-
 const catalogSnapshot = [
   ['229', 'WORKS'], ['76', 'TAGS'], ['9', 'CATEGORIES'], ['1,630', 'WORK–TAG ASSIGNMENTS'],
 ] as const;
@@ -23,9 +17,9 @@ const evaluationGroups = [
 
 const phaseTwoGates = [
   { title: 'Freeze the baseline', body: 'Protect exact-match recall, exclusions, normalization, and stable ordering with regression tests before introducing a second ranking layer.' },
-  { title: 'Validate two candidate axes', body: 'Start with darkness and relational tension, using independent pair and triplet judgments rather than treating projection coordinates as ground truth.' },
-  { title: 'Prove retrieval value', body: 'Require agreement with trusted comparisons and measurable retrieval gains without weakening Phase 1 constraints.' },
-  { title: 'Release as a controlled layer', body: 'Expose only validated axes behind a feature flag, retain the interpretable baseline as fallback, and show why each work moved.' },
+  { title: 'Move relationships into data', body: 'Migrate hard-coded tag similarities into reviewable database records before adding new semantic signals.' },
+  { title: 'Calibrate tags, then works', body: 'Use 91 tag comparisons to seed each axis, generate a preliminary map, then spend work-level review only on uncertain neighborhoods.' },
+  { title: 'Release validated controls', body: 'Add axis-distance to ranking at weight zero, require measurable retrieval value, and expose only axes that pass agreement and product-clarity gates.' },
 ] as const;
 
 function TagSparkPlaceholder({ label, note, className = '' }: { label: string; note: string; className?: string }) {
@@ -114,98 +108,81 @@ export function TagSparkCaseContent() {
         </div>
         <dl className="tagspark-operations-facts">
           <div><dt>CATALOG</dt><dd>Works, canonical tags, and reviewed work–tag relations</dd></div>
-          <div><dt>MAINTENANCE</dt><dd>Scheduled Postype metadata refresh</dd></div>
+          <div><dt>MAINTENANCE</dt><dd>Daily rolling refresh for up to 20 prioritized records</dd></div>
           <div><dt>SAFETY</dt><dd>Validation, deduplication, and unavailable-work state</dd></div>
         </dl>
       </section>
 
       <section className="tagspark-phase-transition" id="tagspark-phase-two">
         <div className="shell case-section">
-          <p className="eyebrow">WHY A SECOND PHASE</p>
-          <h2>Tags can explain a match.<br /><mark>They cannot always express distance.</mark></h2>
+          <p className="eyebrow">PHASE 2 · THE PRODUCT GOAL</p>
+          <h2>Move from matching tags to <mark>navigating taste.</mark></h2>
           <div className="tagspark-transition-grid">
-            <p>Phase 1 can identify exact, aliased, categorical, and curated relationships. It cannot show how much darker, tenser, or more emotionally intense one work feels than another.</p>
-            <ul><li>Every member of a curated cluster is treated as equally related.</li><li>Degrees of subjective qualities remain invisible.</li><li>Related results cannot explain the direction of their difference.</li></ul>
+            <p>Phase 1 answers “which works match these tags?” Phase 2 asks “which direction should I move from here?” It adds validated distance for qualities such as darkness and relational tension without replacing explicit filters or reviewed catalog truth.</p>
+            <ul><li>Keep exact preferences and exclusions as hard constraints.</li><li>Learn only a few named, interpretable axes.</li><li>Turn validated distance into sliders, similar works, and a more useful reading queue.</li></ul>
+          </div>
+          <div className="tagspark-phase-two-roadmap" aria-label="Phase 2 execution roadmap">
+            {['FREEZE BASELINE', 'MOVE RELATIONS TO DB', 'COMPARE TAGS', 'GENERATE PRE-MAP', 'COMPARE UNCERTAIN WORKS', 'RELEASE CONTROLS'].map((label, index) => (
+              <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 5 && <i aria-hidden="true">→</i>}</div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="tagspark-phase-two-model shell case-section" id="tagspark-axis-design">
+      <section className="tagspark-phase-two-model shell case-section" id="tagspark-calibration">
         <div className="tagspark-phase-two-heading">
-          <div><p className="eyebrow">PHASE 2 · PLANNED · MODELING DECISION</p><h2>Not every tag belongs on an axis.</h2></div>
-          <p>Phase 2 keeps explicit constraints and adds distance only where a quality can meaningfully vary by degree. It does not force all tags into one opaque latent map.</p>
+          <div><p className="eyebrow">PHASE 2 · 01 · CALIBRATE</p><h2>Estimate the cheap signal first. Review works only where it matters.</h2></div>
+          <p>The plan separates tag-level calibration from work-level refinement. That makes the first map inexpensive to build and focuses human judgment on close, disputed, or low-confidence placements.</p>
         </div>
-        <p className="tagspark-mini-label">MEASUREMENT POLICY</p>
-        <div className="tagspark-measurement-table">
-          {measurementTypes.map((item, index) => <article key={item.type}><span>0{index + 1}</span><div><strong>{item.type}</strong><p>{item.examples}</p></div><b>{item.treatment}</b></article>)}
+        <div className="tagspark-calibration-grid">
+          <article><span>STEP 01 · TAG COMPARISON</span><strong>91 candidate tag pairs</strong><p>Compare which tag contributes more to darkness or relational tension. Bradley–Terry or logistic regression turns those judgments into initial axis weights.</p><b>OUTPUT · AXIS_TAG_WEIGHT</b></article>
+          <article><span>STEP 02 · PRE-MAP</span><strong>Place all 229 works</strong><p>Aggregate reviewed work–tag assignments with the initial tag weights. This produces a diagnostic map, not a product result.</p><b>OUTPUT · INITIAL WORK POSITIONS</b></article>
+          <article><span>STEP 03 · WORK COMPARISON</span><strong>Review uncertain neighborhoods</strong><p>Sample close pairs, disagreements, and sparse regions instead of comparing every work. Use those judgments to refine the axis.</p><b>OUTPUT · CALIBRATED DISTANCE</b></article>
         </div>
-        <p className="tagspark-mini-label">EXPLORATORY EVIDENCE</p>
-        <div className="tagspark-snapshot" aria-label="Current catalog snapshot">
-          <header><span>CURRENT CATALOG SNAPSHOT</span><p>Reviewed catalog data used to frame the exploration—not a performance result.</p></header>
-          <div>{catalogSnapshot.map(([value, label]) => <section key={label}><strong>{value}</strong><span>{label}</span></section>)}</div>
-        </div>
-        <div className="tagspark-research-flow" aria-label="Phase 2 concept-building process">
-          {['REVIEWED TAGS', '76-D WORK VECTORS', 'PROJECTION CHECK', 'SEMANTIC AXES', 'PRODUCT CONTROLS'].map((label, index) => <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 4 && <i aria-hidden="true">→</i>}</div>)}
+        <p className="tagspark-mini-label">KEEP THE SIGNALS SEPARATE</p>
+        <div className="tagspark-signal-roles">
+          <article><strong>TAG_SIMILARITY</strong><p>Reviewed relation between tags used by the Phase 1 recommender.</p><span>NOW · FIXED 0.6</span></article>
+          <article><strong>AXIS_TAG_WEIGHT</strong><p>A tag’s learned contribution to a named continuous quality.</p><span>PHASE 2 · FROM TAG PAIRS</span></article>
+          <article><strong>WORK COMPARISON</strong><p>Human supervision that corrects uncertain work positions.</p><span>PHASE 2 · ACTIVE REVIEW</span></article>
+          <article><strong>AXIS DISTANCE</strong><p>An optional ranking contribution, disabled until validation passes.</p><span>RELEASE WEIGHT · STARTS AT 0</span></article>
         </div>
         <aside className="tagspark-projection-note">
-          <div><span>GLOBAL PROJECTION CHECK</span><strong>11.9%</strong><small>FIRST PCA COMPONENT</small></div>
-          <p>One global projection carried too little interpretable structure to become the primary product model. The result shifted Phase 2 toward a few named, independently validated semantic axes.</p>
+          <div><span>GLOBAL PROJECTION CHECK</span><strong>11.9%</strong><small>2D PCA EXPLAINED VARIANCE · PC1 6.3% + PC2 5.6%</small></div>
+          <p>A single global map preserved too little structure to become the product model. That result narrowed Phase 2 to a few named axes that can be reviewed and validated independently.</p>
         </aside>
       </section>
 
       <section className="tagspark-axes" id="tagspark-axes">
         <div className="shell case-section">
-          <p className="eyebrow">PHASE 2 · MOOD AXES · NOT YET VALIDATED</p>
-          <div className="tagspark-axes-heading"><h2>Continuous mood becomes a navigable space.</h2><p>The forward approach starts with darkness and relational tension, then fixes tag weights through pairwise comparison. The final axis choice stays open: continuous moods become axes, binary properties remain filters, and nominal categories remain visible groupings.</p></div>
+          <p className="eyebrow">PHASE 2 · 02 · MODEL ONLY WHAT VARIES BY DEGREE</p>
+          <div className="tagspark-axes-heading"><h2>Two candidate axes. Everything else keeps its proper type.</h2><p>Darkness and relational tension can vary continuously. Completion and adult content remain filters; genre and worldview remain visible categories. Phase 2 does not force the entire taxonomy into an opaque embedding.</p></div>
           <div className="tagspark-axis-grid">
-            <article><header><span>DARKNESS</span><small>EXPLORATORY RANGE · −3.6 TO +2.0</small></header><div><b>DARKER</b><i aria-hidden="true"><span /></i><b>LIGHTER</b></div><footer><span>낮은 밤</span><span>시고르자브종</span></footer></article>
-            <article><header><span>RELATIONAL TENSION</span><small>CANDIDATE AXIS</small></header><div><b>LOWER</b><i aria-hidden="true"><span /></i><b>HIGHER</b></div><footer className="is-pending"><span>PAIRWISE LABELING PENDING</span></footer></article>
+            <article><header><span>DARKNESS</span><small>EXPLORATORY HAND-WEIGHTED PLACEMENT</small></header><div><b>DARKER</b><i aria-hidden="true"><span /></i><b>LIGHTER</b></div><footer className="is-pending"><span>RANGE NOT YET CALIBRATED</span></footer></article>
+            <article><header><span>RELATIONAL TENSION</span><small>CANDIDATE AXIS</small></header><div><b>LOWER</b><i aria-hidden="true"><span /></i><b>HIGHER</b></div><footer className="is-pending"><span>TAG COMPARISON PENDING</span></footer></article>
           </div>
         </div>
       </section>
 
       <section className="tagspark-phase-two-product shell case-section" id="tagspark-experience">
         <div className="tagspark-feature-copy">
-          <p className="eyebrow">PHASE 2 · PLATFORM-AWARE EXPERIENCE</p><h2>Desktop map, mobile list—one embedding, two surfaces.</h2>
-          <p>The embedding’s value is distance, not showing every point at once. Desktop can expose a 2D exploration map; mobile remains primary and translates the same signal into mood sliders, ranked works, and a “similar works” list.</p>
-          <p>Cold start begins with explicit preference elicitation: choose 3–5 favorites from a diverse popular-work set, aggregate their tags into a recommendation vector, and average their coordinates only for the map. This preserves multi-modal taste for ranking even when a single map point would blur it.</p>
-          <div className="tagspark-language-flow" aria-label="Planned Phase 2 product flow"><span>pick favorites</span><i>→</i><span>taste seed</span><i>→</i><span>mood controls</span><i>→</i><strong>ranked + similar works</strong></div>
+          <p className="eyebrow">PHASE 2 · 03 · PRODUCT VALUE</p><h2>Turn validated distance into a better reading queue.</h2>
+          <p>Readers keep the explicit include and exclude controls from Phase 1. Validated axes add direction: make the results darker, reduce relational tension, or find nearby works without losing hard constraints.</p>
+          <p>Mobile remains the primary surface with sliders, ranked works, and “similar works.” A desktop map may expose the same distances for exploration, but the map is a view—not the model or the product goal.</p>
+          <div className="tagspark-language-flow" aria-label="Planned Phase 2 product flow"><span>explicit constraints</span><i>+</i><span>validated axis</span><i>→</i><span>adjust direction</span><i>→</i><strong>ranked reading queue</strong></div>
         </div>
-        <TagSparkPlaceholder className="tagspark-embedding-placeholder" label="Mobile mood sliders → ranked list" note="COLD START · FAVORITES → TASTE SEED" />
-      </section>
-
-      <section className="tagspark-model-section shell case-section" id="tagspark-model">
-        <div className="tagspark-feature-copy">
-          <p className="eyebrow">PHASE 2 · PERSONALIZATION + LEARNED SIGNAL</p>
-          <h2>Explicit signals first. Learned similarity only when the data supports it.</h2>
-          <p>“More like this” and “not for me” are stronger evidence than reading history because read does not mean liked. A signed anonymous token can persist those preferences without IP-based identity or fingerprinting.</p>
-          <p>The existing additive scorer gains an embedding layer with its weight initially set to zero, preserving parity. Curated tags and pairwise-learned axis weights remain the backbone; a learned embedding is reconsidered only if the catalog expands beyond this small, single-domain collection.</p>
-          <dl className="tagspark-model-facts">
-            <div><dt>NOW</dt><dd>Curated taxonomy + explicit weighted baseline</dd></div>
-            <div><dt>PHASE 2</dt><dd>Pairwise-learned axes + controlled embedding contribution</dd></div>
-            <div><dt>ONLY WITH SCALE</dt><dd>Learned similarity edges across a broader domain</dd></div>
-          </dl>
-        </div>
-        <TagSparkPlaceholder label="More like this / not for me" note="EXPLICIT SIGNAL > IMPLICIT HISTORY" />
+        <TagSparkPlaceholder className="tagspark-embedding-placeholder" label="Mood direction → constrained results" note="VALIDATED AXES · NOT A GENERIC EMBEDDING MAP" />
       </section>
 
       <section className="tagspark-validation shell case-section" id="tagspark-validation">
         <div className="tagspark-validation-heading">
-          <div><p className="eyebrow">PHASE 2 · VALIDATION + RELEASE GATES</p><h2>Subjective similarity still needs a measurement contract.</h2></div>
-          <p>Pair and triplet judgments create trusted comparisons. Reviewer agreement gates the data; Bradley–Terry or logistic regression learns axis weights; retrieval value and product clarity must pass before an axis leaves the exploratory layer.</p>
+          <div><p className="eyebrow">PHASE 2 · 04 · RELEASE CONTRACT</p><h2>No axis reaches ranking just because the map looks plausible.</h2></div>
+          <p>Each axis must reproduce trusted comparisons, improve retrieval, preserve Phase 1 exclusions, and make sense as a product control. Until then, axis-distance remains disabled and the interpretable baseline stays in production.</p>
         </div>
         <div className="tagspark-validation-flow" aria-label="Embedding validation pipeline">
-          {['PAIR / TRIPLET REVIEW', 'AGREEMENT GATE', 'BRADLEY–TERRY', 'RETRIEVAL TEST', 'PRODUCT GATE'].map((label, index) => <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 4 && <i aria-hidden="true">→</i>}</div>)}
+          {['INDEPENDENT PAIRS', 'AGREEMENT GATE', 'FIT AXIS WEIGHTS', 'RETRIEVAL TEST', 'WEIGHT 0 → CONTROLLED RELEASE'].map((label, index) => <div key={label}><span>0{index + 1}</span><strong>{label}</strong>{index < 4 && <i aria-hidden="true">→</i>}</div>)}
         </div>
         <div className="tagspark-evaluation-groups">{evaluationGroups.map((group) => <article key={group.title}><strong>{group.title}</strong><p>{group.body}</p></article>)}</div>
         <aside className="tagspark-validation-note"><span>EVALUATION CONSTRAINT</span><p>The catalog currently has one primary tagger per work, so conventional inter-annotator agreement cannot yet be reported. Phase 2 requires a smaller comparison set reviewed independently by 3–5 trusted judges, following the same tag-derived similarity plus comparison-validation pattern used by FicSim.</p></aside>
-      </section>
-
-      <section className="tagspark-tagging-compact shell case-section" id="tagspark-tagging">
-        <div><p className="eyebrow">SUPPORTING TRACK · REVIEWED TAGGING</p><h2>Scale catalog coverage without surrendering review.</h2><p>A future JEV-assisted workflow may propose existing taxonomy tags from source text. It supports catalog growth; it does not define the embedding and never writes directly to catalog truth.</p></div>
-        <div className="tagspark-tagging-compact__flow" aria-label="Reviewed tagging support flow">
-          {['SOURCE TEXT', 'TAG CANDIDATES', 'HUMAN REVIEW', 'CANONICAL CATALOG'].map((label, index) => <span key={label}>{label}{index < 3 && <i aria-hidden="true">→</i>}</span>)}
-        </div>
       </section>
 
       <section className="yap-takeaways shell case-section tagspark-takeaways" id="tagspark-takeaways">

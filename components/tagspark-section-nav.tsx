@@ -9,11 +9,11 @@ const sections = [
   { id: 'tagspark-control', label: 'INPUT' },
   { id: 'tagspark-baseline', label: 'BASELINE' },
   { id: 'tagspark-operations', label: 'DATA' },
-  { id: 'tagspark-phase-two', label: 'PHASE 2' },
+  { id: 'tagspark-phase-two', label: 'GOAL' },
+  { id: 'tagspark-calibration', label: 'CALIBRATE' },
   { id: 'tagspark-axes', label: 'AXES' },
-  { id: 'tagspark-experience', label: 'EXPERIENCE' },
-  { id: 'tagspark-model', label: 'MODEL' },
-  { id: 'tagspark-validation', label: 'VALIDATION' },
+  { id: 'tagspark-experience', label: 'PRODUCT' },
+  { id: 'tagspark-validation', label: 'RELEASE' },
   { id: 'tagspark-takeaways', label: 'TAKEAWAY' },
 ] as const;
 
