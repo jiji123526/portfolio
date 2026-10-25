@@ -70,7 +70,7 @@ const experiences = [
       'Re-architected the original single-room Vanilla JS and Supabase product as a multi-tenant Next.js and Cloudflare system with explicit channel ownership, separate anonymous and authenticated identities, D1 persistence, Durable Object delivery, and protected R2 media.',
       'Designed zero-account room entry, owner moderation controls, scoped private messages, temporary live sessions, platform-admin review queues, and support flows with server-side authorization at each trust boundary.',
       'Diagnosed production reliability issues, reducing database-scoped channel initialization from 4–18 seconds to a limited ~80 ms post-cutover sample and replacing a reply lookup that accumulated 212.62M rows read with bounded, indexed reads.',
-      'Built route-health monitoring, alerting, queue triage, and reversible incident workflows while the product handled 6,517 created messages across public conversations and private DMs in one measured production week.',
+      'Built route-health monitoring, alerting, queue triage, and reversible incident workflows while the product handled 6,517 created messages in one measured production week and surpassed 1,000 visitors with at least 10 visits.',
     ],
     tags: ['Next.js', 'Cloudflare Workers', 'D1', 'Durable Objects', 'R2'],
   },

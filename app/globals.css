@@ -11651,7 +11651,7 @@ body:has(.jangoing-case-study) .scroll-progress {
 }
 .yap-impact-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid rgba(255, 255, 255, 0.42);
   border-bottom: 1px solid rgba(255, 255, 255, 0.42);
 }

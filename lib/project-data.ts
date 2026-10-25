@@ -29,7 +29,7 @@ export type Project = {
 
 const projectCatalog: Project[] = [
   {
-    slug: 'yap-anonymous-chat', metric: '400+ ACTIVE USERS', category: 'Independent Product',
+    slug: 'yap-anonymous-chat', metric: '1,000+ VISITORS · 10+ VISITS', category: 'Independent Product',
     title: 'yap.', summary: 'Anonymous realtime chat with owner controls, private messaging boundaries, and temporary live sessions',
     headline: 'Engineering a link-first realtime system for conversations that shouldn’t need an account', role: 'Full-stack Product Engineer',
     duration: 'Ongoing', client: 'Independent Product',
@@ -75,9 +75,9 @@ const projectCatalog: Project[] = [
       ],
       additionalHardening: 'Long-history navigation was stabilized with bounded rendering windows, anchor-based scroll correction, and geometry-aware media placeholders. Non-critical presence failures no longer block channel initialization, while cross-service deletion runs as a durable cleanup job with idempotent retries.',
     },
-    impact: '6,517 messages created in one production week',
+    impact: '6,517 messages in one week · 1,000+ visitors with 10+ visits',
     impactLabel: 'PRODUCTION EVIDENCE',
-    impactBody: 'From September 5–11, 2026 (UTC), yap. handled 6,517 created messages across public conversations and private DMs, including messages later deleted by users. Usage was event-driven rather than uniform: the median was 332 messages per day, while the average excluding the largest spike was approximately 550 per day.',
+    impactBody: 'From September 5–11, 2026 (UTC), yap. handled 6,517 created messages across public conversations and private DMs, including messages later deleted by users. Usage was event-driven rather than uniform: the median was 332 messages per day, while the average excluding the largest spike was approximately 550 per day. The product has also surpassed 1,000 visitors who recorded at least 10 visits.',
     takeaways: [
       { title: 'Realtime makes chat feel immediate, but persistence makes it trustworthy.', body: 'Once messages, DMs, reactions, live state, and moderation actions had to survive reconnects, retries, and partial failure, I stopped treating realtime delivery as the system itself. yap. taught me to separate transport from the durable record and design the interface around recoverable sync rather than perfect immediacy.' },
       { title: 'Operational visibility became part of the product, not just backend maintenance.', body: 'Once room entry, messaging, previews, authentication, and moderation were live, failures stopped being abstract engineering problems and became user experience problems. Building yap. pushed me to think in route-level health, alerting, queue triage, and reversible incident response, not just feature completion.' },

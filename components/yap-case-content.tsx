@@ -435,6 +435,10 @@ export function YapCaseContent({ project }: { project: Project }) {
           </div>
           <div className="yap-impact-stats">
             <article>
+              <strong>1,000+</strong>
+              <span>Visitors with at least 10 visits</span>
+            </article>
+            <article>
               <strong>332</strong>
               <span>Median messages per day</span>
             </article>
@@ -452,7 +456,9 @@ export function YapCaseContent({ project }: { project: Project }) {
               <span>COUNTING NOTE</span>
               <span className="yap-impact-note-body">
                 Scope: public conversations and private DMs. Created-message
-                totals include messages later deleted by users.
+                totals include messages later deleted by users. Returning
+                visitor count includes visitor records that reached at least 10
+                visits.
               </span>
             </p>
             <p>
